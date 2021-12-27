@@ -1,28 +1,29 @@
-// library
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ApolloProvider } from "@apollo/client";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-
 import "./App.css";
-import ExamplePage from "./pages/examplePage/ExamplePage";
+import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import StaffDashboard from "../src/pages/dashboardStaffPage/DashboardStaff";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "./components/sidebar/sidebar";
 
 function App() {
   return (
-    // <ApolloProvider client={client}>
-    <ApolloProvider>
-      {/* <Provider store={store}> */}
-      <Provider>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <PersistGate loading={null}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" exact element={<ExamplePage />} />
-            </Routes>
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </ApolloProvider>
+    <div className="App">
+      <BrowserRouter>
+        {/* <Sidebar /> */}
+        <Routes>
+          {/* <Route path="/" element={<MenuLogin />} /> */}
+          <Route path="/dashboardStaff" element={<StaffDashboard />} />
+          {/* <Route
+            path="/dashboardStaff/manageAccount"
+            element={<PageAdminManageAccount />}
+          />
+          <Route
+            path="/dashboardStaff/allSchedules"
+            element={<AllSchedules />}
+          /> */}
+        </Routes>
+        {/* <MenuLogin /> */}
+      </BrowserRouter>
+    </div>
   );
 }
 
