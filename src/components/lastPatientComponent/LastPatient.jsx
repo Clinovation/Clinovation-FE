@@ -6,6 +6,7 @@ import ward from "../../icons/bed.png";
 import { GiStethoscope } from "react-icons/gi";
 import styles from "../lastPatientComponent/LastPatient.module.css";
 import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
+import Paginations from "../pagination";
 export default function LastPatient() {
   let active = 1;
   let items = [];
@@ -115,13 +116,7 @@ export default function LastPatient() {
         </Card.Body>
       </Card>
       {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
-      <Col md="5"></Col>
-      <Col md="7">
-        <div className="d-flex justify-content-center">
-          <Pagination>{items}</Pagination>
-          <br />
-        </div>
-      </Col>
+      <Paginations/>
     </div>
   );
 }
