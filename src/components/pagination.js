@@ -12,8 +12,8 @@ export default function Paginations() {
   }
   return (
     <div>
-      <Col md="5"></Col>
-      <Col md="7">
+      {/* <Col md="2"></Col> */}
+      <Col>
         <div className="d-flex justify-content-center">
           <Pagination>{items}</Pagination>
           <br />

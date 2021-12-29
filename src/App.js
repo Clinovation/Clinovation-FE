@@ -1,9 +1,9 @@
 import "./App.css";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-import StaffDashboard from "../src/pages/dashboardStaffPage/DashboardStaff";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/sidebar/sidebar";
-
+import AllSchedulesPage from "./pages/allSchedulePage.jsx/AllSchedulesPage";
 function App() {
   return (
     <div className="App">
@@ -11,7 +11,7 @@ function App() {
         {/* <Sidebar /> */}
         <Routes>
           {/* <Route path="/" element={<MenuLogin />} /> */}
-          <Route path="/dashboardStaff" element={<StaffDashboard />} />
+          {/* <Route path="/dashboardStaff" element={<StaffDashboard />} /> */}
           {/* <Route
             path="/dashboardStaff/manageAccount"
             element={<PageAdminManageAccount />}
@@ -20,6 +20,10 @@ function App() {
             path="/dashboardStaff/allSchedules"
             element={<AllSchedules />}
           /> */}
+          <Route
+            path="/dashboardStaff/allSchedules"
+            element={<AllSchedulesPage />}
+          />
         </Routes>
         {/* <MenuLogin /> */}
       </BrowserRouter>
