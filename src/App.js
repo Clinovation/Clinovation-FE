@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-import StaffDashboard from "../src/pages/dashboardStaffPage/DashboardStaff";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/sidebar/sidebar";
 import ManageAccount from "./pages/manageAccountPage/ManageAccount";

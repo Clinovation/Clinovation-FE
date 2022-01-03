@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
-import DashboardCard from "../../components/dashboardStaffComponents/DashboardCard";
 import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
 import Sidebar from "../../components/sidebar/sidebar";
-import styles from "../manageAccountPage/ManageAccount.module.css";
 import ManageAccountTop from "../../components/manageAccountTopComponents/ManageAccountTop";
 import AllDoctorAccounts from '../../components/manageAccountAllDoctorsComponents/AllDoctorAccounts';
 import AllNurseAccounts from '../../components/manageAccountAllNursesComponents/AllNurseAccounts';
