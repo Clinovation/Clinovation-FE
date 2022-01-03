@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
 import { Button, Card  } from 'react-bootstrap';
 import Date from '../scheduleDate';
 import staffprofile from "../../icons/staffProfile.png";
-import styles from "../allScheduleDoctorComponents/AllDoctorSchedule.module.css";
+import styles from "../staffProfileComponents/StaffProfile.module.css"
 import Paginations from '../pagination';
 export default function AllDoctorSchedules() {
     return (
       <div>
-        <div className={`${styles.title}`}>Schedules</div>
+        ini profil staff
+        <div className={`${styles.title}`}>Hello Medical Staff,</div>
         <br />
+        <img src={staffprofile} alt="" className={`${styles.profilepicture}`} />
+        <Button variant="info">Change Picture</Button>{" "}
         <div className={`${styles.title2}`}>All Doctor Schedules</div>
         <div className={`${styles.cardstyle}`}>
           <Card className={`${styles.kartu2}`}>
@@ -48,7 +51,7 @@ export default function AllDoctorSchedules() {
                     {" "}
                     <br />
                     <div>
-                      <Paginations/>
+                      <Paginations />
                     </div>
                   </Card.Text>
                 </Card.Body>

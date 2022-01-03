@@ -2,9 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 import { Col, Row, Container } from 'react-bootstrap';
 import Sidebar from '../../components/sidebar/sidebar';
-import AllDoctorSchedules from '../../components/allScheduleDoctorComponents/AllDoctorSchedules'
-import AllNurseAccounts from '../../components/allScheduleNurseComponents/AllNurseSchedule';
-export default function AllSchedulesPage() {
+import StaffProfil from "../../components/staffProfileComponents/StaffProfile"
+export default function StaffProfilePage() {
     return (
       <div>
         <Container fluid>
@@ -14,8 +13,7 @@ export default function AllSchedulesPage() {
             </Col>
             <Col md="10">
               <Wrapper>
-                <AllDoctorSchedules />
-                <AllNurseAccounts/>
+                <StaffProfil />
               </Wrapper>
             </Col>
           </Row>

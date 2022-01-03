@@ -71,3 +71,9 @@
 .infoJadwal {
   margin: 10px;
 }
+
+.profilepicture{
+  height: 100px;
+  width: 100px;
+  margin-bottom: 1px;
+}

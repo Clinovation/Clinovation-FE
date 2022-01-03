@@ -3,7 +3,7 @@ import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/sidebar/sidebar";
-import AllSchedulesPage from "./pages/allSchedulePage.jsx/AllSchedulesPage";
+import StaffProfilePage from "./pages/StaffProfilePage/StaffProfilePage";
 function App() {
   return (
     <div className="App">
@@ -20,10 +20,11 @@ function App() {
             path="/dashboardStaff/allSchedules"
             element={<AllSchedules />}
           /> */}
-          <Route
+          {/* <Route
             path="/dashboardStaff/allSchedules"
             element={<AllSchedulesPage />}
-          />
+          /> */}
+          <Route path="/dashboardStaff/ProfileStaff" element={<StaffProfilePage/>}/>
         </Routes>
         {/* <MenuLogin /> */}
       </BrowserRouter>
