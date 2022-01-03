@@ -24,7 +24,10 @@ function App() {
             path="/dashboardStaff/allSchedules"
             element={<AllSchedulesPage />}
           /> */}
-          <Route path="/dashboardStaff/ProfileStaff" element={<StaffProfilePage/>}/>
+          <Route
+            path="/dashboardStaff/profileStaff"
+            element={<StaffProfilePage />}
+          />
         </Routes>
         {/* <MenuLogin /> */}
       </BrowserRouter>
