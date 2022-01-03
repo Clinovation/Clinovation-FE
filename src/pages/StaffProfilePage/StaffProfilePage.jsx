@@ -2,7 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 import { Col, Row, Container } from 'react-bootstrap';
 import Sidebar from '../../components/sidebar/sidebar';
-import StaffProfil from "../../components/staffProfileComponents/StaffProfile"
+import ProfilePicture from "../../components/staffProfilePictureComponents/ProfilePicture";
+import ProfileForm from '../../components/staffProfileFormComponents/ProfileForm';
 export default function StaffProfilePage() {
     return (
       <div>
@@ -13,7 +14,8 @@ export default function StaffProfilePage() {
             </Col>
             <Col md="10">
               <Wrapper>
-                <StaffProfil />
+                <ProfilePicture />
+                <ProfileForm/>
               </Wrapper>
             </Col>
           </Row>
