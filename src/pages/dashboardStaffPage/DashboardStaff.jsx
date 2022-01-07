@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import DashboardCard from "../../components/dashboardStaffComponents/DashboardCard";
-import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import Sidebar from "../../components/sidebar/sidebar";
-import styles from "../dashboardStaffPage/DashboardStaff.module.css";
 import LastPatient from "../../components/lastPatientComponent/LastPatient";
 import Schedule from "../../components/dashboardScheduleComponents/Schedule";
 export default function StaffDashboard() {
