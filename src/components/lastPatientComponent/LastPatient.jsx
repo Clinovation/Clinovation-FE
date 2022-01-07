@@ -5,7 +5,7 @@ import { FcClock } from "react-icons/fc";
 import ward from "../../icons/bed.png";
 import { GiStethoscope } from "react-icons/gi";
 import styles from "../lastPatientComponent/LastPatient.module.css";
-import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
+import { Card, Pagination } from "react-bootstrap";
 import Paginations from "../pagination";
 export default function LastPatient() {
   let active = 1;
