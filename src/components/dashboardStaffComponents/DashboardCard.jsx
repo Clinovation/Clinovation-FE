@@ -19,7 +19,6 @@ export default function DashboardCard() {
   return (
     <div>
       {/* <Wrapper> */}
-<<<<<<< HEAD
       <div className={`${styles.title}`}>Welcome Staff, </div>
       <div className={`${styles.cardstyle}`}>
         <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
@@ -59,59 +58,6 @@ export default function DashboardCard() {
           </Card.Body>
         </Card>
       </div>
-=======
-        <div className={`${styles.title}`}>Welcome Staff, </div>
-        <div className={`${styles.cardstyle}`}>
-          <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
-            <Card.Body>
-              <img
-                src={totalPatient}
-                alt=""
-                className={`${styles.iconDashboard}`}
-              />
-              <Card.Title>Total</Card.Title>
-              <Card.Text className={`${styles.cardtext}`}>
-                20 Patients
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
-            <Card.Body>
-              <img src={brain} alt="" className={`${styles.iconDashboard}`} />
-              <Card.Title>Neurology</Card.Title>
-              <Card.Text className={`${styles.cardtext}`}>
-                10 Patients
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
-            <Card.Body>
-              <img
-                src={heartbeat}
-                alt=""
-                className={`${styles.iconDashboard}`}
-              />
-              <Card.Title>Cardiology</Card.Title>
-              <Card.Text className={`${styles.cardtext}`}>
-                10 Patients
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
-            <Card.Body>
-              <img
-                src={pediatrics}
-                alt=""
-                className={`${styles.iconDashboard}`}
-              />
-              <Card.Title>Pediatrics</Card.Title>
-              <Card.Text className={`${styles.cardtext}`}>
-                10 Patients
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
->>>>>>> 3b07ffc12d683a26323fdca496be7f044045f810
       {/* </Wrapper> */}
     </div>
   );

@@ -116,11 +116,7 @@ export default function LastPatient() {
         </Card.Body>
       </Card>
       {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
-<<<<<<< HEAD
       <Paginations />
-=======
-      <Paginations/>
->>>>>>> 3b07ffc12d683a26323fdca496be7f044045f810
     </div>
   );
 }
