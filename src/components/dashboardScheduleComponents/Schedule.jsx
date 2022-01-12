@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import staffprofile from "../../icons/staffProfile.png";
 import nurseicon from "../../icons/nurse-icon.png";
 import styles from "../dashboardScheduleComponents/Schedule.module.css";
-import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 export default function Schedule() {
   return (
     <div>

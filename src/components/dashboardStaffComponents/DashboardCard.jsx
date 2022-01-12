@@ -1,21 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import styles from "../dashboardStaffComponents/DashboardCard.module.css";
-import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import totalPatient from "../../icons/registered.png";
 import brain from "../../icons/brain.png";
 import heartbeat from "../../icons/heartbeat.png";
 import pediatrics from "../../icons/pediatrics.png";
 export default function DashboardCard() {
-  let active = 1;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
-  }
   return (
     <div>
       {/* <Wrapper> */}
@@ -58,16 +48,6 @@ export default function DashboardCard() {
           </Card.Body>
         </Card>
       </div>
-      {/* </Wrapper> */}
     </div>
   );
 }
-
-const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding: 20px;
-  font-family: "Mulish", sans-serif;
-  position: absolute;
-  background-color: white;
-`;
