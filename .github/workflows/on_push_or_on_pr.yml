@@ -60,7 +60,7 @@ jobs:
         #   JWT_SECRET: ${{ secrets.JWT_SECRET }}
         #   JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
         run: |
-          ssh development'
+          ssh development '
           docker rm -vf $(docker ps -a -q) || true && \
           docker pull hencya/fe-clinovation:1.0.0 && \
           docker run -d -p 8080:8080 --name fe-clinovation \
