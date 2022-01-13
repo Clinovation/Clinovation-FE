@@ -49,36 +49,19 @@ jobs:
             StrictHostKeyChecking=no
           END
       - name: Connect to EC2 instance & run Docker image from registry
-        env:
-          PORT: ${{ secrets.PORT }}
-          CONTEXT_TIMEOUT: ${{ secrets.CONTEXT_TIMEOUT }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
+        # env:
+        #   PORT: ${{ secrets.PORT }}
+        #   CONTEXT_TIMEOUT: ${{ secrets.CONTEXT_TIMEOUT }}
+        #   DB_USER: ${{ secrets.DB_USER }}
+        #   DB_PASS: ${{ secrets.DB_PASS }}
+        #   DB_HOST: ${{ secrets.DB_HOST }}
+        #   DB_PORT: ${{ secrets.DB_PORT }}
+        #   DB_NAME: ${{ secrets.DB_NAME }}
+        #   JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        #   JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
         run: |
-          ssh development 'export PORT='"'$PORT'"' && \
-          export DB_USER='"'$DB_USER'"' && \
-          export CONTEXT_TIMEOUT='"'$CONTEXT_TIMEOUT'"' && \
-          export DB_PASS='"'$DB_PASS'"' && \
-          export DB_HOST='"'$DB_HOST'"' && \
-          export DB_PORT='"'$DB_PORT'"' && \
-          export DB_NAME='"'$DB_NAME'"' && \
-          export JWT_SECRET='"'$JWT_SECRET'"' && \
-          export JWT_EXPIRE='"'$JWT_EXPIRE'"' && \
+          ssh development'
           docker rm -vf $(docker ps -a -q) || true && \
-          docker pull hencya/clinovation-api:1.0.0 && \
-          docker run -d -p 8080:8080 --name clinovation-api \
-          -e PORT=$PORT \
-          -e CONTEXT_TIMEOUT=$CONTEXT_TIMEOUT \
-          -e DB_HOST=$DB_HOST \
-          -e DB_PORT=$DB_PORT \
-          -e DB_USER=$DB_USER \
-          -e DB_PASS=$DB_PASS \
-          -e DB_NAME=$DB_NAME \
-          -e JWT_SECRET=$JWT_SECRET \
-          -e JWT_EXPIRE=$JWT_EXPIRE \
-          hencya/clinovation-api:1.0.0'
+          docker pull samueljordan/fe-clinovation:latest && \
+          docker run -d -p 8080:8080 --name fe-clinovation \
+          samueljordan/fe-clinovation:latest'
