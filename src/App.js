@@ -4,7 +4,7 @@ import StaffDashboard from "../src/pages/dashboardStaffPage/DashboardStaff";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/sidebar/sidebar";
 import MenuLogin from "./pages/menuLoginPage/MenuLogin";
-import DashboardDoctor from "./pages/dashboardDoctorPage/DashboardDoctor";
+ import DashboardDoctor from "./pages/dashboardDoctorPage/DashboardDoctor";
 import FormUpdateProfileDoctor from "./components/FormUpdateProfileDoctorComponents/FormUpdateProfileDoctor";
 import ListPrescription from "./components/ListPrescriptionComponents/ListPrescription";
 import FormAddPrescription from "./components/FormAddPrescriptionComponents/FormAddPrescription";
