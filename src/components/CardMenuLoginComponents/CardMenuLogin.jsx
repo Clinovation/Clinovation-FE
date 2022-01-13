@@ -36,13 +36,13 @@ function ModalLogin(props) {
     );
 }
 
-export default function CardDashboard() {
+export default function CardMenuLogin() {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
     <div className="container">
 
-        <MyVerticallyCenteredModal
+        <ModalLogin
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
@@ -70,7 +70,7 @@ export default function CardDashboard() {
           </div>
             
             <div className={style.gridItem} style={{textAlign: 'center'}}>
-              <Card style={{ width: '160px' , textAlign: 'center'}}>
+              <Card style={{ textAlign: 'center'}}>
                   <div>
                       <Card.Img variant="top" src={Nurse} style={{ width: '100px' }}/>
                   </div>

@@ -37,7 +37,7 @@ function FormLogin() {
                 </Form.Group>
                 <br/>
 
-                <Link to="/dashboard">
+                <Link to="/dashboard-doctor">
                     <Button type="submit">Login</Button>
                 </Link>
             </Form>

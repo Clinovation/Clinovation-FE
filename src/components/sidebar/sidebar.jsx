@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import  {SidebarData} from "./sidebarData";
-import logo from "../../images/Logo 3.png";
+import logo from "../../images/Logo.png";
 
 export default function Sidebar() {
   return (
