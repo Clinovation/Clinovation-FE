@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from "../../images/Logo.png"
 import Avatar from "../../icons/staffProfile.png"
-import Home from "../../icons/home-page.png"
-import MedicalRecord from "../../icons/medical-record.png"
-import Medical from "../../icons/medical.png"
+import Home from "../../icons/home-page.svg"
+import MedicalRecord from "../../icons/medical-record.svg"
+import Medical from "../../icons/medical.svg"
 import style from "../SideBarDoctorComponents/SideBarDoctor.module.css"
 
 function SideBarDoctor() {
@@ -27,10 +27,10 @@ function SideBarDoctor() {
                     <Link to="/dashboard" className='m-auto'>
                         <img src={Home} style={{ height : "24px" }}/>
                     </Link>
-                    <Link to="/prescription" className='m-auto'>
+                    <Link to="/listPrescription" className='m-auto'>
                         <img src={MedicalRecord} style={{ height : "24px" }}/>
                     </Link>
-                    <Link to="/list-patient" className='m-auto'>
+                    <Link to="/listPatient" className='m-auto'>
                         <img src={Medical} style={{ height : "24px" }}/>
                     </Link>
                     
