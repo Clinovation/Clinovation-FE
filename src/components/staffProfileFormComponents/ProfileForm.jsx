@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput  from "react-phone-number-input";
 import styles from "../staffProfileFormComponents/ProfileForm.module.css";
 
 export default function ProfileForm() {
