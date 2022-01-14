@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Col, Row, Container } from 'react-bootstrap';
-import Sidebar from '../../components/sidebar/sidebar';
+import SideBarMedStaff from "../../components/SideBarMedStaffComponents/SideBarMedStaff";
 import ProfilePicture from "../../components/staffProfilePictureComponents/ProfilePicture";
 import ProfileForm from '../../components/staffProfileFormComponents/ProfileForm';
 export default function StaffProfilePage() {
@@ -10,12 +10,12 @@ export default function StaffProfilePage() {
         <Container fluid>
           <Row>
             <Col md="3">
-              <Sidebar />
+              <SideBarMedStaff />
             </Col>
             <Col md="9">
               <Wrapper>
                 <ProfilePicture />
-                <ProfileForm/>
+                <ProfileForm />
               </Wrapper>
             </Col>
           </Row>

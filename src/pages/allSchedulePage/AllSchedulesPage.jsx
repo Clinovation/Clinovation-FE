@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Col, Row, Container } from 'react-bootstrap';
-import Sidebar from '../../components/sidebar/sidebar';
+import SideBarMedStaff from "../../components/SideBarMedStaffComponents/SideBarMedStaff"
 import AllDoctorSchedules from '../../components/allScheduleDoctorComponents/AllDoctorSchedules'
 import AllNurseAccounts from '../../components/allScheduleNurseComponents/AllNurseSchedule';
 export default function AllSchedulesPage() {
@@ -10,12 +10,12 @@ export default function AllSchedulesPage() {
         <Container fluid>
           <Row>
             <Col md="2">
-              <Sidebar />
+              <SideBarMedStaff />
             </Col>
             <Col md="10">
               <Wrapper>
                 <AllDoctorSchedules />
-                <AllNurseAccounts/>
+                <AllNurseAccounts />
               </Wrapper>
             </Col>
           </Row>

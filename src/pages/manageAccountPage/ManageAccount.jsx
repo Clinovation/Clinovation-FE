@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
-import Sidebar from "../../components/sidebar/sidebar";
+import SideBarMedStaff from "../../components/SideBarMedStaffComponents/SideBarMedStaff";
 import ManageAccountTop from "../../components/manageAccountTopComponents/ManageAccountTop";
 import AllDoctorAccounts from '../../components/manageAccountAllDoctorsComponents/AllDoctorAccounts';
 import AllNurseAccounts from '../../components/manageAccountAllNursesComponents/AllNurseAccounts';
@@ -11,13 +11,13 @@ export default function ManageAccount() {
         <Container fluid>
           <Row>
             <Col md="2">
-              <Sidebar />
+              <SideBarMedStaff />
             </Col>
             <Col md="10">
               <Wrapper>
                 <ManageAccountTop />
-                <AllDoctorAccounts/>
-                <AllNurseAccounts/>
+                <AllDoctorAccounts />
+                <AllNurseAccounts />
               </Wrapper>
             </Col>
           </Row>

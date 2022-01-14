@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Col, Row, Container } from "react-bootstrap";
-import Sidebar from "../../components/sidebar/sidebar";
+import SideBarMedStaff from "../../components/SideBarMedStaffComponents/SideBarMedStaff";
 import ViewProfileForm from "../../components/viewStaffProfileFormComponents/ViewProfileForm";
 import ViewProfilePicture from "../../components/viewProfilePictureStaffComponents/ViewProfilePicture";
 export default function ViewStaffProfilePage() {
@@ -10,7 +10,7 @@ export default function ViewStaffProfilePage() {
       <Container fluid>
         <Row>
           <Col md="3">
-            <Sidebar />
+            <SideBarMedStaff />
           </Col>
           <Col md="9">
             <Wrapper>
