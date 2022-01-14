@@ -1,0 +1,16 @@
+.title {
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.profilepicture {
+  height: 150px;
+  width: 150px;
+  margin-bottom: 1px;
+  margin-right: 15px;
+}
+
+.profil {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
