@@ -9,7 +9,6 @@ on:
       - "master"
 
 jobs:
-
   build-push-docker:
     name: Build docker image then push to docker hub
     runs-on: ubuntu-latest
@@ -66,4 +65,6 @@ jobs:
           docker pull hencya/clinovation-api:latest && \
           docker run -d -p 8080:8080 --name clinovation-api \
           docker run -d -p 3000:3000 --name fe-clinovation \
+          docker pull hencya/clinovation-api:latest && \
+          docker run -d -p 8080:8080 --name clinovation-api \
           hencya/fe-clinovation:latest'
