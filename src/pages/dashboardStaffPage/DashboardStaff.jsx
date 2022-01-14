@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import DashboardCard from "../../components/dashboardStaffComponents/DashboardCard";
 import { Row, Col, Container } from "react-bootstrap";
-import Sidebar from "../../components/sidebar/sidebar";
+import SideBarMedStaff from "../../components/SideBarMedStaffComponents/SideBarMedStaff";
 import LastPatient from "../../components/lastPatientComponent/LastPatient";
 import Schedule from "../../components/dashboardScheduleComponents/Schedule";
 export default function StaffDashboard() {
@@ -11,7 +11,7 @@ export default function StaffDashboard() {
       <Container fluid>
         <Row>
           <Col md="2">
-            <Sidebar />
+            <SideBarMedStaff />
           </Col>
           <Col md="10">
             <Wrapper>

@@ -9,7 +9,6 @@ on:
       - "master"
 
 jobs:
-
   build-push-docker:
     name: Build docker image then push to docker hub
     runs-on: ubuntu-latest
