@@ -8,6 +8,7 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
+import {Link} from "react-router-dom"
 import "react-phone-number-input/style.css";
 import PhoneInput  from "react-phone-number-input";
 import styles from "../staffProfileFormComponents/ProfileForm.module.css";
@@ -118,9 +119,11 @@ export default function ProfileForm() {
       <Button variant="outline-success" className={`${styles.tombol}`}>
         Save
       </Button>{" "}
-      <Button variant="outline-warning" className={`${styles.tombol}`}>
-        Back to Home
-      </Button>{" "}
+      <Link to="/dashboardStaff" className="m-auto">
+        <Button variant="outline-warning" className={`${styles.tombol}`}>
+          Back to Home
+        </Button>{" "}
+      </Link>
       <Button variant="outline-danger" className={`${styles.tombol2}`}>
         Logout
       </Button>{" "}

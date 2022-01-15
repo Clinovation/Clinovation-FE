@@ -9,6 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import "react-phone-number-input/style.css";
+import { Link } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import styles from "../viewStaffProfileFormComponents/ViewProfileForm.module.css";
 
@@ -29,7 +30,12 @@ export default function ViewProfileForm() {
                   Name
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="email" placeholder="Name" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Name"
+                    value="Ralph Murphy"
+                    readonly
+                  />
                 </Col>
               </Form.Group>
 
@@ -42,7 +48,12 @@ export default function ViewProfileForm() {
                   Password
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value="xxxxxxxx"
+                    readonly
+                  />
                 </Col>
               </Form.Group>
 
@@ -59,6 +70,8 @@ export default function ViewProfileForm() {
                     type="date"
                     name="dob"
                     placeholder="Date of Birth"
+                    value="2 December 1997"
+                    readonly
                   />
                 </Col>
               </Form.Group>
@@ -87,7 +100,12 @@ export default function ViewProfileForm() {
                   Email
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control type="email" placeholder="email@example.com" />
+                  <Form.Control
+                    type="email"
+                    placeholder="email@example.com"
+                    value="ralph@mail.com"
+                    readonly
+                  />
                 </Col>
               </Form.Group>
               <Form.Group
@@ -105,6 +123,8 @@ export default function ViewProfileForm() {
                     onChange={setContact}
                     international
                     countryCallingCodeEditable={false}
+                    value="+62 814140149"
+                    readonly
                   />
                 </Col>
               </Form.Group>
@@ -118,9 +138,11 @@ export default function ViewProfileForm() {
       <Button variant="outline-success" className={`${styles.tombol}`}>
         Save
       </Button>{" "}
-      <Button variant="outline-warning" className={`${styles.tombol}`}>
-        Back to Home
-      </Button>{" "}
+      <Link to="/dashboardStaff" className="m-auto">
+        <Button variant="outline-warning" className={`${styles.tombol}`}>
+          Back to Home
+        </Button>{" "}
+      </Link>
       <Button variant="outline-danger" className={`${styles.tombol2}`}>
         Logout
       </Button>{" "}

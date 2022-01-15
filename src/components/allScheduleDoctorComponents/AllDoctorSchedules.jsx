@@ -48,10 +48,10 @@ export default function AllDoctorSchedules() {
                   {" "}
                   <br />
                   <div>
-                    <Col md="5"></Col>
-                    <Col md="7">
+                    {/* <Col md="5"></Col>
+                    <Col md="7"> */}
                       <Paginations />
-                    </Col>
+                    {/* </Col> */}
                   </div>
                 </Card.Text>
               </Card.Body>
