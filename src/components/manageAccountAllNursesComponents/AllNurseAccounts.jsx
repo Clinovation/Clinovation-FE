@@ -62,7 +62,7 @@ export default function AllNurseAccounts() {
           </Card>
         </Col>
         <Col md="5">
-          <Button variant="btn btn-danger" style={{ marginTop: "50px" }}>
+          <Button variant="btn btn-danger" className={`${styles.btndelete}`}>
             Delete
           </Button>{" "}
         </Col>
@@ -96,7 +96,7 @@ export default function AllNurseAccounts() {
           </Card>
         </Col>
         <Col md="5">
-          <Button variant="btn btn-danger" style={{ marginTop: "50px" }}>
+          <Button variant="btn btn-danger" className={`${styles.btndelete}`}>
             Delete
           </Button>{" "}
         </Col>

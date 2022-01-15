@@ -10,10 +10,10 @@ export default function ManageAccount() {
       <div>
         <Container fluid>
           <Row>
-            <Col md="2">
+            <Col md="1">
               <SideBarMedStaff />
             </Col>
-            <Col md="10">
+            <Col md="11">
               <Wrapper>
                 <ManageAccountTop />
                 <AllDoctorAccounts />
@@ -27,8 +27,7 @@ export default function ManageAccount() {
 }
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+
   padding: 20px;
   font-family: "Mulish", sans-serif;
   position: absolute;
