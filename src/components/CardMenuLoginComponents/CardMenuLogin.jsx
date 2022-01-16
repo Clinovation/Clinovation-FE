@@ -79,8 +79,7 @@ export default function CardMenuLogin() {
                   </Card.Body>
               </Card>
             </div>
-
+       
       </div>
-    </div>
   );
 }

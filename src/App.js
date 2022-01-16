@@ -57,6 +57,8 @@ function App() {
           </Routes>
           {/* <MenuLogin /> */}
         </BrowserRouter>
+        </PersistGate>
+      </Provider>
     </div>
   );
 }
