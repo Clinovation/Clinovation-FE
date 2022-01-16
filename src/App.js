@@ -37,27 +37,26 @@ function App() {
 
               <Route path="/dashboardStaff" element={<StaffDashboard />} />
               <Route
-                path="/dashboardStaff/allSchedules"
+
+                path="/allSchedules"
                 element={<AllSchedulesPage />}
               />
               <Route
-                path="/dashboardStaff/manageAccount"
+                path="/manageAccount"
                 element={<ManageAccount />}
               />
               <Route
-                path="/dashboardStaff/profileStaff"
+                path="/profileStaff"
                 element={<StaffProfilePage />}
               />
               <Route
-                path="/dashboardStaff/viewprofileStaff"
+                path="/viewprofileStaff"
+
                 element={<ViewStaffProfilePage />}
               />
-            </Routes>
-            {/* <MenuLogin /> */}
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-      
+          </Routes>
+          {/* <MenuLogin /> */}
+        </BrowserRouter>
     </div>
   );
 }

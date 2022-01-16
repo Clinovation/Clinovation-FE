@@ -2,6 +2,7 @@ import React from "react";
 // import styled from "styled-components";
 import staffprofile from "../../icons/staffProfile.png";
 import nurseicon from "../../icons/nurse-icon.png";
+import { Link } from "react-router-dom";
 import styles from "../dashboardScheduleComponents/Schedule.module.css";
 import { Card, Button } from "react-bootstrap";
 export default function Schedule() {
@@ -46,9 +47,14 @@ export default function Schedule() {
                   {" "}
                   <br />
                   <div style={{ display: "flex" }}>
-                    <Button variant="primary" className={`${styles.showmore}`}>
-                      Show more
-                    </Button>
+                    <Link to="/manageAccount" className="m-auto">
+                      <Button
+                        variant="primary"
+                        className={`${styles.showmore}`}
+                      >
+                        Show more
+                      </Button>
+                    </Link>
                   </div>
                 </Card.Text>
               </Card.Body>
@@ -90,9 +96,14 @@ export default function Schedule() {
                   {" "}
                   <br />
                   <div style={{ display: "flex" }}>
-                    <Button variant="primary" className={`${styles.showmore}`}>
-                      Show more
-                    </Button>
+                    <Link to="/manageAccount" className="m-auto">
+                      <Button
+                        variant="primary"
+                        className={`${styles.showmore}`}
+                      >
+                        Show more
+                      </Button>
+                    </Link>
                   </div>
                 </Card.Text>
               </Card.Body>

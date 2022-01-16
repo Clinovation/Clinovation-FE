@@ -1,12 +1,11 @@
 import React from "react";
 import { Modal, Card, Button } from "react-bootstrap";
-import HealthCare from "../../icons/healthCare.png"
-import Doctor from "../../icons/doctor.png"
-import Nurse from "../../icons/nurse.png"
-import Logo from "../../images/Logo.png"
-import style from "../CardMenuLoginComponents/CardMenuLogin.module.css"
+import HealthCare from "../../icons/healthCare.png";
+import Doctor from "../../icons/doctor.png";
+import Nurse from "../../icons/nurse.png";
+import Logo from "../../images/Logo.png";
+import style from "../CardMenuLoginComponents/CardMenuLogin.module.css";
 import FormLogin from "../FormLoginComponents/FormLogin";
-
 
 function ModalLogin(props) {
     return (
@@ -80,7 +79,8 @@ export default function CardMenuLogin() {
                   </Card.Body>
               </Card>
             </div>
-        
+
       </div>
-    );
+    </div>
+  );
 }
