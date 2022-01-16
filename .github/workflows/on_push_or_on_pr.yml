@@ -1,12 +1,13 @@
-name: AWS EC2 CI/CD FE
+# name: AWS EC2 CI/CD FE
 
-on:
-  push:
-    branches:
-      - "master"
-  pull_request:
-    branches:
-      - "master"
+# on:
+#   push:
+#     branches:
+#       - "master"
+#   pull_request:
+#     branches:
+#       - "master"
+
 
 jobs:
   build-push-docker:
@@ -66,3 +67,4 @@ jobs:
           docker pull hencya/clinovation-api:latest && \
           docker run -d -p 8080:8080 --name clinovation-api \
           hencya/fe-clinovation:latest'
+
