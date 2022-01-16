@@ -29,8 +29,7 @@ export default function StaffDashboard() {
 }
 
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+
   padding: 20px;
   font-family: "Mulish", sans-serif;
   position: absolute;
