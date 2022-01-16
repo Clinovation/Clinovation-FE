@@ -13,41 +13,51 @@ import FormUpdateProfileDoctor from "./components/FormUpdateProfileDoctorCompone
 import ListPrescription from "./components/ListPrescriptionComponents/ListPrescription";
 import FormAddPrescription from "./components/FormAddPrescriptionComponents/FormAddPrescription";
 import CardListPatientDoctor from "./components/CardListPatientDoctorComponents/CardListPatientDoctor";
+import { store, persistor } from "./Redux/Store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import FormDoctorRegis from "./components/FormDoctorRegisComponents/FormDoctorRegis";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        {/* <Sidebar /> */}
-        <Routes>
-          <Route path="/" element={<MenuLogin />} />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            {/* <Sidebar /> */}
+            <Routes>
+              <Route path="/" element={<MenuLogin />} />
 
-          <Route path="/dashboardDoctor" element={<DashboardDoctor />} />
-          <Route path="/updateProfileDoctor" element={<FormUpdateProfileDoctor />} />
-          <Route path="/listPrescription" element={<ListPrescription />} />
-          <Route path="/addPrescription" element={<FormAddPrescription />} />
-          <Route path="/listPatient" element={<CardListPatientDoctor />} />
+              <Route path="/dashboardDoctor" element={<DashboardDoctor />} />
+              <Route path="/updateProfileDoctor" element={<FormUpdateProfileDoctor />} />
+              <Route path="/listPrescription" element={<ListPrescription />} />
+              <Route path="/addPrescription" element={<FormAddPrescription />} />
+              <Route path="/listPatient" element={<CardListPatientDoctor />} />
+              <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
 
-          <Route path="/dashboardStaff" element={<StaffDashboard />} />
-          <Route
-            path="/dashboardStaff/allSchedules"
-            element={<AllSchedulesPage />}
-          />
-          <Route
-            path="/dashboardStaff/manageAccount"
-            element={<ManageAccount />}
-          />
-          <Route
-            path="/dashboardStaff/profileStaff"
-            element={<StaffProfilePage />}
-          />
-          <Route
-            path="/dashboardStaff/viewprofileStaff"
-            element={<ViewStaffProfilePage />}
-          />
-        </Routes>
-        {/* <MenuLogin /> */}
-      </BrowserRouter>
+              <Route path="/dashboardStaff" element={<StaffDashboard />} />
+              <Route
+                path="/dashboardStaff/allSchedules"
+                element={<AllSchedulesPage />}
+              />
+              <Route
+                path="/dashboardStaff/manageAccount"
+                element={<ManageAccount />}
+              />
+              <Route
+                path="/dashboardStaff/profileStaff"
+                element={<StaffProfilePage />}
+              />
+              <Route
+                path="/dashboardStaff/viewprofileStaff"
+                element={<ViewStaffProfilePage />}
+              />
+            </Routes>
+            {/* <MenuLogin /> */}
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
+      
     </div>
   );
 }
