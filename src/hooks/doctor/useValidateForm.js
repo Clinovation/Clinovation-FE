@@ -6,7 +6,7 @@ export default function useValidateForm() {
 		const regexEmail =
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		const regexPhone = /^[0-9]{10,15}$/;
-        const regexNik = /^[0-9]{10,16}$/;
+        const regexNik = /^[0-9]{16,16}$/;
 
 		let messages = {};
 
@@ -21,11 +21,11 @@ export default function useValidateForm() {
 			} else if (name === "email" && regexEmail.test(value)) {
 				messages = { [name]: "" };
 			}
-            // if (name === "nik" && !regexNik.test(value)) {
-			// 	messages = { [name]: "Min. 16 character" };
-			// } else if (name === "nik" && regexNik.test(value)) {
-			// 	messages = { [name]: "" };
-			// }
+            if (name === "nik" && !regexNik.test(value)) {
+				messages = { [name]: "Must be 16 character" };
+			} else if (name === "nik" && regexNik.test(value)) {
+				messages = { [name]: "" };
+			}
 			// if (name === "fullname" && !regexName.test(value)) {
 			// 	messages = { [name]: "Min. 3 character" };
 			// } else if (name === "fullname" && regexName.test(value)) {
