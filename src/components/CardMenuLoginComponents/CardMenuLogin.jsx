@@ -1,12 +1,11 @@
 import React from "react";
 import { Modal, Card, Button } from "react-bootstrap";
-import HealthCare from "../../icons/healthCare.png"
-import Doctor from "../../icons/doctor.png"
-import Nurse from "../../icons/nurse.png"
-import Logo from "../../images/Logo.png"
-import style from "../CardMenuLoginComponents/CardMenuLogin.module.css"
+import HealthCare from "../../icons/healthCare.png";
+import Doctor from "../../icons/doctor.png";
+import Nurse from "../../icons/nurse.png";
+import Logo from "../../images/Logo.png";
+import style from "../CardMenuLoginComponents/CardMenuLogin.module.css";
 import FormLogin from "../FormLoginComponents/FormLogin";
-
 
 function ModalLogin(props) {
     return (
@@ -28,6 +27,7 @@ function ModalLogin(props) {
                 <h4><img src={HealthCare} style={{height: "42px", marginRight:"10px"}}/>Medical Staff Login</h4>
             </div>
             <FormLogin/>
+            
             </Modal.Body>
             <Modal.Footer>
             <Button onClick={props.onHide}>Close</Button>
@@ -40,14 +40,14 @@ export default function CardMenuLogin() {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
-    <div className="container">
+    <div className={style.container} style={{ width: '340px' }}>
 
         <ModalLogin
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
-        <div className={style.gridContainer}>
-          <div>
+        <div className="d-flex bd-highlight">
+          <div className="p-2 bd-highlight">
             <Card style={{ width: '160px', textAlign: 'center'}} onClick={() => setModalShow(true)}>
                 <div>
                     <Card.Img variant="top" src={Doctor} style={{ width: '100px'}}/>
@@ -58,7 +58,7 @@ export default function CardMenuLogin() {
             </Card>
           </div>
           
-          <div>
+          <div className="ms-auto p-2 bd-highlight">
             <Card style={{ width: '160px', textAlign: 'center' }}>
                   <div>
                       <Card.Img variant="top" src={HealthCare} style={{ width: '100px' }}/>
@@ -68,9 +68,9 @@ export default function CardMenuLogin() {
                   </Card.Body>
               </Card>
           </div>
-            
-            <div className={style.gridItem} style={{textAlign: 'center'}}>
-              <Card style={{ textAlign: 'center'}}>
+        </div>
+            <div className="d-flex justify-content-center">
+              <Card style={{  width: '160px', textAlign: 'center'}}>
                   <div>
                       <Card.Img variant="top" src={Nurse} style={{ width: '100px' }}/>
                   </div>
@@ -79,7 +79,7 @@ export default function CardMenuLogin() {
                   </Card.Body>
               </Card>
             </div>
-        </div>
+       
       </div>
-    );
+  );
 }
