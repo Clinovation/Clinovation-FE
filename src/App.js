@@ -30,6 +30,7 @@ function App() {
 
           <Route path="/dashboardStaff" element={<StaffDashboard />} />
           <Route
+
             path="/allSchedules"
             element={<AllSchedulesPage />}
           />
@@ -43,6 +44,7 @@ function App() {
           />
           <Route
             path="/viewprofileStaff"
+
             element={<ViewStaffProfilePage />}
           />
         </Routes>

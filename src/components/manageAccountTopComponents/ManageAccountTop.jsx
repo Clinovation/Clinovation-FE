@@ -79,12 +79,14 @@ export default function ManageAccountTop() {
                         <div class="p-2"><Button variant="outline-success">Confirm</Button>{' '}</div>
                         <div class="p-2"><Button variant="outline-danger">Reject</Button>{' '}</div>
                       </div> */}
+
                     <span
                       className={`${styles.infoJadwal}`}
                       style={{ width: "10px" }}
                     >
                       Nurse Monty
                     </span>
+
                     <span style={{ marginLeft: "20px" }}>
                       <Button variant="outline-success">Confirm</Button>{" "}
                       <Button variant="outline-danger">Reject</Button>{" "}
@@ -98,12 +100,14 @@ export default function ManageAccountTop() {
                       alt=""
                       className={`${styles.iconDashboard2}`}
                     />
+
                     <span
                       className={`${styles.infoJadwal}`}
                       style={{ width: "58px" }}
                     >
                       Nurse Alex
                     </span>
+
                     <span style={{ marginLeft: "20px" }}>
                       <Button variant="outline-success">Confirm</Button>{" "}
                       <Button variant="outline-danger">Reject</Button>{" "}
