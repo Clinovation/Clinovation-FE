@@ -18,6 +18,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import FormDoctorRegis from "./components/FormDoctorRegisComponents/FormDoctorRegis";
 import FormStaffRegis from "./components/FormStaffRegisComponents/FormStaffRegis";
+import CardListDoctor from "./components/CardListPatientDoctorComponents/CardListDoctor";
+import CardListNurse from "./components/CardListPatientDoctorComponents/CardListNurse";
+import CardListStaff from "./components/CardListPatientDoctorComponents/CardListStaff";
+import MedicalRecord from "./components/MedicalRecordComponents/MedicalRecord";
+import MedicalRecordConsul from "./components/MedicalRecordComponents/MedicalRecordConsul";
+import FormConsul from "./components/FormPatient/FormConsul";
 
 function App() {
   return (
@@ -35,11 +41,17 @@ function App() {
                 element={<FormUpdateProfileDoctor />}
               />
               <Route path="/listPrescription" element={<ListPrescription />} />
+              <Route path="/medicalRecord" element={<MedicalRecord />} />
+              <Route path="/medicalRecordConsultation" element={<MedicalRecordConsul />} />
               <Route
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
+              <Route path="/inputConsultation" element={<FormConsul />} />
               <Route path="/listPatient" element={<CardListPatientDoctor />} />
+              <Route path="/listDoctor" element={<CardListDoctor />} />
+              <Route path="/listNurse" element={<CardListNurse />} />
+              <Route path="/listStaff" element={<CardListStaff />} />
               <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
               <Route path="/registrasiStaff" element={<FormStaffRegis />} />
 

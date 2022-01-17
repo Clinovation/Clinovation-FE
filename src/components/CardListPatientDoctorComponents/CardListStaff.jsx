@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Avatar from '../../icons/staffProfile.png'
 import SideBarMedStaff from '../SideBarMedStaffComponents/SideBarMedStaff'
 
-function CardListPatientDoctor() {
+function CardListStaff() {
     return (
         <div>
             <Container fluid>
@@ -17,7 +17,7 @@ function CardListPatientDoctor() {
                         <Container className='mt-3'> 
                             <Row>
                                 <div class="d-flex bd-highlight">
-                                    <div class="p-2 bd-highlight"><h3>Patient Lists</h3></div>
+                                    <div class="p-2 bd-highlight"><h3>Medical Staff Lists</h3></div>
                                 
                                     <div class="ms-auto p-2 bd-highlight">
                                         <InputGroup className="mb-3" size="sm" style={{width: '300px'}}>
@@ -39,16 +39,13 @@ function CardListPatientDoctor() {
                                     <Card style={{ marginBottom: '10px', width : "900px" }}>
                                         <Card.Body  style={{ overflowX : "auto" }}>
                                             <div class="d-flex bd-highlight">
-                                                <div class="p-2 bd-highlight"><img src={Avatar} style={{height: "56px"}}/></div>
-                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "45px"}}>Ralph</h6></div>
-                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "45px"}}>32 Years old</h6></div>
+                                                <div class="p-2 bd-highlight"><img src={Avatar} style={{height: "56px", marginRight: "10px"}}/></div>
+                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "65px"}}>Ralph</h6></div>
+                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "65px"}}>32 Years old</h6></div>
                                                 <div className="p-2 bd-highlight mt-3"><h6>710481048018</h6></div>
                                                 <div className="ms-auto p-2 bd-highlight mt-3">
-                                                    <Link to="/medicalRecord">
-                                                        <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
-                                                    </Link>
-                                                    <Link to="/inputConsultation">
-                                                        <Button variant="info" size="sm"><div style={{color: "#ffffff"}}>Add New Consultation</div></Button>
+                                                    <Link to="/medical-record">
+                                                        <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>View Staff</div></Button>
                                                     </Link>
                                                 </div> 
                                             </div>
@@ -64,4 +61,4 @@ function CardListPatientDoctor() {
     )
 }
 
-export default CardListPatientDoctor
+export default CardListStaff
