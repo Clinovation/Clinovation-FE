@@ -1,12 +1,12 @@
-# name: AWS EC2 CI/CD FE
+# # name: AWS EC2 CI/CD FE
 
-# on:
-#   push:
-#     branches:
-#       - "master"
-#   pull_request:
-#     branches:
-#       - "master"
+# # on:
+# #   push:
+# #     branches:
+# #       - "master"
+# #   pull_request:
+# #     branches:
+# #       - "master"
 
 # jobs:
 #   build-push-docker:
@@ -63,4 +63,6 @@
 #           docker rm -vf $(docker ps -a -q) || true && \
 #           docker pull hencya/fe-clinovation:latest && \
 #           docker run -d -p 3000:3000 --name fe-clinovation \
+#           docker pull hencya/clinovation-api:latest && \
+#           docker run -d -p 8080:8080 --name clinovation-api \
 #           hencya/fe-clinovation:latest'

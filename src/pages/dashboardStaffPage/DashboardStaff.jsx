@@ -19,7 +19,12 @@ export default function StaffDashboard() {
               {/* <div className={`${styles.title}`}>Schedules</div>
               <div style={{ fontSize: "18px" }}>Today</div> */}
               <Schedule />
-              <LastPatient />
+              <Row>
+                <Col md="1"></Col>
+                <Col md="11">
+                  <LastPatient />
+                </Col>
+              </Row>
             </Wrapper>
           </Col>
         </Row>
@@ -29,7 +34,6 @@ export default function StaffDashboard() {
 }
 
 const Wrapper = styled.div`
-
   padding: 20px;
   font-family: "Mulish", sans-serif;
   position: absolute;
