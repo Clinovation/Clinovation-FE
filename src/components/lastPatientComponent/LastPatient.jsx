@@ -8,7 +8,6 @@ import styles from "../lastPatientComponent/LastPatient.module.css";
 import { Card, Pagination } from "react-bootstrap";
 import Paginations from "../pagination";
 export default function LastPatient() {
-
   return (
     <div>
       <br />
@@ -108,7 +107,7 @@ export default function LastPatient() {
         </Card.Body>
       </Card>
       {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
-      <Paginations />
+      <Paginations className={`${styles.paginations}`} />
     </div>
   );
 }
