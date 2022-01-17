@@ -31,7 +31,7 @@ function ModalLoginDoctor(props) {
       <Modal.Body style={{ backgroundColor: "#F7F7F7" }}>
         <div style={{ textAlign: "center" }}>
           <h4>
-            <img src={Doctor} style={{ height: "35px", marginRight: "10px" }} />
+            <img src={Doctor} style={{ height: "50px", marginRight: "10px" }} />
             Doctor Login
           </h4>
         </div>
@@ -68,7 +68,7 @@ function ModalLoginNurse(props) {
       <Modal.Body style={{ backgroundColor: "#F7F7F7" }}>
         <div style={{ textAlign: "center" }}>
           <h4>
-            <img src={Nurse} style={{ height: "35px", marginRight: "10px" }} />
+            <img src={Nurse} style={{ height: "50px", marginRight: "10px" }} />
             Nurse Login
           </h4>
         </div>
@@ -107,7 +107,7 @@ function ModalLoginMedicalStaff(props) {
           <h4>
             <img
               src={HealthCare}
-              style={{ height: "35px", marginRight: "10px" }}
+              style={{ height: "50px", marginRight: "10px" }}
             />
             Medical Staff Login
           </h4>
@@ -130,7 +130,7 @@ export default function CardMenuLogin() {
     React.useState(false);
 
   return (
-    <div className={style.container} style={{ width: "340px" }}>
+    <div className={style.container} style={{ width: "440px" }}>
       <ModalLoginDoctor
         show={modalShowDoctor}
         onHide={() => setModalShowDoctor(false)}
@@ -146,32 +146,34 @@ export default function CardMenuLogin() {
       <div className="d-flex bd-highlight">
         <div className="p-2 bd-highlight">
           <Card
-            style={{ width: "160px", textAlign: "center" }}
+            style={{ width: "220px" }}
             onClick={() => setModalShowDoctor(true)}
           >
-            <div>
+            <div style={{textAlign: 'center'}} className="pt-3">
               <Card.Img variant="top" src={Doctor} style={{ width: "100px" }} />
             </div>
-            <Card.Body>
-              <Card.Title style={{ fontWeight: "Bold" }}>Doctor</Card.Title>
+            <Card.Body className="py-0">
+              <div style={{ fontWeight: 'Bold' }}>I Am</div>
+              <Card.Title style={{ fontWeight: "Bold", fontSize: "28px"}}>Doctor</Card.Title>
             </Card.Body>
           </Card>
         </div>
 
         <div className="ms-auto p-2 bd-highlight">
           <Card
-            style={{ width: "160px", textAlign: "center" }}
+            style={{ width: "220px" }}
             onClick={() => setModalShowMedicalStaff(true)}
           >
-            <div>
+            <div style={{textAlign: 'center'}} className="pt-3">
               <Card.Img
                 variant="top"
                 src={HealthCare}
                 style={{ width: "100px" }}
               />
             </div>
-            <Card.Body>
-              <Card.Title style={{ fontWeight: "Bold" }}>
+            <Card.Body className="py-0">
+              <div style={{ fontWeight: 'Bold' }}>I Am</div>
+              <Card.Title style={{ fontWeight: "Bold", fontSize: "28px" }}>
                 Medical staff
               </Card.Title>
             </Card.Body>
@@ -180,14 +182,15 @@ export default function CardMenuLogin() {
       </div>
       <div className="d-flex justify-content-center">
         <Card
-          style={{ width: "160px", textAlign: "center" }}
+          style={{ width: "220px" }}
           onClick={() => setModalShowNurse(true)}
         >
-          <div>
+          <div style={{textAlign: 'center'}} className="pt-3">
             <Card.Img variant="top" src={Nurse} style={{ width: "100px" }} />
           </div>
-          <Card.Body>
-            <Card.Title style={{ fontWeight: "Bold" }}>Nurse</Card.Title>
+          <Card.Body className="py-0">
+            <div style={{ fontWeight: 'Bold' }}>I Am</div>
+            <Card.Title style={{ fontWeight: "Bold", fontSize: "28px" }}>Nurse</Card.Title>
           </Card.Body>
         </Card>
       </div>
