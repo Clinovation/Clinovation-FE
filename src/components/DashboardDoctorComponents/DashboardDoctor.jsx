@@ -37,9 +37,9 @@ function CardDashboardDoctor() {
         <div>
             <Container>
                 <div className='d-flex justify-content-center'>
-                    <Row className="g-4">
+                    <Row className="g-5">
                         <Col>
-                            <Card style={{ width: '16rem' }}>
+                            <Card style={{ width: '22rem' }}>
                                 <Card.Body>
                                     <Card.Title>Total Patient Treated <img src={aidkit} style={{ width: '24px' }}/></Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">Today</Card.Subtitle>
@@ -51,7 +51,7 @@ function CardDashboardDoctor() {
                         </Col>
                         
                         <Col>
-                            <Card style={{ width: '16rem' }}>
+                            <Card style={{ width: '22rem' }}>
                                 <Card.Body>
                                     <Card.Title>Total Patient Visits <img src={patientvisit} style={{ width: '24px' }}/></Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">Today</Card.Subtitle>
@@ -65,17 +65,17 @@ function CardDashboardDoctor() {
                 </div>
                 
                 <div className='d-flex justify-content-center mt-5'>
-                <Card style={{ padding: '30px' }}>
+                <Card style={{ padding: '30px', width: "750px" }}>
                     <Card.Title>Patient</Card.Title>
                     <Card style={{ marginBottom: '10px' }}>
                         <Card.Body className={style.responsiveCard}>
                             <div class="d-flex bd-highlight">
-                                <div class="p-2 bd-highlight"><img src={Avatar} style={{height: "24px"}}/></div>
-                                <div class="p-2 bd-highlight" style={{ width: '58px' }}><div>Ralph</div></div>
-                                <div class="p-2 bd-highlight" style={{ width: '102px' }}><div>32 Years old</div></div>
-                                <div class="p-2 bd-highlight" style={{ width: '130px' }}><div>710481048018</div></div>
-                                <div class="ms-auto p-2 bd-highlight"><Button variant="info" size="sm">Patient Record</Button></div>
-                                <div class="ms-auto p-2 bd-highlight"><Button variant="warning" size="sm">Done</Button></div>
+                                <div class="p-2 bd-highlight"><img src={Avatar} style={{height: "50px"}}/></div>
+                                <div class="p-2 bd-highlight mt-2" style={{ width: '65px' }}><strong>Ralph</strong></div>
+                                <div class="p-2 bd-highlight mt-2" style={{ width: '110px' }}><strong>32 Years old</strong></div>
+                                <div class="p-2 bd-highlight mt-2" style={{ width: '130px' }}><strong>710481048018</strong></div>
+                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="info" size="sm">Patient Record</Button></div>
+                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="warning" size="sm">Done</Button></div>
                             </div>
                         </Card.Body>
                     </Card>
