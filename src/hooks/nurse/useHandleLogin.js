@@ -23,7 +23,7 @@ export default function useHandleLogin() {
       },
     };
     await axios
-      .get(`${API_URL}/doctor/jwt`, config)
+      .get(`${API_URL}/nurse/jwt`, config)
       .then((resp) => {
         console.log(resp);
         userData.id = resp.data.data.id;
@@ -64,7 +64,7 @@ export default function useHandleLogin() {
       domain: window.location.hostname,
     });
     dispatch(login(userData));
-    navigate("/dashboardDoctor");
+    navigate("/dashboardNurse");
   };
   return handleLogin;
 }
