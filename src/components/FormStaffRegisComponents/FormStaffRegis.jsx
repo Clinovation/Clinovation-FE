@@ -1,14 +1,14 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Medstaff from "../../icons/healthCare.png";
 import axios from "axios";
-import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 import useValidateForm from "../../hooks/useValidateForm";
 
-function FormDoctorRegis() {
-  const handleLogin = useHandleLogin();
+function FormStaffRegis() {
   const { validateForm } = useValidateForm();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     nik: "",
@@ -17,10 +17,7 @@ function FormDoctorRegis() {
     sex: "male",
     email: "",
     contact: "",
-    specialist: "pediatrician",
     work_experience: "",
-    work_hour: "09.00-13.00",
-    schedule: "Sunday-Wednesday-Friday",
   });
 
   const [errorMsg, setErrorMsg] = useState({});
@@ -43,26 +40,16 @@ function FormDoctorRegis() {
     } else {
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/doctor/register`, {
+        .post(`${API_URL}/medicalStaff/register`, {
           ...form,
         })
         .then(() => {
-          // axios
-          //   .post(`${API_URL}/doctor/login`, {
-          //     email: form.email,
-          //     password: form.password,
-          //   })
-          //   .then((resLogin) => {
-          //     handleLogin(resLogin.data.data);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
+          navigate("/");
         })
         .catch((error) => {
           setErrorMsg({
             ...errorMsg,
-            auth: error.response.data.meta.messages[0],
+            auth: error.response.data.errors[0],
           });
         });
     }
@@ -77,7 +64,7 @@ function FormDoctorRegis() {
               src={Medstaff}
               style={{ height: "36px", marginRight: "10px" }}
             />
-            Doctor Register
+            Medical Staff Register
           </h5>
           <Form noValidate onSubmit={onSubmit}>
             <div className="cardForm">
@@ -139,7 +126,7 @@ function FormDoctorRegis() {
                 </Form.Label>
                 <Col md="9">
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="email"
                     value={form.email}
                     onChange={onChange}
@@ -228,7 +215,7 @@ function FormDoctorRegis() {
                 </Form.Label>
                 <Col md="9">
                   <Form.Control
-                    type="text"
+                    type="password"
                     name="password"
                     value={form.password}
                     onChange={onChange}
@@ -245,89 +232,6 @@ function FormDoctorRegis() {
               <div
                 style={{ borderTop: "2px solid black", padding: "10px" }}
               ></div>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Specialist
-                </Form.Label>
-                <Col md="9">
-                  <Form.Select
-                    aria-label="Default select example"
-                    name="specialist"
-                    value={form.specialist}
-                    onChange={onChange}
-                  >
-                    <option disabled>Specialist</option>
-                    <option value="pediatrician">Pediatrician</option>
-                    <option value="dentist">Dentist</option>
-                    <option value="obstetricians">Obstetricians</option>
-                    <option value="otorhinolaryngology">
-                      Otorhinolaryngology
-                    </option>
-                  </Form.Select>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Schedule
-                </Form.Label>
-                <Col md="9">
-                  {/* <Form.Select 
-                        aria-label="Default select example"
-                        name='shedule'
-                        value={form.schedule}
-                        onChange={onChange}
-                    >
-                      <option value="SundayWednesdayFriday">Sunday-Wednesday-Friday</option>
-                      <option value="TuesdayWednesdaySaturday">Tuesday-Wednesday-Saturday</option>
-                    </Form.Select> */}
-
-                  <Form.Select
-                    aria-label="Default select example"
-                    name="schedule"
-                    value={form.schedule}
-                    onChange={onChange}
-                  >
-                    <option value="Sunday-Wednesday-Friday">
-                      Sunday-Wednesday-Friday
-                    </option>
-                    <option value="Tuesday-Wednesday-Saturday">
-                      Tuesday-Wednesday-Saturday
-                    </option>
-                  </Form.Select>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Work Hour
-                </Form.Label>
-                <Col md="9">
-                  <Form.Select
-                    aria-label="Default select example"
-                    name="work_hour"
-                    value={form.work_hour}
-                    onChange={onChange}
-                  >
-                    <option value="09.00-13.00">09.00-13.00</option>
-                    <option value="13.00-17.00">13.00-17.00</option>
-                    <option value="17.00-21.00">17.00-21.00</option>
-                  </Form.Select>
-                </Col>
-              </Form.Group>
 
               <Form.Group
                 as={Row}
@@ -367,4 +271,4 @@ function FormDoctorRegis() {
   );
 }
 
-export default FormDoctorRegis;
+export default FormStaffRegis;

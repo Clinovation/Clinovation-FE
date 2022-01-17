@@ -5,25 +5,24 @@
 .cardstyle {
   display: flex;
   padding-top: 30px;
-  
 }
 
 .kartu2 {
   margin-right: 50px;
-  height: 460px;
+  /* height: 460px; */
   background-color: #f7f7f7;
-  width: 50rem;
+  /* width: 50rem; */
 }
 
-.tombol{
-    width: 150px;
-    height: 50px;
-    margin-right: 60px;
-    margin-bottom: 30px;
+.tombol {
+  width: 150px;
+  height: 50px;
+  margin-right: 60px;
+  margin-bottom: 30px;
 }
-.tombol2{
-    width: 150px;
-    height: 50px;
-    margin-left: 220px;
-    margin-bottom: 30px;
+.tombol2 {
+  width: 150px;
+  height: 50px;
+  margin-left: 220px;
+  margin-bottom: 30px;
 }
