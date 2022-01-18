@@ -34,7 +34,7 @@ function CardListPatientDoctor() {
     const API_URL = "http://3.83.92.188:8080/api/v1";
     if (patient.by === "") {
       axios
-        .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -66,7 +66,7 @@ function CardListPatientDoctor() {
     } else if (checkName.test(patient.by)) {
       axios
         .get(
-          `${API_URL}/doctor/?name=${by}&page=${page}`,
+          `${API_URL}/patient/?name=${by}&page=${page}`,
           GenerateAxiosConfig()
         )
         .then((res) => {
@@ -99,7 +99,10 @@ function CardListPatientDoctor() {
         });
     } else {
       axios
-        .get(`${API_URL}/doctor/?nik=${by}&page=${page}`, GenerateAxiosConfig())
+        .get(
+          `${API_URL}/patient/?nik=${by}&page=${page}`,
+          GenerateAxiosConfig()
+        )
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -142,7 +145,7 @@ function CardListPatientDoctor() {
     const value = e.target.value;
     setPatient({ ...patient, by: value });
   };
-  console.log(patient);
+
   return (
     <div>
       <Container fluid>
@@ -152,7 +155,7 @@ function CardListPatientDoctor() {
           </Col>
 
           <Col md="11">
-            <Container className="mt-3" style={{ width: "900px" }}>
+            <Container className="mt-3 mb-5" style={{ width: "900px" }}>
               <Row>
                 <div class="d-flex bd-highlight">
                   <div class="p-2 bd-highlight">
@@ -188,7 +191,7 @@ function CardListPatientDoctor() {
               {error && <p className="text-center text-light mt-5">{error}</p>}
               {patient?.data?.map((item) => (
                 <Row>
-                  <div className="d-flex justify-content-center mt-5">
+                  <div className="d-flex justify-content-center mt-2">
                     <Card
                       key={item.id}
                       style={{ marginBottom: "10px", width: "900px" }}
