@@ -54,7 +54,7 @@ function SideBarMedStaff() {
       <div>
         <div className={style.navIconContainer}>
           <div className={style.navIconItem}>
-            <Link to="/profileStaff" style={{ textDecoration: "none" , color:"black"}}>
+            <Link to="/profileUpdateStaff" style={{ textDecoration: "none" , color:"black"}}>
               <img src={Avatar} style={{ height: "40px" }} />
               <p style={{ fontSize: "10px" }}>Ralph Murphy</p>
             </Link>

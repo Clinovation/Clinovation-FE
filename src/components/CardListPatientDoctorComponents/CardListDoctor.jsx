@@ -14,7 +14,7 @@ function CardListDoctor() {
                     </Col>
 
                     <Col md="11">
-                        <Container className='mt-3'> 
+                        <Container className='mt-3' style={{width: '900px'}}> 
                             <Row>
                                 <div class="d-flex bd-highlight">
                                     <div class="p-2 bd-highlight"><h3>Doctor Lists</h3></div>
@@ -44,7 +44,7 @@ function CardListDoctor() {
                                                 <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "65px"}}>32 Years old</h6></div>
                                                 <div className="p-2 bd-highlight mt-3"><h6>710481048018</h6></div>
                                                 <div className="ms-auto p-2 bd-highlight mt-3">
-                                                    <Link to="/medical-record">
+                                                    <Link to="/profileDoctor">
                                                         <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>View Doctor</div></Button>
                                                     </Link>
                                                 </div> 

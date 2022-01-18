@@ -2,12 +2,17 @@ import React from 'react'
 import {Button, Row, Col, Container} from "react-bootstrap"
 import style from './MedicalRecord.module.css'
 import {Link} from 'react-router-dom'
+import SideBarMedStaff from '../SideBarMedStaffComponents/SideBarMedStaff'
 
 function MedicalRecord() {
     return (
         <div>
-            <Container>
+            <Container fluid>
             <Row>
+                <Col md="1">
+                        <SideBarMedStaff/>
+                </Col>
+
                 <Col md={6} className="m-auto">
                     <h3 className='my-4'>Patient Medical Record</h3>
                     {/* <Form> */}

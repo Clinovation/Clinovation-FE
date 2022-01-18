@@ -1,7 +1,8 @@
 import {React, useState} from 'react'
-import {Table, Button, Container, InputGroup,FormControl, Row, Modal} from "react-bootstrap"
+import {Table, Button, Container, InputGroup,FormControl, Row, Modal, Col} from "react-bootstrap"
 import { Link } from 'react-router-dom'
 import FormAddPrescription from '../FormAddPrescriptionComponents/FormAddPrescription'
+import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor';
 
 function ModalAddPrescription(props) {
   return (
@@ -42,16 +43,23 @@ function ModalAddPrescription(props) {
     </Modal>
   );
 }
+
 function ListPrescription() {
     const [modalShow, setModalShow] = useState(false);
     return (
        
-        <div className='mt-5'>
+        <div>
              <ModalAddPrescription
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-            <Container>
+            <Container fluid>
+              <Row>
+                <Col md="1">
+                  <SideBarDoctor/>
+                </Col>
+                
+                <Col md={10} className='mt-4'>
                 <Row>
                     <div class="d-flex bd-highlight">
                         <div class="p-2 bd-highlight">
@@ -124,6 +132,8 @@ function ListPrescription() {
                     </tr>
                     </tbody>
                 </Table>
+                </Col>
+              </Row>
             </Container>
         </div>
     )
