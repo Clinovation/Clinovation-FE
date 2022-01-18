@@ -1,10 +1,12 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Medstaff from "../../icons/healthCare.png";
 import axios from "axios";
 import useValidateForm from "../../hooks/useValidateForm";
+import Logo from "../../images/Logo.png";
+import style from './StaffRegis.module.css'
 
 function FormStaffRegis() {
   const { validateForm } = useValidateForm();
@@ -57,8 +59,17 @@ function FormStaffRegis() {
   console.log(form);
   return (
     <div>
+      <Container>
+                <Row>
+                    <div className="d-flex justify-content-center">
+                        <img src={Logo} style={{height: "100px"}}/>
+                    </div>
+                   
+
+                </Row>
       <Row>
-        <Col md={6} className="m-auto formRegis-container">
+        <Col md={8} className="m-auto mt-3">
+          <Card style={{backgroundColor:"#F7F7F7"}} className="p-4">
           <h5>
             <img
               src={Medstaff}
@@ -67,7 +78,7 @@ function FormStaffRegis() {
             Medical Staff Register
           </h5>
           <Form noValidate onSubmit={onSubmit}>
-            <div className="cardForm">
+            <div className={style.cardForm}>
               <Form.Group
                 as={Row}
                 className="mb-3"
@@ -258,15 +269,20 @@ function FormStaffRegis() {
               </Form.Group>
             </div>
 
-            <div>
-              <Button type="submit">Register</Button>
+            <div className='d-flex justify-content-center'>
+              <Button type="submit" size="lg">Register</Button>
             </div>
           </Form>
+          <div className='d-flex justify-content-center mt-4'>
           <Link to="/">
             <a>Already have an account?Login</a>
           </Link>
+          </div>
+          </Card>
         </Col>
       </Row>
+      </Container>
+      <br/>
     </div>
   );
 }

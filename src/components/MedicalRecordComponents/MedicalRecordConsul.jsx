@@ -1,15 +1,67 @@
-import React from 'react'
-import {Form,Button, Row, Col} from "react-bootstrap"
+import {React, useState} from 'react'
+import {Form,Button, Row, Col, Container, Modal} from "react-bootstrap"
 import style from './MedicalRecord.module.css'
 import {Link} from 'react-router-dom'
+import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor'
+import FormAddPrescription from '../FormAddPrescriptionComponents/FormAddPrescription'
+
+function ModalAddPrescription(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        {/* <Modal.Title id="contained-modal-title-vcenter">
+          <div class="d-flex justify-content-end">
+            <img
+              src={Logo}
+              style={{ height: "100px" }}
+              class="d-flex justify-content-end"
+            />
+          </div>
+        </Modal.Title> */}
+      </Modal.Header>
+      <Modal.Body style={{ backgroundColor: "#F7F7F7" }}>
+        <div style={{ textAlign: "center" }}>
+          <h4>
+            {/* <img
+              src={HealthCare}
+              style={{ height: "50px", marginRight: "10px" }}
+            /> */}
+            Add Prescription
+          </h4>
+        </div>
+        <FormAddPrescription />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 function MedicalRecordConsul() {
+    const [modalShow, setModalShow] = useState(false);
     return (
         <div>
+            <ModalAddPrescription
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+            <Container fluid>
             <Row>
-                <Col md={6} className={`${style.formRegisContainer} m-auto my-2`}>
+                <Col md="1">
+                        <SideBarDoctor/>
+                </Col>
+
+                <Col md={6} className='m-auto my-2'>
                 <h2>Patient Medical Record</h2>
-                    <Form>
+                    {/* <Form> */}
                         <div className={`${style.cardForm} mt-4`}>
                             <h5>Profile</h5>
                             <div style={{borderTop : "2px solid black", padding : "10px"}}></div>
@@ -42,12 +94,17 @@ function MedicalRecordConsul() {
                                 metus, sagittis, eu. Cursus cursus congue sem ut eu in vitae amet ipsum.
                             </p>
                         </div>
-                        <Link to="/add-prescription">
-                            <Button type="submit" variant="info">Add Prescription</Button>
-                        </Link>
-                    </Form>
+                        <div className='d-flex justify-content-center'>
+                            {/* <Link to="/addPrescription"> */}
+                                <Button type="submit" variant="info" onClick={() => setModalShow(true)}>Add Prescription</Button>
+                            {/* </Link> */}
+                        </div>
+                        
+                    {/* </Form> */}
                 </Col>
-            </Row> 
+            </Row>
+            </Container>
+            <br/>
         </div>
     )
 }

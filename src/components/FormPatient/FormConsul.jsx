@@ -1,5 +1,5 @@
 import {React,useState} from "react";
-import {Form,Button, Row, Col, Table, Container} from "react-bootstrap"
+import {Form,Button, Row, Col, Table, Container, Card} from "react-bootstrap"
 import Medstaff from "../../icons/healthCare.png"
 import style from './FormPatient.module.css'
 import Logo from "../../images/Logo.png";
@@ -20,12 +20,19 @@ function FormConsul() {
     return (
         <div>
             <Container>
-                {/* <img src={Logo} className="m-auto"/> */}
                 <Row>
-                    <Col md={6} className={`${style.cardForm} m-auto mt-3`}>
+                    <div className="d-flex justify-content-center">
+                        <img src={Logo} style={{height: "100px"}}/>
+                    </div>
+                   
+
+                </Row>
+                <Row>
+                    <Col md={8} className='m-auto mt-3'>
+                        <Card style={{backgroundColor:"#F7F7F7"}} className="p-4">
                         <h3><img src={Medstaff} style={{height: "42px", marginRight:"10px"}}/>Patient Register</h3>
                         <br/>
-                        <Form noValidate validated={validated} onSubmit={handleSubmit} >
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}  className={style.cardForm}>
                             <div className="cardForm">
                                 <h5>Patient New Medical History</h5>
                                 <div style={{borderTop : "2px solid black", padding : "10px"}}></div>
@@ -82,9 +89,12 @@ function FormConsul() {
                             </div>
                             
                         </Form>
+                        </Card>
                     </Col>
                 </Row>
             </Container>
+            <br/>
+            <br/>
         </div>
     )
 }

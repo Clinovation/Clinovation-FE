@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 function DashboardDoctor() {
     return (
         <div>
+            <Container fluid>
             <Row>
                 <Col md="1">
                     <Sidebar/>
@@ -32,6 +33,7 @@ function DashboardDoctor() {
                     </Container>
                 </Col>
             </Row>
+            </Container>
         </div>
     )
 }
