@@ -70,8 +70,8 @@ function App() {
               <Route path="/listPatientDoctor" element={<CardListPatient />} />
 
               <Route path="/profileStaff/:uuid" element={<ProfileStaff />} />
-              <Route path="/profileDoctor" element={<ProfileDoctor />} />
-              <Route path="/profileNurse" element={<ProfileNurse />} />
+              <Route path="/profileDoctor/:uuid" element={<ProfileDoctor />} />
+              <Route path="/profileNurse/:uuid" element={<ProfileNurse />} />
               <Route path="/dashboardStaff" element={<StaffDashboard />} />
               <Route path="/allSchedules" element={<AllSchedulesPage />} />
               <Route path="/manageAccount" element={<ManageAccount />} />

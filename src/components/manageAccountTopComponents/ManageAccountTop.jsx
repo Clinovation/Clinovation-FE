@@ -259,23 +259,23 @@ export default function ManageAccountTop() {
                     </Card.Body>
                   </Card>
                 ))}
-                <div className="d-flex justify-content-center">
-                  {doctor && (
-                    <Pagination className="align-self-center">
-                      {doctor.pages.map((item) => (
-                        <Pagination.Item
-                          key={item}
-                          active={item === doctor.currPage}
-                          onClick={() => handlePageDoctor(item)}
-                        >
-                          {item}
-                        </Pagination.Item>
-                      ))}
-                    </Pagination>
-                  )}
-                </div>
               </Card.Body>
             </Card>
+            <div className="d-flex justify-content-center mt-2">
+              {doctor && (
+                <Pagination className="align-self-center">
+                  {doctor.pages.map((item) => (
+                    <Pagination.Item
+                      key={item}
+                      active={item === doctor.currPage}
+                      onClick={() => handlePageDoctor(item)}
+                    >
+                      {item}
+                    </Pagination.Item>
+                  ))}
+                </Pagination>
+              )}
+            </div>
           </Card.Body>
         </Card>
 
@@ -335,23 +335,23 @@ export default function ManageAccountTop() {
                     </Card.Body>
                   </Card>
                 ))}
-                <div className="d-flex justify-content-center">
-                  {nurse && (
-                    <Pagination className="align-self-center">
-                      {nurse.pages.map((item) => (
-                        <Pagination.Item
-                          key={item}
-                          active={item === nurse.currPage}
-                          onClick={() => handlePageNurse(item)}
-                        >
-                          {item}
-                        </Pagination.Item>
-                      ))}
-                    </Pagination>
-                  )}
-                </div>
               </Card.Body>
             </Card>
+            <div className="d-flex justify-content-center mt-2">
+              {nurse && (
+                <Pagination className="align-self-center">
+                  {nurse.pages.map((item) => (
+                    <Pagination.Item
+                      key={item}
+                      active={item === nurse.currPage}
+                      onClick={() => handlePageNurse(item)}
+                    >
+                      {item}
+                    </Pagination.Item>
+                  ))}
+                </Pagination>
+              )}
+            </div>
           </Card.Body>
         </Card>
       </div>
