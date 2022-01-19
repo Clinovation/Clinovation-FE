@@ -216,7 +216,9 @@ function CardListStaff() {
                           <div className="ms-auto p-2 bd-highlight mt-3">
                             <Link to={`/profileStaff/${item.uuid}`}>
                               <Button
-                                variant="warning"
+
+                                variant="info"
+
                                 size="sm"
                                 style={{ marginRight: "30px" }}
                               >

@@ -32,8 +32,10 @@ import CardListPatient from "./components/CardListPatientDoctorComponents/CardLi
 // import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
 // import ProfileNurse from "./components/ViewProfile/ProfileNurse";
 // import ProfileStaff from "./components/ViewProfile/ProfileStaff";
+
 import InputMedicinePage from "./pages/inputMedicinePage/InputMedicinePage";
 import WorkDayHour from "./pages/workDayHourPage/WorkDayHour";
+
 function App() {
   return (
     <div className="App">
@@ -59,8 +61,10 @@ function App() {
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
+
               <Route path="/listworkdayhour" element={<WorkDayHour />} />
               <Route path="/listMedicine" element={<InputMedicinePage />} />
+
               <Route path="/inputConsultation/:uuid" element={<FormConsul />} />
               <Route path="/listPatient" element={<CardListPatientDoctor />} />
               <Route path="/listDoctor" element={<CardListDoctor />} />
@@ -72,9 +76,9 @@ function App() {
 
               <Route path="/listPatientDoctor" element={<CardListPatient />} />
 
-              <Route path="/profileStaff" element={<ProfileStaff />} />
-              <Route path="/profileDoctor" element={<ProfileDoctor />} />
-              <Route path="/profileNurse" element={<ProfileNurse />} />
+              <Route path="/profileStaff/:uuid" element={<ProfileStaff />} />
+              <Route path="/profileDoctor/:uuid" element={<ProfileDoctor />} />
+              <Route path="/profileNurse/:uuid" element={<ProfileNurse />} />
               <Route path="/dashboardStaff" element={<StaffDashboard />} />
               <Route path="/allSchedules" element={<AllSchedulesPage />} />
               <Route path="/manageAccount" element={<ManageAccount />} />

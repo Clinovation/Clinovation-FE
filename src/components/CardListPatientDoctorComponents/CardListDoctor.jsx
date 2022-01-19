@@ -184,7 +184,9 @@ function CardListDoctor() {
                 </div>
               </Row>
 
-              {error && <p className="text-center text-light mt-5">{error}</p>}
+
+              {error && <p className="text-center text-dark mt-5">{error}</p>}
+
               {doctor?.data?.map((item) => (
                 <Row>
                   <div className="d-flex justify-content-center mt-2">
@@ -216,7 +218,9 @@ function CardListDoctor() {
                           <div className="ms-auto p-2 bd-highlight mt-3">
                             <Link to={`/profileDoctor/${item.uuid}`}>
                               <Button
-                                variant="warning"
+
+                                variant="info"
+
                                 size="sm"
                                 style={{ marginRight: "30px" }}
                               >
