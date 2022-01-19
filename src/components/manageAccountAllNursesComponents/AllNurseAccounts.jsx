@@ -12,26 +12,31 @@ export default function AllNurseAccounts() {
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>
-        <div className={`${styles.title} mr-auto p-2`}>All Nurse Accounts</div>
-
-        <div class="col-md-5 p-2">
-          <div class="input-group">
-            <input
-              class="form-control border-end-0 border"
-              type="search"
-              placeholder="search"
-              id="example-search-input"
-            />
-            <span class="input-group-append">
-              <button
-                class="btn btn-outline-secondary bg-white border ms-n5"
-                type="button"
-              >
-                <FaSearch style={{ width: "15px", height: "15px" }} />
-              </button>
-            </span>
+        <Col md="5">
+          <div className={`${styles.title} mr-auto p-2`}>
+            All Nurse Accounts
           </div>
-        </div>
+        </Col>
+        <Col md="7">
+          <div class="col-md-5 p-2">
+            <div class="input-group">
+              <input
+                class="form-control border-end-0 border"
+                type="search"
+                placeholder="search"
+                id="example-search-input"
+              />
+              <span class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary bg-white border ms-n5"
+                  type="button"
+                >
+                  <FaSearch style={{ width: "15px", height: "15px" }} />
+                </button>
+              </span>
+            </div>
+          </div>
+        </Col>
       </div>
 
       <Row>
@@ -62,9 +67,7 @@ export default function AllNurseAccounts() {
           </Card>
         </Col>
         <Col md="5">
-
           <Button variant="btn btn-danger" className={`${styles.btndelete}`}>
-
             Delete
           </Button>{" "}
         </Col>
@@ -98,14 +101,15 @@ export default function AllNurseAccounts() {
           </Card>
         </Col>
         <Col md="5">
-
           <Button variant="btn btn-danger" className={`${styles.btndelete}`}>
-
             Delete
           </Button>{" "}
         </Col>
       </Row>
-      <Paginations />
+      <Col md="3"></Col>
+      <Col md="9">
+        <Paginations />
+      </Col>
     </div>
   );
 }

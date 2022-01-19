@@ -1,12 +1,12 @@
 # # name: AWS EC2 CI/CD FE
 
-# # on:
-# #   push:
-# #     branches:
-# #       - "master"
-# #   pull_request:
-# #     branches:
-# #       - "master"
+# on:
+#   push:
+#     branches:
+#       - "master"
+#   pull_request:
+#     branches:
+#       - "master"
 
 
 #   deployment-ec2-aws:

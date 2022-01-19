@@ -1,8 +1,7 @@
 import { React, useState } from "react";
-import { Form, Button, Row, Col, Dropdown, Table } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-function FormAddPrescription() {
+export default function FormAddMedicine() {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -14,7 +13,6 @@ function FormAddPrescription() {
 
     setValidated(true);
   };
-
   return (
     <div>
       <Row className="mt-1">
@@ -31,12 +29,12 @@ function FormAddPrescription() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Date
+                  Name
                 </Form.Label>
                 <Col md="9">
                   <Form.Control type="text" required />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid date.
+                    Please provide a valid name.
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -47,12 +45,12 @@ function FormAddPrescription() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Patient
+                  Type
                 </Form.Label>
                 <Col md="9">
                   <Form.Control type="text" required />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid patient.
+                    Please provide a valid type.
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -63,12 +61,12 @@ function FormAddPrescription() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Symptom
+                  Price
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control type="number" required />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid symptom.
+                    Please provide a valid price.
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -79,82 +77,17 @@ function FormAddPrescription() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Consumption Rule
+                  Stock
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control type="number" required />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid consumption rule.
+                    Please provide a valid stock.
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Note
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid note.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  New Record
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid record.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Table responsive="sm">
-                <thead>
-                  <tr>
-                    <th>Medicine Name</th>
-
-                    <th>Choose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </Table>
             </div>
-            <Link to="/listPrescription">
+            <Link to="/listMedicine">
               <Button
                 type="submit"
                 variant="success"
@@ -173,5 +106,3 @@ function FormAddPrescription() {
     </div>
   );
 }
-
-export default FormAddPrescription;

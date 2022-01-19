@@ -32,7 +32,8 @@ import CardListPatient from "./components/CardListPatientDoctorComponents/CardLi
 // import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
 // import ProfileNurse from "./components/ViewProfile/ProfileNurse";
 // import ProfileStaff from "./components/ViewProfile/ProfileStaff";
-
+import InputMedicinePage from "./pages/inputMedicinePage/InputMedicinePage";
+import WorkDayHour from "./pages/workDayHourPage/WorkDayHour";
 function App() {
   return (
     <div className="App">
@@ -58,6 +59,8 @@ function App() {
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
+              <Route path="/listworkdayhour" element={<WorkDayHour />} />
+              <Route path="/listMedicine" element={<InputMedicinePage />} />
               <Route path="/inputConsultation/:uuid" element={<FormConsul />} />
               <Route path="/listPatient" element={<CardListPatientDoctor />} />
               <Route path="/listDoctor" element={<CardListDoctor />} />

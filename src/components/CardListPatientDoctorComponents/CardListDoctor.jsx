@@ -216,7 +216,7 @@ function CardListDoctor() {
                           <div className="ms-auto p-2 bd-highlight mt-3">
                             <Link to={`/profileDoctor/${item.uuid}`}>
                               <Button
-                                variant="info"
+                                variant="warning"
                                 size="sm"
                                 style={{ marginRight: "30px" }}
                               >
