@@ -1,6 +1,21 @@
-import React from 'react'
-import { Card, Button, Row, Col, Pagination, Container } from "react-bootstrap";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
+import {
+  Button,
+  Card,
+  Container,
+  Row,
+  InputGroup,
+  FormControl,
+  Pagination,
+  Col,
+} from "react-bootstrap";
 import staffprofile from "../../icons/staffProfile.png";
 import nurseicon from "../../icons/nurse-icon.png";
 import { FaSearch, FaIdCard } from "react-icons/fa";
@@ -8,8 +23,193 @@ import manicon from "../../icons/man.png";
 import { FcClock } from "react-icons/fc";
 import ward from "../../icons/bed.png";
 import { GiStethoscope } from "react-icons/gi";
-import styles from "../manageAccountTopComponents/ManageAccountTop.module.css"
+import styles from "../manageAccountTopComponents/ManageAccountTop.module.css";
 export default function ManageAccountTop() {
+  const [doctor, setDoctor] = useState({
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+  const [nurse, setNurse] = useState({
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+  const [error, setError] = useState();
+
+  const fetchDoctor = (page, by) => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else {
+          const page = { ...res.data.page };
+          const length = page.total_data / page.limit;
+          const active = page.offset / page.limit + 1;
+          const items = [];
+          for (let i = 0; i < length; i++) {
+            items.push(i + 1);
+          }
+          setDoctor((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+              currPage: active,
+              pages: items,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
+  const fetchNurse = (page, by) => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .get(`${API_URL}/nurse/?page=${page}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else {
+          const page = { ...res.data.page };
+          const length = page.total_data / page.limit;
+          const active = page.offset / page.limit + 1;
+          const items = [];
+          for (let i = 0; i < length; i++) {
+            items.push(i + 1);
+          }
+          setNurse((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+              currPage: active,
+              pages: items,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchDoctor(1, "");
+    fetchNurse(1, "");
+  }, [setDoctor, setNurse]);
+
+  const handlePageDoctor = (index) => {
+    fetchDoctor(index, "");
+  };
+
+  const handlePageNurse = (index) => {
+    fetchNurse(index, "");
+  };
+
+  const onClickRejectDoctor = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .delete(`${API_URL}/doctor/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
+  const onClickRejectNurse = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .delete(`${API_URL}/nurse/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
+  const onClickAcceptNurse = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .put(`${API_URL}/nurse/accept/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
+  const onClickAcceptDoctor = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .put(`${API_URL}/doctor/accept/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
+
   return (
     <div>
       <div className={`${styles.title}`}>Manage Account </div>
@@ -20,36 +220,42 @@ export default function ManageAccountTop() {
           <Card.Body>
             <Card>
               <Card.Body>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={staffprofile}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    <span className={`${styles.infoJadwal2}`}>dr. Morty</span>
-                    <span className={`${styles.infoJadwal2}`}>Neurology</span>
-                    <span style={{ marginLeft: "20px" }}>
-                      <Button variant="outline-success">Confirm</Button>{" "}
-                      <Button variant="outline-danger">Reject</Button>{" "}
-                    </span>
-                  </Card.Body>
-                </Card>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={staffprofile}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    <span className={`${styles.infoJadwal2}`}>dr. Morty</span>
-                    <span className={`${styles.infoJadwal2}`}>Neurology</span>
-                    <span style={{ marginLeft: "20px" }}>
-                      <Button variant="outline-success">Confirm</Button>{" "}
-                      <Button variant="outline-danger">Reject</Button>{" "}
-                    </span>
-                  </Card.Body>
-                </Card>
+                {error && <p className="text-center text-dark mt-5">{error}</p>}
+                {doctor?.data?.map((item) => (
+                  <Card>
+                    <Card.Body>
+                      {item.avatar === "" ? (
+                        <img
+                          src={staffprofile}
+                          alt=""
+                          className={`${styles.iconDashboard2}`}
+                        />
+                      ) : (
+                        <img src={item.avatar} style={{ height: "65px" }} />
+                      )}
+                      <span className={`${styles.infoJadwal2}`}>
+                        dr.{item.name}
+                      </span>
+                      <span className={`${styles.infoJadwal2}`}>
+                        {item.specialist}
+                      </span>
+                      <span style={{ marginLeft: "20px" }}>
+                        <Button
+                          variant="outline-success"
+                          onClick={() => onClickAcceptDoctor(item)}
+                        >
+                          Confirm
+                        </Button>{" "}
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => onClickRejectDoctor(item)}
+                        >
+                          Reject
+                        </Button>{" "}
+                      </span>
+                    </Card.Body>
+                  </Card>
+                ))}
               </Card.Body>
             </Card>
           </Card.Body>
