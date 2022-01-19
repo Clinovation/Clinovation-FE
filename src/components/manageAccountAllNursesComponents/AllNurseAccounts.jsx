@@ -146,9 +146,7 @@ export default function AllNurseAccounts() {
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>
-
         <div className={`${styles.title} mr-auto p-2`}>All Nurse Accounts</div>
-
         <div class="col-md-5 p-2">
           <div class="input-group">
             <input
@@ -169,9 +167,8 @@ export default function AllNurseAccounts() {
                 <FaSearch style={{ width: "15px", height: "15px" }} />
               </button>
             </span>
-
           </div>
-        </Col>
+        </div>
       </div>
       {error && <p className="text-center text-dark mt-5">{error}</p>}
       {nurse?.data?.map((item) => (
@@ -201,7 +198,6 @@ export default function AllNurseAccounts() {
                         Neurology
                       </span>
                     </span> */}
-
               </Card.Body>
             </Card>
           </Col>
@@ -228,7 +224,6 @@ export default function AllNurseAccounts() {
           </Pagination>
         )}
       </div>
-
     </div>
   );
 }
