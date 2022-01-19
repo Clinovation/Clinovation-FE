@@ -290,14 +290,16 @@ export default function ManageAccountTop() {
                 {nurse?.data?.map((item) => (
                   <Card>
                     <Card.Body>
-                      <img
-                        src={nurseicon}
-                        alt=""
-                        className={`${styles.iconDashboard2}`}
-                      />
+                      {item.avatar === "" ? (
+                        <img
+                          src={nurseicon}
+                          alt=""
+                          className={`${styles.iconDashboard2}`}
+                        />
                       ) : (
-                      <img src={item.avatar} style={{ height: "65px" }} />
+                        <img src={item.avatar} style={{ height: "65px" }} />
                       )}
+
                       {/* penggunaan flex */}
                       {/* <div class="d-flex">
                         <div class="mr-auto p-2"> <img
