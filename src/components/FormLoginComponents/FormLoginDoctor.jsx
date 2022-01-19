@@ -61,8 +61,7 @@ function FormLogin() {
         });
     }
   };
-  console.log(form);
-  console.log(process.env.API_URL);
+
   return (
     <div>
       <Form noValidate onSubmit={onSubmit}>
@@ -82,7 +81,7 @@ function FormLogin() {
               {errorMsg.email}
             </Form.Control.Feedback>
           </Form.Group>
-            
+
           <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -107,7 +106,7 @@ function FormLogin() {
           </Button>
         </div>
       </Form>
-      <br/>
+      <br />
       <div className="d-flex justify-content-center">
         <Link to="/registrasiDoctor">
           <a>Dont have an account? Sign up </a>
