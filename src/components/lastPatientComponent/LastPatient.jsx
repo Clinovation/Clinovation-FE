@@ -5,20 +5,20 @@ import { FcClock } from "react-icons/fc";
 import ward from "../../icons/bed.png";
 import { GiStethoscope } from "react-icons/gi";
 import styles from "../lastPatientComponent/LastPatient.module.css";
-import { Card, Pagination } from "react-bootstrap";
+import { Card, Pagination, InputGroup, FormControl, Button} from "react-bootstrap";
 import Paginations from "../pagination";
 export default function LastPatient() {
   return (
-    <div>
+    <div style={{width: "800px"}}>
       <br />
       <br />
       <br />
-      <div className={`${styles.title2} d-flex`}>
+      <div className="d-flex justify-content-between">
         <div className={`${styles.title} mr-auto p-2`}>Last Patient</div>
 
         {/* <div class="row"> */}
-        <div class="col-md-5 p-2">
-          <div class="input-group">
+        <div>
+          {/* <div class="input-group">
             <input
               class="form-control border-end-0 border"
               type="search"
@@ -34,7 +34,18 @@ export default function LastPatient() {
                 <FaSearch style={{ width: "15px", height: "15px" }} />
               </button>
             </span>
-          </div>
+          </div> */}
+            <div class="ms-auto p-2 bd-highlight">
+                <InputGroup className="mb-3" size="sm" style={{width: '300px'}}>
+                    <FormControl
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    />
+                    <Button variant="outline-secondary" id="button-addon2">
+                    Search
+                    </Button>
+                </InputGroup>
+            </div>
         </div>
       </div>
       {/* </div> */}

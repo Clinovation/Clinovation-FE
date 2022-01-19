@@ -1,10 +1,12 @@
 import { React, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Medstaff from "../../icons/healthCare.png";
 import axios from "axios";
 import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 import useValidateForm from "../../hooks/useValidateForm";
+import style from './DoctorRegis.module.css'
+import Logo from "../../images/Logo.png";
 
 function FormDoctorRegis() {
   const handleLogin = useHandleLogin();
@@ -70,17 +72,20 @@ function FormDoctorRegis() {
   console.log(form);
   return (
     <div>
+      <Container>
+        <Row>
+            <div className="d-flex justify-content-center">
+                <img src={Logo} style={{height: "100px"}}/>
+            </div>
+            
+
+        </Row>
       <Row>
-        <Col md={6} className="m-auto formRegis-container">
-          <h5>
-            <img
-              src={Medstaff}
-              style={{ height: "36px", marginRight: "10px" }}
-            />
-            Doctor Register
-          </h5>
+        <Col md={8} className="m-auto mt-3">
+          <Card style={{backgroundColor:"#F7F7F7"}} className="p-4">
+              <h3><img src={Medstaff} style={{height: "36px", marginRight:"10px"}}/>Doctor Register</h3>
           <Form noValidate onSubmit={onSubmit}>
-            <div className="cardForm">
+            <div className={style.cardForm}>
               <Form.Group
                 as={Row}
                 className="mb-3"
@@ -354,15 +359,20 @@ function FormDoctorRegis() {
               </Form.Group>
             </div>
 
-            <div>
-              <Button type="submit">Register</Button>
+            <div className='d-flex justify-content-center'>
+              <Button type="submit" size='lg' >Register</Button>
             </div>
           </Form>
-          <Link to="/">
-            <a>Already have an account?Login</a>
-          </Link>
+            <div className='d-flex justify-content-center mt-4'>
+              <Link to="/">
+                <a>Already have an account?Login</a>
+              </Link>
+            </div>
+          </Card>
         </Col>
       </Row>
+      </Container>
+      <br/>
     </div>
   );
 }

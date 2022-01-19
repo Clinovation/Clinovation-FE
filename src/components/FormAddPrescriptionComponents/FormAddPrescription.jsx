@@ -17,9 +17,9 @@ function FormAddPrescription() {
 
     return (
         <div>
-            <Row className='mt-5'>
-                <Col md={6} className="m-auto">
-                    <h5>Add Prescription</h5>
+            <Row className='mt-1'>
+                <Col md={10} className="m-auto">
+                    {/* <h5>Add Prescription</h5> */}
                     <div style={{borderTop : "2px solid black", paddingBottom : "10px"}}></div>
                     <Form noValidate validated={validated} onSubmit={handleSubmit} >
                     <div className="cardForm">

@@ -19,7 +19,10 @@ function SideBarDoctor() {
       <div>
         <div className={style.navIconContainer}>
           <div className={style.navIconItem}>
-            <img src={Avatar} style={{ height: "24px" }} />
+            <Link to="/updateProfileDoctor">
+              <img src={Avatar} style={{ height: "24px" }} />
+            </Link>
+            
             <p style={{ fontSize: "10px" }}>Ralph Murphy</p>
           </div>
 
@@ -29,7 +32,7 @@ function SideBarDoctor() {
           <Link to="/listPrescription" className="m-auto">
             <img src={MedicalRecord} style={{ height: "24px" }} />
           </Link>
-          <Link to="/listPatient" className="m-auto">
+          <Link to="/listPatientDoctor" className="m-auto">
             <img src={Medical} style={{ height: "24px" }} />
           </Link>
         </div>

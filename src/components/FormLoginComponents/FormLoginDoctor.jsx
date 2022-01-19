@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Col, FloatingLabel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import style from "../FormLoginComponents/FormLogin.module.css";
 import useValidateForm from "../../hooks/useValidateForm";
@@ -67,8 +67,8 @@ function FormLogin() {
     <div>
       <Form noValidate onSubmit={onSubmit}>
         <div className={style.cardForm}>
-          <Form.Group as={Col} md="6">
-            <Form.Label>Email</Form.Label>
+          <Form.Group className="mb-3">
+            <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               required
@@ -82,8 +82,8 @@ function FormLogin() {
               {errorMsg.email}
             </Form.Control.Feedback>
           </Form.Group>
-
-          <Form.Group as={Col} md="6">
+            
+          <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -107,6 +107,7 @@ function FormLogin() {
           </Button>
         </div>
       </Form>
+      <br/>
       <div className="d-flex justify-content-center">
         <Link to="/registrasiDoctor">
           <a>Dont have an account? Sign up </a>

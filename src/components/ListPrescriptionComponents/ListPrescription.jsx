@@ -1,17 +1,71 @@
-import React from 'react'
-import {Table, Button, Container, InputGroup,FormControl, Row} from "react-bootstrap"
+import {React, useState} from 'react'
+import {Table, Button, Container, InputGroup,FormControl, Row, Modal, Col} from "react-bootstrap"
 import { Link } from 'react-router-dom'
+import FormAddPrescription from '../FormAddPrescriptionComponents/FormAddPrescription'
+import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor';
+
+function ModalAddPrescription(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        {/* <Modal.Title id="contained-modal-title-vcenter">
+          <div class="d-flex justify-content-end">
+            <img
+              src={Logo}
+              style={{ height: "100px" }}
+              class="d-flex justify-content-end"
+            />
+          </div>
+        </Modal.Title> */}
+      </Modal.Header>
+      <Modal.Body style={{ backgroundColor: "#F7F7F7" }}>
+        <div style={{ textAlign: "center" }}>
+          <h4>
+            {/* <img
+              src={HealthCare}
+              style={{ height: "50px", marginRight: "10px" }}
+            /> */}
+            Add Prescription
+          </h4>
+        </div>
+        <FormAddPrescription />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 function ListPrescription() {
+    const [modalShow, setModalShow] = useState(false);
     return (
-        <div className='mt-5'>
-            <Container>
+       
+        <div>
+             <ModalAddPrescription
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+            <Container fluid>
+              <Row>
+                <Col md="1">
+                  <SideBarDoctor/>
+                </Col>
+                
+                <Col md={10} className='mt-4'>
                 <Row>
                     <div class="d-flex bd-highlight">
                         <div class="p-2 bd-highlight">
-                            <Link to="/addPrescription">
-                                <Button variant="success">Add New Prescription</Button>
-                            </Link>
+                            {/* <Link to="/addPrescription"> */}
+                                <Button variant="success" onClick={() => setModalShow(true)}>Add New Prescription</Button>
+                            {/* </Link> */}
                         </div>
                     
                         <div class="ms-auto p-2 bd-highlight">
@@ -78,6 +132,8 @@ function ListPrescription() {
                     </tr>
                     </tbody>
                 </Table>
+                </Col>
+              </Row>
             </Container>
         </div>
     )

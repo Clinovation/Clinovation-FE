@@ -18,6 +18,21 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import FormDoctorRegis from "./components/FormDoctorRegisComponents/FormDoctorRegis";
 import FormStaffRegis from "./components/FormStaffRegisComponents/FormStaffRegis";
+import CardListDoctor from "./components/CardListPatientDoctorComponents/CardListDoctor";
+import CardListNurse from "./components/CardListPatientDoctorComponents/CardListNurse";
+import CardListStaff from "./components/CardListPatientDoctorComponents/CardListStaff";
+import MedicalRecord from "./components/MedicalRecordComponents/MedicalRecord";
+import MedicalRecordConsul from "./components/MedicalRecordComponents/MedicalRecordConsul";
+import FormConsul from "./components/FormPatient/FormConsul";
+import ProfileStaff from "./components/ViewProfile/ProfileStaff";
+import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
+import ProfileNurse from "./components/ViewProfile/ProfileNurse";
+import FormPatientRegis from "./components/FormPatient/FormPatientRegis";
+import CardListPatient from "./components/CardListPatientDoctorComponents/CardListPatient";
+// import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
+// import ProfileNurse from "./components/ViewProfile/ProfileNurse";
+// import ProfileStaff from "./components/ViewProfile/ProfileStaff";
+
 
 function App() {
   return (
@@ -35,24 +50,39 @@ function App() {
                 element={<FormUpdateProfileDoctor />}
               />
               <Route path="/listPrescription" element={<ListPrescription />} />
+              <Route path="/medicalRecord" element={<MedicalRecord />} />
+              <Route path="/medicalRecordConsultation" element={<MedicalRecordConsul />} />
               <Route
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
+              <Route path="/inputConsultation" element={<FormConsul />} />
               <Route path="/listPatient" element={<CardListPatientDoctor />} />
+              <Route path="/listDoctor" element={<CardListDoctor />} />
+              <Route path="/listNurse" element={<CardListNurse />} />
+              <Route path="/listStaff" element={<CardListStaff />} />
               <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
               <Route path="/registrasiStaff" element={<FormStaffRegis />} />
+              <Route path="/registrasiPatient" element={<FormPatientRegis />} />
 
+              <Route path="/listPatientDoctor" element={<CardListPatient />} />
+
+              <Route path="/profileStaff" element={<ProfileStaff />} />
+              <Route path="/profileDoctor" element={<ProfileDoctor />} />
+              <Route path="/profileNurse" element={<ProfileNurse />} />
               <Route path="/dashboardStaff" element={<StaffDashboard />} />
               <Route path="/allSchedules" element={<AllSchedulesPage />} />
               <Route path="/manageAccount" element={<ManageAccount />} />
-              <Route path="/profileStaff" element={<StaffProfilePage />} />
+              <Route path="/profileUpdateStaff" element={<StaffProfilePage />} />
               <Route
                 path="/viewprofileStaff"
                 element={<ViewStaffProfilePage />}
               />
-            </Routes>
-            {/* <MenuLogin /> */}
+              </Routes>
+
+              {/* <Route path="/profileDoctor" element={<ProfileDoctor />} /> */}
+              {/* <Route path="/profileNurse" element={<ProfileNurse />} />
+              <Route path="/profileStaff" element={<ProfileStaff />} /> */}
           </BrowserRouter>
         </PersistGate>
       </Provider>
