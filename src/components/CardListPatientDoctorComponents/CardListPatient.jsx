@@ -45,7 +45,7 @@ function CardListPatient() {
                                                 <div className="p-2 bd-highlight mt-3"><h6>710481048018</h6></div>
                                                 <div className="ms-auto p-2 bd-highlight mt-3">
                                                     <Link to="/medicalRecordConsultation">
-                                                        <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
+                                                        <Button variant="warning" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
                                                     </Link>
                                                 </div> 
                                             </div>

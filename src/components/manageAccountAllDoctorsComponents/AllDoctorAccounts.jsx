@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../manageAccountAllDoctorsComponents/AllDoctorAccounts.module.css";
@@ -17,11 +18,13 @@ import {
   Pagination,
   Col,
 } from "react-bootstrap";
+
 import staffprofile from "../../icons/staffProfile.png";
 import nurseicon from "../../icons/nurse-icon.png";
 import ward from "../../icons/bed.png";
 import { FaSearch, FaIdCard } from "react-icons/fa";
 import Paginations from "../pagination";
+
 
 export default function AllDoctorAccounts() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
@@ -257,6 +260,7 @@ export default function AllDoctorAccounts() {
           </Pagination>
         )}
       </div>
+
 
       <br />
       <br />

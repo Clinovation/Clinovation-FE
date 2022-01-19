@@ -22,6 +22,9 @@ import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
 
 function CardListPatientDoctor() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
+
+  const [modalShow, setModalShow] = useState(false);
+
   const [patient, setPatient] = useState({
     by: "",
     data: [],
@@ -160,6 +163,17 @@ function CardListPatientDoctor() {
                 <div class="d-flex bd-highlight">
                   <div class="p-2 bd-highlight">
                     <h3>Patient Lists</h3>
+
+                    <Link to={"/registrasiPatient"}>
+                      <Button
+                        variant="success"
+                        onClick={() => setModalShow(true)}
+                        style={{ margin: "10px 0 " }}
+                      >
+                        Add New Patient
+                      </Button>
+                    </Link>
+
                   </div>
 
                   <div class="ms-auto p-2 bd-highlight">
@@ -188,7 +202,9 @@ function CardListPatientDoctor() {
                 </div>
               </Row>
 
+
               {error && <p className="text-center text-dark mt-5">{error}</p>}
+
               {patient?.data?.map((item) => (
                 <Row>
                   <div className="d-flex justify-content-center mt-2">
@@ -220,7 +236,9 @@ function CardListPatientDoctor() {
                           <div className="ms-auto p-2 bd-highlight mt-3">
                             <Link to={`/medicalRecord/${item.uuid}`}>
                               <Button
+
                                 variant="info"
+
                                 size="sm"
                                 style={{ marginRight: "30px" }}
                               >
@@ -230,7 +248,9 @@ function CardListPatientDoctor() {
                               </Button>
                             </Link>
                             <Link to={`/inputConsultation/${item.uuid}`}>
+
                               <Button variant="info" size="sm">
+
                                 <div style={{ color: "#ffffff" }}>
                                   Add New Consultation
                                 </div>

@@ -20,7 +20,7 @@ function SideBarDoctor() {
         <div className={style.navIconContainer}>
           <div className={style.navIconItem}>
             <Link to="/updateProfileDoctor">
-              <img src={Avatar} style={{ height: "24px" }} />
+              <img src={Avatar} style={{ height: "40px" }} />
             </Link>
             
             <p style={{ fontSize: "10px" }}>Ralph Murphy</p>

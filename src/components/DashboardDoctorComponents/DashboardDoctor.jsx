@@ -74,8 +74,8 @@ function CardDashboardDoctor() {
                                 <div class="p-2 bd-highlight mt-2" style={{ width: '65px' }}><strong>Ralph</strong></div>
                                 <div class="p-2 bd-highlight mt-2" style={{ width: '110px' }}><strong>32 Years old</strong></div>
                                 <div class="p-2 bd-highlight mt-2" style={{ width: '130px' }}><strong>710481048018</strong></div>
-                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="info" size="sm">Patient Record</Button></div>
-                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="warning" size="sm">Done</Button></div>
+                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="warning" size="sm">Patient Record</Button></div>
+                                <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="success" size="sm">Done</Button></div>
                             </div>
                         </Card.Body>
                     </Card>

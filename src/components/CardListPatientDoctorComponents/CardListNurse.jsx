@@ -181,7 +181,9 @@ function CardListNurse() {
                 </div>
               </Row>
 
+
               {error && <p className="text-center text-dark mt-5">{error}</p>}
+
               {nurse?.data?.map((item) => (
                 <Row>
                   <div className="d-flex justify-content-center mt-2">
@@ -210,7 +212,9 @@ function CardListNurse() {
                           <div className="ms-auto p-2 bd-highlight mt-3">
                             <Link to={`/profileNurse/${item.uuid}`}>
                               <Button
+
                                 variant="info"
+
                                 size="sm"
                                 style={{ marginRight: "30px" }}
                               >

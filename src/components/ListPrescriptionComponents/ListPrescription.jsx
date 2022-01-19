@@ -35,11 +35,11 @@ function ModalAddPrescription(props) {
         </div>
         <FormAddPrescription />
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }
@@ -59,7 +59,7 @@ function ListPrescription() {
                   <SideBarDoctor/>
                 </Col>
                 
-                <Col md={10} className='mt-4'>
+                <Col md={11} className='mt-4'>
                 <Row>
                     <div class="d-flex bd-highlight">
                         <div class="p-2 bd-highlight">
