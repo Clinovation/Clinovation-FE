@@ -33,7 +33,6 @@ import CardListPatient from "./components/CardListPatientDoctorComponents/CardLi
 // import ProfileNurse from "./components/ViewProfile/ProfileNurse";
 // import ProfileStaff from "./components/ViewProfile/ProfileStaff";
 
-
 function App() {
   return (
     <div className="App">
@@ -50,13 +49,16 @@ function App() {
                 element={<FormUpdateProfileDoctor />}
               />
               <Route path="/listPrescription" element={<ListPrescription />} />
-              <Route path="/medicalRecord" element={<MedicalRecord />} />
-              <Route path="/medicalRecordConsultation" element={<MedicalRecordConsul />} />
+              <Route path="/medicalRecord/:uuid" element={<MedicalRecord />} />
+              <Route
+                path="/medicalRecordConsultation"
+                element={<MedicalRecordConsul />}
+              />
               <Route
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
-              <Route path="/inputConsultation" element={<FormConsul />} />
+              <Route path="/inputConsultation/:uuid" element={<FormConsul />} />
               <Route path="/listPatient" element={<CardListPatientDoctor />} />
               <Route path="/listDoctor" element={<CardListDoctor />} />
               <Route path="/listNurse" element={<CardListNurse />} />
@@ -73,15 +75,18 @@ function App() {
               <Route path="/dashboardStaff" element={<StaffDashboard />} />
               <Route path="/allSchedules" element={<AllSchedulesPage />} />
               <Route path="/manageAccount" element={<ManageAccount />} />
-              <Route path="/profileUpdateStaff" element={<StaffProfilePage />} />
+              <Route
+                path="/profileUpdateStaff"
+                element={<StaffProfilePage />}
+              />
               <Route
                 path="/viewprofileStaff"
                 element={<ViewStaffProfilePage />}
               />
-              </Routes>
+            </Routes>
 
-              {/* <Route path="/profileDoctor" element={<ProfileDoctor />} /> */}
-              {/* <Route path="/profileNurse" element={<ProfileNurse />} />
+            {/* <Route path="/profileDoctor" element={<ProfileDoctor />} /> */}
+            {/* <Route path="/profileNurse" element={<ProfileNurse />} />
               <Route path="/profileStaff" element={<ProfileStaff />} /> */}
           </BrowserRouter>
         </PersistGate>

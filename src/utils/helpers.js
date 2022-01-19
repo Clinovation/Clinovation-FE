@@ -21,6 +21,15 @@ function HandleUnauthorized(res) {
   }
 }
 
+function HandleLowerCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function HandleDate(date) {
+  const formattedDate = new Date(date);
+  return formattedDate.toLocaleDateString("en-GB");
+}
+
 function GenerateAxiosConfig() {
   const cookies = new Cookies();
   const token = Base64.decode(cookies.get("token"));
@@ -32,4 +41,10 @@ function GenerateAxiosConfig() {
   return config;
 }
 
-export { HandleUnauthorized, Redirect, GenerateAxiosConfig };
+export {
+  HandleUnauthorized,
+  Redirect,
+  HandleLowerCase,
+  HandleDate,
+  GenerateAxiosConfig,
+};
