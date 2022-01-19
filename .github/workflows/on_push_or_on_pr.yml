@@ -1,6 +1,5 @@
 name: AWS EC2 CI/CD FE
 
-
 on:
   push:
     branches:
@@ -25,7 +24,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push image to Docker Hub
         run: docker push hencya/fe-clinovation:latest
-
 
   deployment-ec2-aws:
     name: Deploy to AWS EC2
