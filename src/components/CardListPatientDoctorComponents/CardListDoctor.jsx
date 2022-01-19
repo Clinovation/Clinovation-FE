@@ -184,7 +184,7 @@ function CardListDoctor() {
                 </div>
               </Row>
 
-              {error && <p className="text-center text-light mt-5">{error}</p>}
+              {error && <p className="text-center text-dark mt-5">{error}</p>}
               {doctor?.data?.map((item) => (
                 <Row>
                   <div className="d-flex justify-content-center mt-2">

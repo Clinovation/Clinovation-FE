@@ -35,15 +35,16 @@ export default function ManageAccountTop() {
     currPage: 1,
     pages: [],
   });
-  const [error, setError] = useState();
+  const [errorDoctor, setErrorDoctor] = useState();
+  const [errorNurse, setErrorNurse] = useState();
 
   const fetchDoctor = (page, by) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
-      .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+      .get(`${API_URL}/doctor/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorDoctor("No record found");
         } else {
           const page = { ...res.data.page };
           const length = page.total_data / page.limit;
@@ -65,7 +66,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorDoctor(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -74,10 +75,10 @@ export default function ManageAccountTop() {
   const fetchNurse = (page, by) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
-      .get(`${API_URL}/nurse/?page=${page}`, GenerateAxiosConfig())
+      .get(`${API_URL}/nurse/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorNurse("No record found");
         } else {
           const page = { ...res.data.page };
           const length = page.total_data / page.limit;
@@ -99,7 +100,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorNurse(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -125,17 +126,17 @@ export default function ManageAccountTop() {
       .delete(`${API_URL}/doctor/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorDoctor("No record found");
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setErrorDoctor("Forbiden");
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setErrorDoctor("Internal Server Error");
         }
       })
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorDoctor(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -148,17 +149,17 @@ export default function ManageAccountTop() {
       .delete(`${API_URL}/nurse/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorNurse("No record found");
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setErrorNurse("Forbiden");
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setErrorNurse("Internal Server Error");
         }
       })
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorNurse(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -168,20 +169,20 @@ export default function ManageAccountTop() {
     // const API_URL = process.env.BE_API_URL;
     const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
-      .put(`${API_URL}/nurse/accept/${item.uuid}`, GenerateAxiosConfig())
+      .put(`${API_URL}/nurse/accept/${item.uuid}`, {}, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorNurse("No record found");
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setErrorNurse("Forbiden");
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setErrorNurse("Internal Server Error");
         }
       })
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorNurse(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -191,20 +192,20 @@ export default function ManageAccountTop() {
     // const API_URL = process.env.BE_API_URL;
     const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
-      .put(`${API_URL}/doctor/accept/${item.uuid}`, GenerateAxiosConfig())
+      .put(`${API_URL}/doctor/accept/${item.uuid}`, {}, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setErrorDoctor("No record found");
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setErrorDoctor("Forbiden");
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setErrorDoctor("Internal Server Error");
         }
       })
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setError(error.response.data.meta.messages[0]);
+          setErrorDoctor(error.response.data.meta.messages[0]);
           console.log(error);
         }
       });
@@ -220,7 +221,9 @@ export default function ManageAccountTop() {
           <Card.Body>
             <Card>
               <Card.Body>
-                {error && <p className="text-center text-dark mt-5">{error}</p>}
+                {errorDoctor && (
+                  <p className="text-center text-dark mt-5">{errorDoctor}</p>
+                )}
                 {doctor?.data?.map((item) => (
                   <Card>
                     <Card.Body>
@@ -256,6 +259,21 @@ export default function ManageAccountTop() {
                     </Card.Body>
                   </Card>
                 ))}
+                <div className="d-flex justify-content-center">
+                  {doctor && (
+                    <Pagination className="align-self-center">
+                      {doctor.pages.map((item) => (
+                        <Pagination.Item
+                          key={item}
+                          active={item === doctor.currPage}
+                          onClick={() => handlePageDoctor(item)}
+                        >
+                          {item}
+                        </Pagination.Item>
+                      ))}
+                    </Pagination>
+                  )}
+                </div>
               </Card.Body>
             </Card>
           </Card.Body>
@@ -266,15 +284,22 @@ export default function ManageAccountTop() {
           <Card.Body>
             <Card>
               <Card.Body>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={nurseicon}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    {/* penggunaan flex */}
-                    {/* <div class="d-flex">
+                {errorNurse && (
+                  <p className="text-center text-dark mt-5">{errorNurse}</p>
+                )}
+                {nurse?.data?.map((item) => (
+                  <Card>
+                    <Card.Body>
+                      <img
+                        src={nurseicon}
+                        alt=""
+                        className={`${styles.iconDashboard2}`}
+                      />
+                      ) : (
+                      <img src={item.avatar} style={{ height: "65px" }} />
+                      )}
+                      {/* penggunaan flex */}
+                      {/* <div class="d-flex">
                         <div class="mr-auto p-2"> <img
                         src={nurseicon}
                         alt=""
@@ -285,41 +310,44 @@ export default function ManageAccountTop() {
                         <div class="p-2"><Button variant="outline-success">Confirm</Button>{' '}</div>
                         <div class="p-2"><Button variant="outline-danger">Reject</Button>{' '}</div>
                       </div> */}
-
-                    <span
-                      className={`${styles.infoJadwal}`}
-                      style={{ width: "10px" }}
-                    >
-                      Nurse Monty
-                    </span>
-
-                    <span style={{ marginLeft: "20px" }}>
-                      <Button variant="outline-success">Confirm</Button>{" "}
-                      <Button variant="outline-danger">Reject</Button>{" "}
-                    </span>
-                  </Card.Body>
-                </Card>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={nurseicon}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-
-                    <span
-                      className={`${styles.infoJadwal}`}
-                      style={{ width: "58px" }}
-                    >
-                      Nurse Alex
-                    </span>
-
-                    <span style={{ marginLeft: "20px" }}>
-                      <Button variant="outline-success">Confirm</Button>{" "}
-                      <Button variant="outline-danger">Reject</Button>{" "}
-                    </span>
-                  </Card.Body>
-                </Card>
+                      <span
+                        className={`${styles.infoJadwal}`}
+                        style={{ width: "10px" }}
+                      >
+                        Nurse {item.name}
+                      </span>
+                      <span style={{ marginLeft: "20px" }}>
+                        <Button
+                          variant="outline-success"
+                          onClick={() => onClickAcceptNurse(item)}
+                        >
+                          Confirm
+                        </Button>{" "}
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => onClickRejectNurse(item)}
+                        >
+                          Reject
+                        </Button>{" "}
+                      </span>
+                    </Card.Body>
+                  </Card>
+                ))}
+                <div className="d-flex justify-content-center">
+                  {nurse && (
+                    <Pagination className="align-self-center">
+                      {nurse.pages.map((item) => (
+                        <Pagination.Item
+                          key={item}
+                          active={item === nurse.currPage}
+                          onClick={() => handlePageNurse(item)}
+                        >
+                          {item}
+                        </Pagination.Item>
+                      ))}
+                    </Pagination>
+                  )}
+                </div>
               </Card.Body>
             </Card>
           </Card.Body>
