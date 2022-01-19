@@ -1,12 +1,12 @@
-# name: AWS EC2 CI/CD FE
+name: AWS EC2 CI/CD FE
 
-# on:
-#   push:
-#     branches:
-#       - "master"
-#   pull_request:
-#     branches:
-#       - "master"
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "master"
 
 jobs:
   build-push-docker:
@@ -60,7 +60,7 @@ jobs:
         #   JWT_EXPIRE: ${{ secrets.JWT_EXPIRE }}
         run: |
           ssh development '
-          docker rm -vf fe-clinovation  && \
+          docker rm -vf fe-clinovation && \
           docker pull hencya/fe-clinovation:latest && \
           docker run -d -p 3000:3000 --name fe-clinovation \
           hencya/fe-clinovation:latest'
