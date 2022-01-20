@@ -62,7 +62,7 @@ function App() {
                 element={<FormAddPrescription />}
               />
 
-              <Route path="/listworkdayhour" element={<WorkDayHour />} />
+              <Route path="/listWorkDayHour" element={<WorkDayHour />} />
               <Route path="/listMedicine" element={<InputMedicinePage />} />
 
               <Route path="/inputConsultation/:uuid" element={<FormConsul />} />

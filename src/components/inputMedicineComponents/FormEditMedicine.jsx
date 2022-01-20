@@ -4,8 +4,8 @@ import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import useValidateForm from "../../hooks/useValidateForm";
 
-export default function FormAddMedicine() {
-  // const [validated, setValidated] = useState(false);
+export default function FormEditMedicine(props) {
+  const { uuid } = props;
   const { validateForm } = useValidateForm();
   const initialValue = {
     name: "",
@@ -49,7 +49,7 @@ export default function FormAddMedicine() {
       // const API_URL = process.env.BE_API_URL;
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/medicine/`, { ...form }, GenerateAxiosConfig())
+        .put(`${API_URL}/medicine/${uuid}`, { ...form }, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -186,6 +186,7 @@ export default function FormAddMedicine() {
                 </Col>
               </Form.Group>
             </div>
+
             <Button
               type="submit"
               variant="success"
@@ -196,8 +197,8 @@ export default function FormAddMedicine() {
             </Button>
 
             {/* <Link to="/listPrescription">
-                        <Button type="submit" variant="warning">Back</Button>   
-                    </Link> */}
+                          <Button type="submit" variant="warning">Back</Button>   
+                      </Link> */}
           </Form>
         </Col>
       </Row>

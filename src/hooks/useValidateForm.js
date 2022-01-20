@@ -1,6 +1,8 @@
 export default function useValidateForm() {
   const validateForm = (name, value, formValue = undefined) => {
     const regexName = /^[a-zA-Z ]{3,}$/;
+    const regexNumber = /^[0-9]*$/;
+    const regexString = /^[A-Za-z]+$/;
     const regexDob =
       /^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$/;
     const regexPassword = /.{6,}$/;
@@ -33,7 +35,7 @@ export default function useValidateForm() {
         messages = { [name]: "" };
       }
       if (name === "name" && !regexName.test(value)) {
-        messages = { [name]: "Min. 3 character and Not a Number" };
+        messages = { [name]: "Min. 3 character and String Only" };
       } else if (name === "name" && regexName.test(value)) {
         messages = { [name]: "" };
       }
@@ -42,9 +44,32 @@ export default function useValidateForm() {
       } else if (name === "dob" && regexDob.test(value)) {
         messages = { [name]: "" };
       }
-      if (name === "sex" && value === "") {
+      if (name === "price" && !regexNumber.test(value)) {
+        messages = { [name]: "Number Only" };
+      } else if (name === "price" && regexNumber.test(value)) {
         messages = { [name]: "" };
       }
+      if (name === "stock" && !regexNumber.test(value)) {
+        messages = { [name]: "Number Only" };
+      } else if (name === "stock" && regexNumber.test(value)) {
+        messages = { [name]: "" };
+      }
+      if (name === "type" && !regexName.test(value)) {
+        messages = { [name]: "Min. 3 character and String Only" };
+      } else if (name === "type" && regexName.test(value)) {
+        messages = { [name]: "" };
+      }
+      if (name === "sex" && !regexString.test(value)) {
+        messages = { [name]: "String Only" };
+      } else if (name === "sex" && regexString.test(value)) {
+        messages = { [name]: "" };
+      }
+      if (name === "work_experience" && !regexString.test(value)) {
+        messages = { [name]: "String Only" };
+      } else if (name === "work_experience" && regexString.test(value)) {
+        messages = { [name]: "" };
+      }
+
       if (name === "work_experience" && value === "") {
         messages = { [name]: "" };
       }

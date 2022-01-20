@@ -39,7 +39,7 @@ export default function ManageAccountTop() {
   const [errorNurse, setErrorNurse] = useState();
 
   const fetchDoctor = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://  :8080/api/v1";
     axios
       .get(`${API_URL}/doctor/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
@@ -136,7 +136,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setErrorDoctor(error.response.data.meta.messages[0]);
+          setErrorDoctor(error.response.data.errors[0]);
           console.log(error);
         }
       });
@@ -159,7 +159,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setErrorNurse(error.response.data.meta.messages[0]);
+          setErrorNurse(error.response.data.errors[0]);
           console.log(error);
         }
       });
@@ -182,7 +182,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setErrorNurse(error.response.data.meta.messages[0]);
+          setErrorNurse(error.response.data.errors[0]);
           console.log(error);
         }
       });
@@ -205,7 +205,7 @@ export default function ManageAccountTop() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setErrorDoctor(error.response.data.meta.messages[0]);
+          setErrorDoctor(error.response.data.errors[0]);
           console.log(error);
         }
       });
