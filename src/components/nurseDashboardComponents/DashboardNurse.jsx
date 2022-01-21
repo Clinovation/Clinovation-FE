@@ -5,11 +5,9 @@ import patientvisit from "../../icons/patientvisit.svg";
 import aidkit from "../../icons/firstaidkit.svg";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import style from "../DashboardDoctorComponents/DashboardDoctor.module.css";
+import style from "../nurseDashboardComponents/DashboardNurse.module.css"
 
-function CardDashboardDoctor() {
-  // const URL = "https://api.kawalcorona.com/"
-
+export default function DashboardNurse() {
   const URL =
     "https://api.thenewsapi.com/v1" +
     "/news/top?api_token=zZ9yRPDK4tiBAkdRnLsPVaszpafDprZ6pJVOnbYL&locale=id&language=id";
@@ -34,6 +32,7 @@ function CardDashboardDoctor() {
   return (
     <div>
       <Container>
+       
         <div className="d-flex justify-content-center">
           <Row className="g-5">
             <Col>
@@ -105,5 +104,3 @@ function CardDashboardDoctor() {
     </div>
   );
 }
-
-export default CardDashboardDoctor;
