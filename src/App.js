@@ -35,7 +35,8 @@ import CardListPatient from "./components/CardListPatientDoctorComponents/CardLi
 
 import InputMedicinePage from "./pages/inputMedicinePage/InputMedicinePage";
 import WorkDayHour from "./pages/workDayHourPage/WorkDayHour";
-
+import MedicalRecordonDoctor from './components/MedicalRecordComponents/MedicalRecordonDoctor'
+import FormUpdatePrescription from "./components/FormAddPrescriptionComponents/FormUpdatePrescription";
 function App() {
   return (
     <div className="App">
@@ -53,13 +54,18 @@ function App() {
               />
               <Route path="/listPrescription" element={<ListPrescription />} />
               <Route path="/medicalRecord/:uuid" element={<MedicalRecord />} />
+              <Route path="/medicalRecordPatient/:uuid" element={<MedicalRecordonDoctor />} />
               <Route
-                path="/medicalRecordConsultation"
+                path="/medicalRecordConsultation/:uuid"
                 element={<MedicalRecordConsul />}
               />
               <Route
                 path="/addPrescription"
                 element={<FormAddPrescription />}
+              />
+              <Route
+                path="/updatePrescription"
+                element={<FormUpdatePrescription />}
               />
 
               <Route path="/listworkdayhour" element={<WorkDayHour />} />
@@ -70,11 +76,10 @@ function App() {
               <Route path="/listDoctor" element={<CardListDoctor />} />
               <Route path="/listNurse" element={<CardListNurse />} />
               <Route path="/listStaff" element={<CardListStaff />} />
+              <Route path="/listPatienDoctor" element={<CardListPatient />} />
               <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
               <Route path="/registrasiStaff" element={<FormStaffRegis />} />
               <Route path="/registrasiPatient" element={<FormPatientRegis />} />
-
-              <Route path="/listPatientDoctor" element={<CardListPatient />} />
 
               <Route path="/profileStaff/:uuid" element={<ProfileStaff />} />
               <Route path="/profileDoctor/:uuid" element={<ProfileDoctor />} />

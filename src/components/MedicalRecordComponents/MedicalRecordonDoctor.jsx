@@ -11,6 +11,7 @@ import {
   HandleLowerCase,
   HandleUnauthorized,
 } from "../../utils/helpers";
+import SideBarDoctor from "../SideBarDoctorComponents/SideBarDoctor";
 
 function MedicalRecord() {
     const [modalShow, setModalShow] = useState(false);
@@ -73,7 +74,7 @@ function MedicalRecord() {
             <Container fluid>
             <Row>
                 <Col md="1">
-                        <SideBarMedStaff/>
+                    <SideBarDoctor/>
                 </Col>
 
                 <Col md={6} className="m-auto">
@@ -105,7 +106,7 @@ function MedicalRecord() {
                         </div>
                         <br/>
                         <div className='d-flex justify-content-center'>
-                            <Link to='/listPatient'>
+                            <Link to='/listPatienDoctor'>
                                 <Button type="submit" variant="warning" size='lg'>Back to All Patient</Button>
                             </Link>
                             

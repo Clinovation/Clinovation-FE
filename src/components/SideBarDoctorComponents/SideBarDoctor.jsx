@@ -32,7 +32,7 @@ function SideBarDoctor() {
           <Link to="/listPrescription" className="m-auto">
             <img src={MedicalRecord} style={{ height: "24px" }} />
           </Link>
-          <Link to="/listPatientDoctor" className="m-auto">
+          <Link to="/listPatienDoctor" className="m-auto">
             <img src={Medical} style={{ height: "24px" }} />
           </Link>
         </div>

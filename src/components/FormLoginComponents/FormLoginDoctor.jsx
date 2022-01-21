@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { Form, Button, Col, FloatingLabel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import style from "../FormLoginComponents/FormLogin.module.css";
@@ -6,18 +6,8 @@ import useValidateForm from "../../hooks/useValidateForm";
 import axios from "axios";
 import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 
+
 function FormLogin() {
-  // const [validated, setValidated] = useState(false);
-
-  // const handleSubmit = (event) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-
-  //   setValidated(true);
-  // };
   const handleLogin = useHandleLogin();
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
@@ -60,6 +50,9 @@ function FormLogin() {
           });
         });
     }
+    setTimeout(() => {
+      alert("BERHASIL LOGIN");
+    }, 1000);
   };
 
   return (

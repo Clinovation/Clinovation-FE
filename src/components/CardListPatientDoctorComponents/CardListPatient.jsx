@@ -1,10 +1,143 @@
-import React from 'react'
-import { Button,Card, Container, Row, InputGroup, FormControl, Col } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Button,Card, Container, Row, InputGroup, FormControl, Col, Pagination } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Avatar from '../../icons/staffProfile.png'
 import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor'
+import axios from "axios";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
 
 function CardListPatient() {
+  const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
+
+  const [patient, setPatient] = useState({
+    by: "",
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+  const [error, setError] = useState();
+
+  const fetch = (page, by) => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    if (patient.by === "") {
+      axios
+        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .then((res) => {
+          if (res.status === 204) {
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setPatient((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+    } else if (checkName.test(patient.by)) {
+      axios
+        .get(
+          `${API_URL}/patient/?name=${by}&page=${page}`,
+          GenerateAxiosConfig()
+        )
+        .then((res) => {
+          if (res.status === 204) {
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setPatient((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+    } else {
+      axios
+        .get(
+          `${API_URL}/patient/?nik=${by}&page=${page}`,
+          GenerateAxiosConfig()
+        )
+        .then((res) => {
+          if (res.status === 204) {
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setPatient((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+    }
+  };
+
+  useEffect(() => {
+    fetch(1, "");
+  }, [setPatient]);
+
+  const handlePage = (index) => {
+    fetch(index, patient.by);
+  };
+  const onChange = (e) => {
+    const value = e.target.value;
+    setPatient({ ...patient, by: value });
+  };
+
     return (
         <div>
             <Container fluid>
@@ -32,19 +165,35 @@ function CardListPatient() {
                                     </div>
                                 </div>
                             </Row>
-                                
+                            
+                            {error && <p className="text-center text-dark mt-5">{error}</p>}
+
+                            {patient?.data?.map((item) => (
                             <Row>
                                 <div className='d-flex justify-content-center mt-5'>
                                 
-                                    <Card style={{ marginBottom: '10px', width : "900px" }}>
+                                    <Card style={{ marginBottom: '10px', width : "900px" }} key={item.id}>
                                         <Card.Body  style={{ overflowX : "auto" }}>
                                             <div class="d-flex bd-highlight">
-                                                <div class="p-2 bd-highlight"><img src={Avatar} style={{height: "56px", marginRight: "10px"}}/></div>
-                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "65px"}}>Ralph</h6></div>
-                                                <div className="p-2 bd-highlight mt-3"><h6 style={{marginRight: "65px"}}>32 Years old</h6></div>
-                                                <div className="p-2 bd-highlight mt-3"><h6>710481048018</h6></div>
+                                                <div class="p-2 bd-highlight">
+                                                  {item.avatar === "" ? (
+                                                    <img src={Avatar} style={{ height: "56px" }} />
+                                                  ) : (
+                                                    <img
+                                                      src={item.avatar}
+                                                      style={{ height: "56px" }}
+                                                    />
+                                                  )}
+                                                </div>
+                                                <div className="p-2 bd-highlight mt-3">
+                                                  <h6 style={{marginRight: "65px"}}>{item.name}</h6>
+                                                </div>
+                                                <div className="p-2 bd-highlight mt-3">
+                                                  <h6 style={{marginRight: "65px"}}>{item.dob}</h6>
+                                                </div>
+                                                <div className="p-2 bd-highlight mt-3"><h6>{item.nik}</h6></div>
                                                 <div className="ms-auto p-2 bd-highlight mt-3">
-                                                    <Link to="/medicalRecordConsultation">
+                                                    <Link to={`/medicalRecordPatient/${item.uuid}`}>
                                                         <Button variant="warning" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
                                                     </Link>
                                                 </div> 
@@ -53,6 +202,22 @@ function CardListPatient() {
                                     </Card>
                                 </div>
                             </Row>
+                            ))}
+                            <div className="d-flex justify-content-center">
+                              {patient && (
+                                <Pagination className="align-self-center">
+                                  {patient.pages.map((item) => (
+                                    <Pagination.Item
+                                      key={item}
+                                      active={item === patient.currPage}
+                                      onClick={() => handlePage(item)}
+                                    >
+                                      {item}
+                                    </Pagination.Item>
+                                  ))}
+                                </Pagination>
+                              )}
+                          </div>
                         </Container>
                     </Col>
                 </Row>
