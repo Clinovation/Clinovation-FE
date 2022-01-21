@@ -2,7 +2,7 @@ export default function useValidateForm() {
   const validateForm = (name, value, formValue = undefined) => {
     const regexName = /^[a-zA-Z ]{3,}$/;
     const regexNumber = /^[0-9]*$/;
-    const regexString = /^[A-Za-z]+$/;
+    const regexString = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
     const regexDob =
       /^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$/;
     const regexPassword = /.{6,}$/;
@@ -59,18 +59,19 @@ export default function useValidateForm() {
       } else if (name === "type" && regexName.test(value)) {
         messages = { [name]: "" };
       }
-      if (name === "sex" && !regexString.test(value)) {
-        messages = { [name]: "String Only" };
-      } else if (name === "sex" && regexString.test(value)) {
-        messages = { [name]: "" };
-      }
-      if (name === "work_experience" && !regexString.test(value)) {
-        messages = { [name]: "String Only" };
-      } else if (name === "work_experience" && regexString.test(value)) {
+
+      if (name === "sex" && value === "") {
         messages = { [name]: "" };
       }
 
       if (name === "work_experience" && value === "") {
+        messages = { [name]: "" };
+      }
+
+      if (name === "day" && value === "") {
+        messages = { [name]: "" };
+      }
+      if (name === "hour" && value === "") {
         messages = { [name]: "" };
       }
     } else if (formValue) {

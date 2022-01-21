@@ -1,19 +1,61 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import useValidateForm from "../../hooks/useValidateForm";
 
 export default function FormAddWorkDay() {
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
+  const { validateForm } = useValidateForm();
+  const initialValue = {
+    day: "",
   };
+
+  const [form, setForm] = useState(initialValue);
+
+  const [error, setError] = useState({});
+
+  const onChange = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+    setForm({ ...form, [name]: value });
+  };
+
+  const onBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const messages = validateForm(name, value);
+    setError({ ...error, ...messages });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validateForm(undefined, undefined, form);
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
+    } else {
+      // const API_URL = process.env.BE_API_URL;
+      const API_URL = "http://3.83.92.188:8080/api/v1";
+      axios
+        .post(`${API_URL}/workDay/`, { ...form }, GenerateAxiosConfig())
+        .then((res) => {
+          if (res.status === 204) {
+            setError("No record found");
+          } else if (res.status === 403) {
+            setError("Forbiden");
+          } else if (res.status === 500) {
+            setError("Internal Server Error");
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.errors[0]);
+            console.log(error);
+          }
+        });
+    }
+  };
+
   return (
     <div>
       <Row className="mt-1">
@@ -22,7 +64,7 @@ export default function FormAddWorkDay() {
           <div
             style={{ borderTop: "2px solid black", paddingBottom: "10px" }}
           ></div>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form noValidate onSubmit={onSubmit}>
             <div className="cardForm">
               <Form.Group
                 as={Row}
@@ -33,24 +75,30 @@ export default function FormAddWorkDay() {
                   Day
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control
+                    type="text"
+                    name="day"
+                    value={form.day}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.day}
+                    required
+                  />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid day.
+                    {error.day}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
-
-              
             </div>
-            <Link to="/listMedicine">
-              <Button
-                type="submit"
-                variant="success"
-                style={{ marginLeft: "15vw", width: "10vw" }}
-              >
-                Save
-              </Button>
-            </Link>
+
+            <Button
+              type="submit"
+              variant="success"
+              style={{ marginLeft: "15vw", width: "10vw" }}
+              to="/listWorkDayHour"
+            >
+              Save
+            </Button>
 
             {/* <Link to="/listPrescription">
                         <Button type="submit" variant="warning">Back</Button>   

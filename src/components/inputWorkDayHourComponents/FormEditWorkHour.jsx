@@ -4,7 +4,8 @@ import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import useValidateForm from "../../hooks/useValidateForm";
 
-export default function FormAddWorkHour() {
+export default function FormEditWorkHour(props) {
+  const { uuid } = props;
   const { validateForm } = useValidateForm();
   const initialValue = {
     hour: "",
@@ -36,7 +37,7 @@ export default function FormAddWorkHour() {
       // const API_URL = process.env.BE_API_URL;
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/workHour/`, { ...form }, GenerateAxiosConfig())
+        .put(`${API_URL}/workHour/${uuid}`, { ...form }, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -55,7 +56,6 @@ export default function FormAddWorkHour() {
         });
     }
   };
-
   return (
     <div>
       <Row className="mt-1">

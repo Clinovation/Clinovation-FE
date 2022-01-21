@@ -10,7 +10,6 @@ import {
   Row,
   Modal,
   Col,
-  FormText,
 } from "react-bootstrap";
 import FormAddMedicine from "./FormAddMedicine";
 import FormEditMedicine from "./FormEditMedicine";
@@ -250,14 +249,14 @@ function InputMedicine() {
                   <FormControl
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
+                    value={medicine.by}
+                    onChange={onChange}
                   />
                   <Button
                     variant="outline-secondary"
                     id="button-addon2"
                     type="search"
                     name="search"
-                    value={medicine.by}
-                    onChange={onChange}
                   >
                     Search
                   </Button>
@@ -278,9 +277,6 @@ function InputMedicine() {
             </thead>
 
             <tbody>
-              {/* array.forEach(element => {
-                
-            }); */}
               {medicine?.data?.map((item) => (
                 <tr>
                   <td>{item.name}</td>

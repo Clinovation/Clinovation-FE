@@ -78,8 +78,7 @@ export default function FormEditMedicine(props) {
 
   //   setValidated(true);
   // };
-  console.log("error", error);
-  console.log("form", form);
+
   return (
     <div>
       <Row className="mt-1">
