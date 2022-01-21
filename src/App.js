@@ -38,7 +38,12 @@ import CardListPatientForNurse from "./components/CardListPatientDoctorComponent
 import DashboardNursePage from "./pages/dashboardNursePage/DashboardNursePage";
 import InputMedicinePage from "./pages/inputMedicinePage/InputMedicinePage";
 import WorkDayHour from "./pages/workDayHourPage/WorkDayHour";
+
+import MedicalRecordonDoctor from './components/MedicalRecordComponents/MedicalRecordonDoctor'
+import FormUpdatePrescription from "./components/FormAddPrescriptionComponents/FormUpdatePrescription";
+
 import FormUpdateProfileNurse from "./components/formUpdateProfileNurseComponents/FormUpdateProfileNurse";
+
 function App() {
   return (
     <div className="App">
@@ -64,8 +69,9 @@ function App() {
                 element={<NurseListPrescription />}
               />
               <Route path="/medicalRecord/:uuid" element={<MedicalRecord />} />
+              <Route path="/medicalRecordPatient/:uuid" element={<MedicalRecordonDoctor />} />
               <Route
-                path="/medicalRecordConsultation"
+                path="/medicalRecordConsultation/:uuid"
                 element={<MedicalRecordConsul />}
               />
               <Route path="/medicalRecordConsulNurse" element={<MedicalRecordConsulNurse/>} />
@@ -73,8 +79,15 @@ function App() {
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
+
+              <Route
+                path="/updatePrescription"
+                element={<FormUpdatePrescription />}
+              />
+
               <Route path="/dashboardNurse" element={<DashboardNursePage />} />
               <Route path="/listWorkDayHour" element={<WorkDayHour />} />
+
 
               <Route path="/listMedicine" element={<InputMedicinePage />} />
 
@@ -83,15 +96,18 @@ function App() {
               <Route path="/listDoctor" element={<CardListDoctor />} />
               <Route path="/listNurse" element={<CardListNurse />} />
               <Route path="/listStaff" element={<CardListStaff />} />
+              <Route path="/listPatienDoctor" element={<CardListPatient />} />
               <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
               <Route path="/registrasiStaff" element={<FormStaffRegis />} />
               <Route path="/registrasiPatient" element={<FormPatientRegis />} />
+
 
               <Route path="/listPatientDoctor" element={<CardListPatient />} />
               <Route
                 path="/listPatientDoctorForNurse"
                 element={<CardListPatientForNurse />}
               />
+
               <Route path="/profileStaff/:uuid" element={<ProfileStaff />} />
               <Route path="/profileDoctor/:uuid" element={<ProfileDoctor />} />
               <Route path="/profileNurse/:uuid" element={<ProfileNurse />} />

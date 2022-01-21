@@ -4,69 +4,82 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 import useValidateForm from "../../hooks/useValidateForm";
+import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
+import { login } from "../../Redux/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function FormAddPrescription() {
-  const { validateForm } = useValidateForm();
-  const [form, setForm] = useState({
-    date: "",
-    symptom: "",
-    patient: "",
-    new_record: "",
-    note: "",
-    consumption_rule: "",
-    medicine: "",
-  });
+function FormUpdatePrescription() {
+    const { validateForm } = useValidateForm();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
+    const initialValue = {
+        date: user.date,
+        symptom: user.symptom,
+        patient: user.patient,
+        new_record: user.new_record,
+        note: user.note,
+        consumption_rule: user.consumption_rule,
+        medicine: user.medicine,
+    };
 
-  const [errorMsg, setErrorMsg] = useState({});
-  const onChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setForm({ ...form, [name]: value });
-  };
-  const onBlur = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const messages = validateForm(name, value);
-    setErrorMsg({ ...errorMsg, ...messages });
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = validateForm(undefined, undefined, form);
-    if (Object.keys(newErrors).length > 0) {
-      setErrorMsg(newErrors);
-    } else {
-      const API_URL = "http://3.83.92.188:8080/api/v1";
-      axios
-        .post(`${API_URL}/doctor/register`, {
-          ...form,
-        })
-        .then(() => {
-          // axios
-          //   .post(`${API_URL}/doctor/login`, {
-          //     email: form.email,
-          //     password: form.password,
-          //   })
-          //   .then((resLogin) => {
-          //     handleLogin(resLogin.data.data);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
-        })
-        .catch((error) => {
-          setErrorMsg({
-            ...errorMsg,
-            auth: error.response.data.meta.messages[0],
-          });
-        });
-    }
-  };
+    const [form, setForm] = useState(initialValue);
+    const [error, setError] = useState({});
 
+    const updatePrescription = (data) => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .put(
+        `${API_URL}/recipe/`,
+        {
+          ...data,
+        },
+        GenerateAxiosConfig()
+      )
+      .then(() => {
+        dispatch(login(data));
+      })
+      .catch((error) => {
+        HandleUnauthorized(error.response);
+        console.log(error);
+      });
+    };
+
+    const onChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setForm({ ...form, [name]: value });
+    };
+
+    const onBlur = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        const messages = validateForm(name, value);
+        setError({ ...error, ...messages });
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const newErrors = validateForm(undefined, undefined, form);
+        if (Object.keys(newErrors).length > 0) {
+        setError(newErrors);
+        } else {
+        const newData = {
+            date: form.date,
+            symptom: form.symptom,
+            patient: form.patient,
+            medicine: form.medicine,
+            note: form.note,
+            consumption_rule: form.consumption_rule,
+            new_record: form.new_record,
+        };
+
+        updatePrescription(newData);
+        }
+    };
   return (
     <div>
-      <Row className="mt-1">
+        <Row className="mt-1">
         <Col md={10} className="m-auto">
-          {/* <h5>Add Prescription</h5> */}
           <div
             style={{ borderTop: "2px solid black", paddingBottom: "10px" }}
           ></div>
@@ -81,9 +94,17 @@ function FormAddPrescription() {
                   Date
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="date"
+                    value={form.date}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.date}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid date.
+                    {error.date}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -97,9 +118,17 @@ function FormAddPrescription() {
                   Patient
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="patient"
+                    value={form.patient}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.patient}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid patient.
+                    {error.patient}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -113,9 +142,17 @@ function FormAddPrescription() {
                   Symptom
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="symptom"
+                    value={form.symptom}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.symptom}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid symptom.
+                    {error.symptom}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -129,9 +166,17 @@ function FormAddPrescription() {
                   Consumption Rule
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="consumption_rule"
+                    value={form.consumption_rule}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.consumption_rule}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid consumption rule.
+                    {error.consumption_rule}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -145,9 +190,17 @@ function FormAddPrescription() {
                   Note
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="note"
+                    value={form.note}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.note}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid note.
+                    {error.note}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -161,9 +214,17 @@ function FormAddPrescription() {
                   New Record
                 </Form.Label>
                 <Col md="9">
-                  <Form.Control type="text" required />
+                  <Form.Control 
+                    type="text" 
+                    name="new_record"
+                    value={form.new_record}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    isInvalid={!!error.new_record}
+                
+                />
                   <Form.Control.Feedback type="invalid">
-                    Please provide a valid record.
+                    {error.new_record}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -218,7 +279,7 @@ function FormAddPrescription() {
         </Col>
       </Row>
     </div>
-  );
+);
 }
 
-export default FormAddPrescription;
+export default FormUpdatePrescription;
