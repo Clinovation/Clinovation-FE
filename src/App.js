@@ -11,6 +11,7 @@ import MenuLogin from "./pages/menuLoginPage/MenuLogin";
 import DashboardDoctor from "./pages/dashboardDoctorPage/DashboardDoctor";
 import FormUpdateProfileDoctor from "./components/FormUpdateProfileDoctorComponents/FormUpdateProfileDoctor";
 import ListPrescription from "./components/ListPrescriptionComponents/ListPrescription";
+import NurseListPrescription from "./components/NurseListPrescriptionComponents/NurseListPrescription";
 import FormAddPrescription from "./components/FormAddPrescriptionComponents/FormAddPrescription";
 import CardListPatientDoctor from "./components/CardListPatientDoctorComponents/CardListPatientDoctor";
 import { store, persistor } from "./Redux/Store";
@@ -23,19 +24,21 @@ import CardListNurse from "./components/CardListPatientDoctorComponents/CardList
 import CardListStaff from "./components/CardListPatientDoctorComponents/CardListStaff";
 import MedicalRecord from "./components/MedicalRecordComponents/MedicalRecord";
 import MedicalRecordConsul from "./components/MedicalRecordComponents/MedicalRecordConsul";
+import MedicalRecordConsulNurse from "./components/MedicalRecordComponents/MedicalRecordConsulNurse";
 import FormConsul from "./components/FormPatient/FormConsul";
 import ProfileStaff from "./components/ViewProfile/ProfileStaff";
 import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
 import ProfileNurse from "./components/ViewProfile/ProfileNurse";
 import FormPatientRegis from "./components/FormPatient/FormPatientRegis";
 import CardListPatient from "./components/CardListPatientDoctorComponents/CardListPatient";
+import CardListPatientForNurse from "./components/CardListPatientDoctorComponents/CardListPatientForNurse";
 // import ProfileDoctor from "./components/ViewProfile/ProfileDoctor";
 // import ProfileNurse from "./components/ViewProfile/ProfileNurse";
 // import ProfileStaff from "./components/ViewProfile/ProfileStaff";
-
+import DashboardNursePage from "./pages/dashboardNursePage/DashboardNursePage";
 import InputMedicinePage from "./pages/inputMedicinePage/InputMedicinePage";
 import WorkDayHour from "./pages/workDayHourPage/WorkDayHour";
-
+import FormUpdateProfileNurse from "./components/formUpdateProfileNurseComponents/FormUpdateProfileNurse";
 function App() {
   return (
     <div className="App">
@@ -51,17 +54,26 @@ function App() {
                 path="/updateProfileDoctor"
                 element={<FormUpdateProfileDoctor />}
               />
+              <Route
+                path="/updateProfileNurse"
+                element={<FormUpdateProfileNurse />}
+              />
               <Route path="/listPrescription" element={<ListPrescription />} />
+              <Route
+                path="/nurseListPrescription"
+                element={<NurseListPrescription />}
+              />
               <Route path="/medicalRecord/:uuid" element={<MedicalRecord />} />
               <Route
                 path="/medicalRecordConsultation"
                 element={<MedicalRecordConsul />}
               />
+              <Route path="/medicalRecordConsulNurse" element={<MedicalRecordConsulNurse/>} />
               <Route
                 path="/addPrescription"
                 element={<FormAddPrescription />}
               />
-
+              <Route path="/dashboardNurse" element={<DashboardNursePage />} />
               <Route path="/listworkdayhour" element={<WorkDayHour />} />
               <Route path="/listMedicine" element={<InputMedicinePage />} />
 
@@ -75,7 +87,10 @@ function App() {
               <Route path="/registrasiPatient" element={<FormPatientRegis />} />
 
               <Route path="/listPatientDoctor" element={<CardListPatient />} />
-
+              <Route
+                path="/listPatientDoctorForNurse"
+                element={<CardListPatientForNurse />}
+              />
               <Route path="/profileStaff/:uuid" element={<ProfileStaff />} />
               <Route path="/profileDoctor/:uuid" element={<ProfileDoctor />} />
               <Route path="/profileNurse/:uuid" element={<ProfileNurse />} />
