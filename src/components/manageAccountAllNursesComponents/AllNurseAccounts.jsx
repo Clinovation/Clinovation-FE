@@ -69,7 +69,10 @@ export default function AllNurseAccounts() {
         });
     } else if (checkName.test(nurse.by)) {
       axios
-        .get(`${API_URL}/nurse/?name=${by}&page=${page}`, GenerateAxiosConfig())
+        .get(
+          `${API_URL}/nurse/queryName?name=${by}&page=${page}`,
+          GenerateAxiosConfig()
+        )
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -100,7 +103,10 @@ export default function AllNurseAccounts() {
         });
     } else {
       axios
-        .get(`${API_URL}/nurse/?nik=${by}&page=${page}`, GenerateAxiosConfig())
+        .get(
+          `${API_URL}/nurse/queryNik?nik=${by}&page=${page}`,
+          GenerateAxiosConfig()
+        )
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");

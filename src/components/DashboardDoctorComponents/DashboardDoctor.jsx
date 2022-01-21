@@ -221,8 +221,11 @@ function CardDashboardDoctor() {
                 </Card>
                 </div>
             </Container>
+
         </div>
-    )
+      </Container>
+    </div>
+  );
 }
 
-export default CardDashboardDoctor
+export default CardDashboardDoctor;

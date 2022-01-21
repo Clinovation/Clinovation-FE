@@ -11,6 +11,7 @@ import { Modal, Button } from "react-bootstrap";
 import ModalCardListAll from "../ModalCardListAll/ModalCardListAll";
 import { GiMedicines } from "react-icons/gi";
 import Medicine from "../../icons/medicine.png";
+import Work from "../../icons/working-time.png"
 function ModalListAll(props) {
   return (
     <Modal
@@ -69,6 +70,9 @@ function SideBarMedStaff() {
           </Link>
           <Link to="/allSchedules" className="m-auto">
             <img src={Calendar} style={{ height: "24px" }} />
+          </Link>
+          <Link to="/listworkdayhour" className="m-auto">
+            <img src={Work} style={{ height: "24px" }} />
           </Link>
           {/* <Link to="/listPatient" className="m-auto"> */}
           <img
