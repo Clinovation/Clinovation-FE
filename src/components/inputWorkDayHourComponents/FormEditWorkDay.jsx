@@ -4,10 +4,11 @@ import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import useValidateForm from "../../hooks/useValidateForm";
 
-export default function FormAddWorkHour() {
+export default function FormEditWorkDay(props) {
+  const { uuid } = props;
   const { validateForm } = useValidateForm();
   const initialValue = {
-    hour: "",
+    day: "",
   };
 
   const [form, setForm] = useState(initialValue);
@@ -36,7 +37,7 @@ export default function FormAddWorkHour() {
       // const API_URL = process.env.BE_API_URL;
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/workHour/`, { ...form }, GenerateAxiosConfig())
+        .put(`${API_URL}/workDay/${uuid}`, { ...form }, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -55,7 +56,6 @@ export default function FormAddWorkHour() {
         });
     }
   };
-
   return (
     <div>
       <Row className="mt-1">
@@ -72,20 +72,20 @@ export default function FormAddWorkHour() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Hour
+                  Day
                 </Form.Label>
                 <Col md="9">
                   <Form.Control
                     type="text"
-                    name="hour"
-                    value={form.hour}
+                    name="day"
+                    value={form.day}
                     onChange={onChange}
                     onBlur={onBlur}
-                    isInvalid={!!error.hour}
+                    isInvalid={!!error.day}
                     required
                   />
                   <Form.Control.Feedback type="invalid">
-                    {error.hour}
+                    {error.day}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>

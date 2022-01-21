@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import  {SidebarData} from "./sidebarData";
+import { SidebarData } from "./sidebarData";
 import logo from "../../images/Logo.png";
 
 export default function Sidebar() {
@@ -31,7 +31,6 @@ export default function Sidebar() {
     </>
   );
 }
-
 
 const Wrapper = styled.div`
   //   background-color: #f8f8f6;
