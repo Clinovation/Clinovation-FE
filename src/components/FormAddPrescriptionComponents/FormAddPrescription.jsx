@@ -37,7 +37,7 @@ function FormAddPrescription() {
     } else {
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/doctor/register`, {
+        .post(`${API_URL}/recipe/`, {
           ...form,
         })
         .then(() => {
@@ -60,6 +60,11 @@ function FormAddPrescription() {
           });
         });
     }
+    setTimeout(() => {
+      alert("BERHASIL MENAMBAHKAN ");
+    }, 1000);
+
+    window.location.reload();
   };
 
   return (
@@ -204,10 +209,11 @@ function FormAddPrescription() {
             <Link to="/listPrescription">
               <Button
                 type="submit"
-                variant="success"
+                variant="info"
                 style={{ marginLeft: "15vw", width: "10vw" }}
+                onClick={onSubmit}
               >
-                Save
+                <div style={{color : "white"}}>Save</div>
               </Button>
             </Link>
 

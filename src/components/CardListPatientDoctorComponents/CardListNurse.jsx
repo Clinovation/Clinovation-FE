@@ -17,8 +17,9 @@ import {
   Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Avatar from "../../icons/staffProfile.png";
+import Avatar from "../../icons/nurse-icon.png";
 import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
+import style from '../CardListPatientDoctorComponents/CardList.module.css'
 
 function CardListNurse() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
@@ -187,7 +188,7 @@ function CardListNurse() {
               {nurse?.data?.map((item) => (
                 <Row>
                   <div className="d-flex justify-content-center mt-2">
-                    <Card style={{ marginBottom: "10px", width: "900px" }}>
+                    <Card style={{ marginBottom: "10px", width: "900px" }} className={style.CardHover}>
                       <Card.Body style={{ overflowX: "auto" }}>
                         <div class="d-flex bd-highlight">
                           <div class="p-2 bd-highlight">
@@ -201,7 +202,7 @@ function CardListNurse() {
                             )}
                           </div>
                           <div className="p-2 bd-highlight mt-3">
-                            <h6 style={{ marginRight: "65px" }}>{item.name}</h6>
+                            <h6 style={{ marginRight: "65px", width: "60px" }}>{item.name.slice(0,5)}</h6>
                           </div>
                           <div className="p-2 bd-highlight mt-3">
                             <h6 style={{ marginRight: "65px" }}>{item.dob}</h6>

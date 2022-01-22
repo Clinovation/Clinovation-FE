@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import {Button, Row, Col, Container} from "react-bootstrap"
+import {Button, Row, Col, Container, Form} from "react-bootstrap"
 import style from './MedicalRecord.module.css'
 import {Link} from 'react-router-dom'
 import SideBarMedStaff from '../SideBarMedStaffComponents/SideBarMedStaff'
@@ -83,14 +83,90 @@ function MedicalRecord() {
                         <div className={`${style.cardForm} m-auto`}>
                             <h5>Profile</h5>
                             <div style={{borderTop : "2px solid black", padding : "10px"}}></div>
-                            <p><strong>Name           :</strong> {form.name}</p>
-                            <p><strong>NIK            :</strong> {form.nik}</p>
-                            <p><strong>Date of Birth  :</strong> {form.dob}</p>
-                            <p><strong>Sex            :</strong> {form.sex}</p>
-                            <p><strong>Address        :</strong> {form.address}</p>
-                            <p><strong>Martial Status :</strong> {form.status_martial}</p>
-                            <p><strong>Patient Height :</strong> {form.height}</p>
-                            <p><strong>Patient Weight :</strong> {form.weight}</p>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Name
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.name}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Date of Birth
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.dob}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Sex
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.sex}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Address
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.address}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Martial Status
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.status_martial}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Patient Height
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.height}</p>
+                              </Col>
+                            </Form.Group>
+
+                            <Form.Group
+                              as={Row}
+                              className="mb-3"
+                            >
+                              <Form.Label column md="3">
+                                Patient Weight
+                              </Form.Label>
+                              <Col md="9">
+                                <p>:  {form.weight}</p>
+                              </Col>
+                            </Form.Group>
                             <br/>
 
                             <h5>Medical Record</h5>
@@ -107,7 +183,9 @@ function MedicalRecord() {
                         <br/>
                         <div className='d-flex justify-content-center'>
                             <Link to='/listPatienDoctor'>
-                                <Button type="submit" variant="warning" size='lg'>Back to All Patient</Button>
+                                <Button type="submit" variant="info" size='lg'>
+                                  <div style={{color : "white"}}>Back to All Patient</div>
+                                </Button>
                             </Link>
                             
                         </div>

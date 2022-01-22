@@ -106,7 +106,9 @@ function MedicalRecord() {
                         <br/>
                         <div className='d-flex justify-content-center'>
                             <Link to='/listPatient'>
-                                <Button type="submit" variant="warning" size='lg'>Back to All Patient</Button>
+                                <Button type="submit" variant="info" size='lg'>
+                                  <div style={{color : "white"}}>Back to All Patient</div>
+                                </Button>
                             </Link>
                             
                         </div>

@@ -53,7 +53,7 @@ function SideBarMedStaff() {
         </Link>
       </div>
 
-      <div>
+      <div className={style.stickySidebar}>
         <div className={style.navIconContainer}>
           <div className={style.navIconItem}>
             <Link

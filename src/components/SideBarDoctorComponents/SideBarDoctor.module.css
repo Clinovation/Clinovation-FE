@@ -18,3 +18,13 @@
     border-bottom: 3px solid #DFE0EB;
     box-shadow: 0px 0px 2px 1px #DFE0EB;
   }
+
+  .stickySidebar{
+    position: fixed;
+    float: left;
+  }
+
+  .iconHover:hover{
+    height: 50px;
+    box-shadow: 0px 0px 5px 5px #DFE0EB
+  }

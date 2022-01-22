@@ -75,6 +75,12 @@ function FormUpdatePrescription() {
 
         updatePrescription(newData);
         }
+      
+      window.location.reload();
+    
+      setTimeout(() => {
+      alert("BERHASIL MENGHAPUS ");
+      }, 1000);
     };
   return (
     <div>
@@ -265,10 +271,12 @@ function FormUpdatePrescription() {
             <Link to="/listPrescription">
               <Button
                 type="submit"
-                variant="success"
+                variant="info"
                 style={{ marginLeft: "15vw", width: "10vw" }}
+                onClick={onSubmit}
               >
-                Save
+                <div style={{color: "white"}}>Save</div>
+                
               </Button>
             </Link>
 
