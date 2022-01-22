@@ -237,7 +237,7 @@ export default function ManageAccountTop() {
                         <img src={item.avatar} style={{ height: "65px" }} />
                       )}
                       <span className={`${styles.infoJadwal2}`}>
-                        dr.{item.name}
+                        dr.{item.name.slice(0,5)}
                       </span>
                       <span className={`${styles.infoJadwal2}`}>
                         {item.specialist}
@@ -316,7 +316,7 @@ export default function ManageAccountTop() {
                         className={`${styles.infoJadwal}`}
                         style={{ width: "10px" }}
                       >
-                        Nurse {item.name}
+                        Nurse {item.name.slice(0,5)}
                       </span>
                       <span style={{ marginLeft: "20px" }}>
                         <Button

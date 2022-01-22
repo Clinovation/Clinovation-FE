@@ -114,17 +114,6 @@ function MedicalRecordConsul() {
                         <div className={`${style.cardForm} mt-4`}>
                             <h5>Profile</h5>
                             <div style={{borderTop : "2px solid black", padding : "10px"}}></div>
-                            <Form.Group
-                              as={Row}
-                              className="mb-3"
-                            >
-                              <Form.Label column md="3">
-                                Name
-                              </Form.Label>
-                              <Col md="9">
-                                <p>:  {form.name}</p>
-                              </Col>
-                            </Form.Group>
 
                             <Form.Group
                               as={Row}
@@ -236,7 +225,9 @@ function MedicalRecordConsul() {
                         </div>
                         <div className='d-flex justify-content-center'>
                             {/* <Link to="/addPrescription"> */}
-                                <Button type="submit" variant="info" onClick={() => setModalShow(true)}>Add Prescription</Button>
+                                <Button type="submit" variant="info" onClick={() => setModalShow(true)}>
+                                  <div style={{color: "white"}}>Add Prescription</div>
+                                </Button>
                             {/* </Link> */}
                         </div>
                         

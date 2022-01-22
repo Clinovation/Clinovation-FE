@@ -11,6 +11,7 @@ import { login } from "../../Redux/UserSlice";
 import useValidateForm from "../../hooks/useValidateForm";
 import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import SideBarDoctor from "../SideBarDoctorComponents/SideBarDoctor";
+import style from "../FormUpdateProfileDoctorComponents/UpdateProfileDoctor.module.css"
 
 function FormUpdateProfileDoctor() {
   const cookies = new Cookies();
@@ -109,22 +110,9 @@ function FormUpdateProfileDoctor() {
         <Col md={7} className="m-auto my-4">
           <h2 className="mb-3">Hello Doctor,</h2>
           <Form noValidate onSubmit={onSubmit}>
-            <div className="cardForm">
-              {/* <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  <img src={avatar} style={{ height: "48px" }} />
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="file" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid name.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group> */}
+            <img src={avatar} style={{ height : "150px"}} className="mb-4"/>
+            <div className={style.cardForm}>
+             
 
               <Form.Group
                 as={Row}

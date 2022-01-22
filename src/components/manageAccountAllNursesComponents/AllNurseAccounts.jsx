@@ -178,7 +178,7 @@ export default function AllNurseAccounts() {
         <div className={`${styles.title} mr-auto p-2`}>All Nurse Accounts</div>
         <div class="col-md-5 p-2">
           <div class="input-group">
-            <input
+            {/* <input
               class="form-control border-end-0 border"
               type="search"
               name="search"
@@ -195,7 +195,17 @@ export default function AllNurseAccounts() {
               >
                 <FaSearch style={{ width: "15px", height: "15px" }} />
               </button>
-            </span>
+            </span> */}
+
+            <InputGroup className="mb-3" size="sm" style={{width: '350px'}}>
+              <FormControl
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              />
+              <Button variant="outline-secondary" id="button-addon2">
+              Search
+              </Button>
+            </InputGroup>
           </div>
         </div>
       </div>
@@ -211,7 +221,7 @@ export default function AllNurseAccounts() {
                   className={`${styles.iconDashboard2}`}
                 />
                 <span className={`${styles.infoJadwal}`}>
-                  Nurse {item.name}
+                  Nurse {item.name.slice(0,5)}
                 </span>
                 <span style={{ marginRight: "0px", marginLeft: "10px" }}>
                   <FaIdCard className={`${styles.iconDashboard3}`} />

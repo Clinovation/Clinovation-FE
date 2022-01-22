@@ -17,8 +17,9 @@ import {
   Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Avatar from "../../icons/staffProfile.png";
+import Avatar from "../../icons/man.png";
 import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
+import style from '../CardListPatientDoctorComponents/CardList.module.css'
 
 function CardListPatientDoctor() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
@@ -158,7 +159,7 @@ function CardListPatientDoctor() {
           </Col>
 
           <Col md="11">
-            <Container className="mt-3 mb-5" style={{ width: "900px" }}>
+            <Container className="mt-3 mb-5" style={{ width: "1000px" }}>
               <Row>
                 <div class="d-flex bd-highlight">
                   <div class="p-2 bd-highlight">
@@ -210,7 +211,8 @@ function CardListPatientDoctor() {
                   <div className="d-flex justify-content-center mt-2">
                     <Card
                       key={item.id}
-                      style={{ marginBottom: "10px", width: "900px" }}
+                      style={{ marginBottom: "10px", width: "1000px" }}
+                      className={style.CardHover}
                     >
                       <Card.Body style={{ overflowX: "auto" }}>
                         <div class="d-flex bd-highlight">
@@ -225,10 +227,10 @@ function CardListPatientDoctor() {
                             )}
                           </div>
                           <div className="p-2 bd-highlight mt-3">
-                            <h6 style={{ marginRight: "45px" }}>{item.name}</h6>
+                            <h6 style={{ marginRight: "10px", width: "60px" }}>{item.name.slice(0,5)}</h6>
                           </div>
                           <div className="p-2 bd-highlight mt-3">
-                            <h6 style={{ marginRight: "45px" }}>{item.dob}</h6>
+                            <h6 style={{ marginRight: "10px" }}>{item.dob}</h6>
                           </div>
                           <div className="p-2 bd-highlight mt-3">
                             <h6>{item.nik}</h6>

@@ -11,6 +11,8 @@ import {
 import { Link } from "react-router-dom";
 import Avatar from "../../icons/man.png";
 import SidebarNurse from "../SideBarNurseComponents/SideBarNurse";
+import style from '../CardListPatientDoctorComponents/CardList.module.css'
+
 export default function CardListPatientForNurse() {
   return (
     <div>
