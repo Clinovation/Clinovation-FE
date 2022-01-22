@@ -214,7 +214,7 @@ export default function AllDoctorAccounts() {
                 ) : (
                   <img src={item.avatar} style={{ height: "65px" }} />
                 )}
-                <span className={`${styles.infoJadwal}`}>dr.{item.name}</span>
+                <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
                 <span style={{ marginRight: "0px", marginLeft: "10px" }}>
                   <FaIdCard className={`${styles.iconDashboard3}`} />
                   <span className={`${styles.infoJadwal}`}>{item.nik}</span>

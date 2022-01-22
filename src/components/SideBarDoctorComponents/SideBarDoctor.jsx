@@ -16,7 +16,7 @@ function SideBarDoctor() {
         </Link>
       </div>
 
-      <div>
+      <div className={style.stickySidebar}>
         <div className={style.navIconContainer}>
           <div className={style.navIconItem}>
             <Link to="/updateProfileDoctor">
@@ -25,16 +25,18 @@ function SideBarDoctor() {
             
             <p style={{ fontSize: "10px" }}>Ralph Murphy</p>
           </div>
-
-          <Link to="/dashboardDoctor" className="m-auto">
-            <img src={Home} style={{ height: "24px" }} />
-          </Link>
-          <Link to="/listPrescription" className="m-auto">
-            <img src={MedicalRecord} style={{ height: "24px" }} />
-          </Link>
-          <Link to="/listPatienDoctor" className="m-auto">
-            <img src={Medical} style={{ height: "24px" }} />
-          </Link>
+        
+            <Link to="/dashboardDoctor" className="m-auto">
+              <img src={Home} style={{ height: "24px" }}  className={style.iconHover}/>
+            </Link>
+            <Link to="/listPrescription" className="m-auto">
+              <img src={MedicalRecord} style={{ height: "24px" }} className={style.iconHover}/>
+            </Link>
+            <Link to="/listPatienDoctor" className="m-auto">
+              <img src={Medical} style={{ height: "24px" }} className={style.iconHover}/>
+            </Link>
+         
+          
         </div>
       </div>
     </div>

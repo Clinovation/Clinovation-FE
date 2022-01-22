@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button,Card, Container, Row, InputGroup, FormControl, Col, Pagination } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import Avatar from '../../icons/staffProfile.png'
+import Avatar from '../../icons/man.png'
 import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor'
 import axios from "axios";
 import {
@@ -10,6 +10,7 @@ import {
   HandleLowerCase,
   HandleUnauthorized,
 } from "../../utils/helpers";
+import style from '../CardListPatientDoctorComponents/CardList.module.css'
 
 function CardListPatient() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
@@ -170,9 +171,9 @@ function CardListPatient() {
 
                             {patient?.data?.map((item) => (
                             <Row>
-                                <div className='d-flex justify-content-center mt-5'>
+                                <div className='d-flex justify-content-center mt-1'>
                                 
-                                    <Card style={{ marginBottom: '10px', width : "900px" }} key={item.id}>
+                                    <Card style={{ marginBottom: '10px', width : "900px" }} key={item.id} className={style.CardHover}>
                                         <Card.Body  style={{ overflowX : "auto" }}>
                                             <div class="d-flex bd-highlight">
                                                 <div class="p-2 bd-highlight">
@@ -186,7 +187,7 @@ function CardListPatient() {
                                                   )}
                                                 </div>
                                                 <div className="p-2 bd-highlight mt-3">
-                                                  <h6 style={{marginRight: "65px"}}>{item.name}</h6>
+                                                  <h6 style={{marginRight: "65px", width: "60px"}}>{item.name.slice(0,5)}</h6>
                                                 </div>
                                                 <div className="p-2 bd-highlight mt-3">
                                                   <h6 style={{marginRight: "65px"}}>{item.dob}</h6>
@@ -194,7 +195,7 @@ function CardListPatient() {
                                                 <div className="p-2 bd-highlight mt-3"><h6>{item.nik}</h6></div>
                                                 <div className="ms-auto p-2 bd-highlight mt-3">
                                                     <Link to={`/medicalRecordPatient/${item.uuid}`}>
-                                                        <Button variant="warning" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
+                                                        <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
                                                     </Link>
                                                 </div> 
                                             </div>

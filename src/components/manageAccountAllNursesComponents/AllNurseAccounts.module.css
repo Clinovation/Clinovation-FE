@@ -30,6 +30,12 @@
   background-color: #f7f7f7;
   width: 50rem;
 }
+
+.kartu3:hover{
+  padding: 5px;
+  box-shadow: 0px 0px 5px 5px #DFE0EB
+}
+
 .iconDashboard {
   height: 32px;
   width: 32px;

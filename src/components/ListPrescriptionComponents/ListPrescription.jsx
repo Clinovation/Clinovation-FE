@@ -208,6 +208,12 @@ function ListPrescription() {
           console.log(error);
         }
       });
+
+    window.location.reload();
+    
+    setTimeout(() => {
+    alert("BERHASIL MENGHAPUS ");
+    }, 1000);
   };
     return (
        
@@ -231,7 +237,8 @@ function ListPrescription() {
                     <div class="d-flex bd-highlight">
                         <div class="p-2 bd-highlight">
                             {/* <Link to="/addPrescription"> */}
-                                <Button variant="success" onClick={() => setModalShow(true)}>Add New Prescription</Button>
+                                <Button variant="info" onClick={() => setModalShow(true)}>
+                                  <div style={{color: "white"}}>Add Prescription</div></Button>
                             {/* </Link> */}
                         </div>
                     
@@ -273,8 +280,8 @@ function ListPrescription() {
                         <td>{item.notes}</td>
                         <td>{item.consumption_rule}</td>
                         <td>
-                            <Button variant="warning" style={{marginRight: "10px"}} size="sm" onClick={() => setModalShowUpdate(true)}>Edit</Button>
-                            <Button variant="danger" size="sm" onClick={() => onClickDelete(item)}>Delete</Button>
+                            <Button variant="outline-warning" style={{marginRight: "10px"}} size="sm" onClick={() => setModalShowUpdate(true)}>Edit</Button>
+                            <Button variant="outline-danger" size="sm" onClick={() => onClickDelete(item)}>Delete</Button>
                         </td>
                     </tr>
                     ))}

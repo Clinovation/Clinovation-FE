@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import Avatar from "../../icons/staffProfile.png";
 import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
+import style from '../CardListPatientDoctorComponents/CardList.module.css'
 
 function CardListDoctor() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
@@ -193,6 +194,7 @@ function CardListDoctor() {
                     <Card
                       key={item.id}
                       style={{ marginBottom: "10px", width: "900px" }}
+                      className={style.CardHover}
                     >
                       <Card.Body style={{ overflowX: "auto" }}>
                         <div class="d-flex bd-highlight">
@@ -207,7 +209,7 @@ function CardListDoctor() {
                             )}
                           </div>
                           <div className="p-2 bd-highlight mt-3">
-                            <h6 style={{ marginRight: "65px" }}>{item.name}</h6>
+                            <h6 style={{ marginRight: "65px", width: "60px" }}>{item.name.slice(0,5)}</h6>
                           </div>
                           <div className="p-2 bd-highlight mt-3">
                             <h6 style={{ marginRight: "65px" }}>{item.dob}</h6>
