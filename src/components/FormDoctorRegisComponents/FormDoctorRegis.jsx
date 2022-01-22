@@ -1,4 +1,10 @@
-import { React, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Medstaff from "../../icons/healthCare.png";
@@ -18,18 +24,38 @@ function FormDoctorRegis() {
     sex: "male",
     email: "",
     contact: "",
-    specialist: "pediatrician",
+    specialist: "specialist",
     work_experience: "",
-    work_hour: "09.00-13.00",
-    schedule: "Sunday-Wednesday-Friday",
+  });
+
+  const [workDay, setWorkDay] = useState({
+    data: [],
+  });
+
+  const [uuidWork, setUuidWork] = useState({
+    day: "",
+    hour: "",
+  });
+
+  const [workHour, setWorkHour] = useState({
+    data: [],
   });
 
   const [errorMsg, setErrorMsg] = useState({});
+  const [errorWork, setErrorWork] = useState({ workDay: "", workHour: "" });
+
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setForm({ ...form, [name]: value });
   };
+
+  const onChangeUuid = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setUuidWork({ ...uuidWork, [name]: value });
+  };
+
   const onBlur = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -37,6 +63,68 @@ function FormDoctorRegis() {
     setErrorMsg({ ...errorMsg, ...messages });
   };
 
+  const fetchWorkDay = () => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .get(`${API_URL}/workDay/`)
+      .then((res) => {
+        if (res.status === 204) {
+          // setErrorWork({ ...errorWork, workDay: "No record found" });
+        } else {
+          setWorkDay((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setErrorWork({
+            ...errorWork,
+            workDay: error.response.data.errors[0],
+          });
+          console.log(error);
+        }
+      });
+  };
+
+  const fetchWorkHour = () => {
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .get(`${API_URL}/workHour/`)
+      .then((res) => {
+        if (res.status === 204) {
+          // setErrorWork({ ...errorWork, workHour: "No record found" });
+        } else {
+          setWorkHour((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setErrorWork({
+            ...errorWork,
+            workHour: error.response.data.errors[0],
+          });
+          console.log(error);
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchWorkDay();
+    fetchWorkHour();
+  }, [setWorkDay, setWorkHour]);
+
+  console.log(uuidWork);
   const onSubmit = (e) => {
     e.preventDefault();
     const newErrors = validateForm(undefined, undefined, form);
@@ -45,9 +133,12 @@ function FormDoctorRegis() {
     } else {
       const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
-        .post(`${API_URL}/doctor/register`, {
-          ...form,
-        })
+        .post(
+          `${API_URL}/doctor/register?workDayID=${uuidWork.day}&workHourID=${uuidWork.hour}`,
+          {
+            ...form,
+          }
+        )
         .then(() => {
           // axios
           //   .post(`${API_URL}/doctor/login`, {
@@ -64,12 +155,11 @@ function FormDoctorRegis() {
         .catch((error) => {
           setErrorMsg({
             ...errorMsg,
-            auth: error.response.data.meta.messages[0],
+            auth: error.response.data.errors[0],
           });
         });
     }
   };
-
   return (
     <div>
       <Container>
@@ -270,7 +360,7 @@ function FormDoctorRegis() {
                         value={form.specialist}
                         onChange={onChange}
                       >
-                        <option disabled>Specialist</option>
+                        <option>Specialist</option>
                         <option value="pediatrician">Pediatrician</option>
                         <option value="dentist">Dentist</option>
                         <option value="obstetricians">Obstetricians</option>
@@ -287,7 +377,7 @@ function FormDoctorRegis() {
                     controlId="formPlaintextEmail"
                   >
                     <Form.Label column md="3">
-                      Schedule
+                      Work Day
                     </Form.Label>
                     <Col md="9">
                       {/* <Form.Select 
@@ -302,16 +392,14 @@ function FormDoctorRegis() {
 
                       <Form.Select
                         aria-label="Default select example"
-                        name="schedule"
-                        value={form.schedule}
-                        onChange={onChange}
+                        name="day"
+                        value={uuidWork.day}
+                        onChange={onChangeUuid}
                       >
-                        <option value="Sunday-Wednesday-Friday">
-                          Sunday-Wednesday-Friday
-                        </option>
-                        <option value="Tuesday-Wednesday-Saturday">
-                          Tuesday-Wednesday-Saturday
-                        </option>
+                        <option>work day</option>
+                        {workDay?.data?.map((item) => (
+                          <option value={item.uuid}>{item.day}</option>
+                        ))}
                       </Form.Select>
                     </Col>
                   </Form.Group>
@@ -327,13 +415,14 @@ function FormDoctorRegis() {
                     <Col md="9">
                       <Form.Select
                         aria-label="Default select example"
-                        name="work_hour"
-                        value={form.work_hour}
-                        onChange={onChange}
+                        name="hour"
+                        value={uuidWork.hour}
+                        onChange={onChangeUuid}
                       >
-                        <option value="09.00-13.00">09.00-13.00</option>
-                        <option value="13.00-17.00">13.00-17.00</option>
-                        <option value="17.00-21.00">17.00-21.00</option>
+                        <option>work hour</option>
+                        {workHour?.data?.map((item) => (
+                          <option value={item.uuid}>{item.hour}</option>
+                        ))}
                       </Form.Select>
                     </Col>
                   </Form.Group>

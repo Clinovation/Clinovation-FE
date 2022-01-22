@@ -213,7 +213,7 @@ export default function ListWorkDayHour() {
         )
         .then((res) => {
           if (res.status === 204) {
-            setError("No record found");
+            setError({ ...error, workDay: "No record found" });
           } else {
             const page = { ...res.data.page };
             const length = page.total_data / page.limit;
@@ -250,7 +250,7 @@ export default function ListWorkDayHour() {
         )
         .then((res) => {
           if (res.status === 204) {
-            setError("No record found");
+            setError({ ...error, workDay: "No record found" });
           } else {
             const page = { ...res.data.page };
             const length = page.total_data / page.limit;
@@ -292,7 +292,7 @@ export default function ListWorkDayHour() {
         )
         .then((res) => {
           if (res.status === 204) {
-            setError("No record found");
+            setError({ ...error, workHour: "No record found" });
           } else {
             const page = { ...res.data.page };
             const length = page.total_data / page.limit;
@@ -329,7 +329,7 @@ export default function ListWorkDayHour() {
         )
         .then((res) => {
           if (res.status === 204) {
-            setError("No record found");
+            setError({ ...error, workHour: "No record found" });
           } else {
             const page = { ...res.data.page };
             const length = page.total_data / page.limit;
@@ -381,11 +381,12 @@ export default function ListWorkDayHour() {
       .delete(`${API_URL}/workDay/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
+          setError({ ...error, workHour: "No record found" });
           setError("No record found");
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setError({ ...error, workHour: "Forbiden" });
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setError({ ...error, workHour: "Internal Server Error" });
         }
       })
       .catch((error) => {
@@ -404,11 +405,11 @@ export default function ListWorkDayHour() {
       .delete(`${API_URL}/workHour/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          setError("No record found");
+          setError({ ...error, workHour: "No record found" });
         } else if (res.status === 403) {
-          setError("Forbiden");
+          setError({ ...error, workHour: "Forbiden" });
         } else if (res.status === 500) {
-          setError("Internal Server Error");
+          setError({ ...error, workHour: "Internal Server Error" });
         }
       })
       .catch((error) => {

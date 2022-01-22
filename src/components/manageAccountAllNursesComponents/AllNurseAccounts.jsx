@@ -149,6 +149,29 @@ export default function AllNurseAccounts() {
     const value = e.target.value;
     setNurse({ ...nurse, by: value });
   };
+
+  const onClickDelete = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .delete(`${API_URL}/nurse/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+  };
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>
@@ -218,7 +241,11 @@ export default function AllNurseAccounts() {
             </Card>
           </Col>
           <Col md="5">
-            <Button variant="btn btn-danger" className={`${styles.btndelete}`}>
+            <Button
+              variant="btn btn-danger"
+              onClick={() => onClickDelete(item)}
+              className={`${styles.btndelete}`}
+            >
               Delete
             </Button>{" "}
           </Col>

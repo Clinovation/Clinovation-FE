@@ -266,7 +266,6 @@ function InputMedicine() {
           </Row>
 
           <Table responsive="sm" className="mt-1">
-            {error && <p className="text-center text-dark mt-5">{error}</p>}
             <thead>
               <tr>
                 <th>Name</th>
@@ -308,6 +307,7 @@ function InputMedicine() {
               ))}
             </tbody>
           </Table>
+          {error && <p className="text-center text-dark mt-5">{error}</p>}
           <div className="d-flex justify-content-center mt-4">
             {medicine && (
               <Pagination className="align-self-center">
