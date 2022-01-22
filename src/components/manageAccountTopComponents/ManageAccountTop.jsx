@@ -39,7 +39,7 @@ export default function ManageAccountTop() {
   const [errorNurse, setErrorNurse] = useState();
 
   const fetchDoctor = (page, by) => {
-    const API_URL = "http://  :8080/api/v1";
+    const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .get(`${API_URL}/doctor/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
