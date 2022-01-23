@@ -8,7 +8,7 @@ import axios from "axios";
 import { login } from "../../Redux/UserSlice";
 
 import { Link } from "react-router-dom";
-
+import { API_URL } from "../../utils/const";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import styles from "../staffProfileFormComponents/ProfileForm.module.css";
@@ -48,7 +48,7 @@ export default function ProfileForm() {
   };
 
   const updateProfile = (data) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .put(
         `${API_URL}/medicalStaff/`,

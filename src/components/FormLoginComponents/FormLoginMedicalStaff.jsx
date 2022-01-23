@@ -5,7 +5,7 @@ import style from "../FormLoginComponents/FormLogin.module.css";
 import useValidateForm from "../../hooks/useValidateForm";
 import axios from "axios";
 import useHandleLogin from "../../hooks/medicalStaff/useHandleLogin";
-
+import {API_URL} from "../../utils/const"
 function FormLoginMedicalStaff() {
   // const [validated, setValidated] = useState(false);
 
@@ -44,7 +44,7 @@ function FormLoginMedicalStaff() {
       setErrorMsg(newErrors);
     } else {
       // const API_URL = process.env.BE_API_URL;
-      const API_URL = "http://3.83.92.188:8080/api/v1";
+      // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/medicalStaff/login`, {
           ...form,
@@ -61,7 +61,7 @@ function FormLoginMedicalStaff() {
         });
     }
   };
-  console.log(form);
+  console.log(API_URL);
   console.log(process.env.API_URL);
   return (
     <div>

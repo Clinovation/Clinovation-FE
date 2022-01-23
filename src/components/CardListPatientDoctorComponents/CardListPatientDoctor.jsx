@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import Avatar from "../../icons/man.png";
 import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
 import style from '../CardListPatientDoctorComponents/CardList.module.css'
-
+import { API_URL } from "../../utils/const";
 function CardListPatientDoctor() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
@@ -35,7 +35,7 @@ function CardListPatientDoctor() {
   const [error, setError] = useState();
 
   const fetch = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     if (patient.by === "") {
       axios
         .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())

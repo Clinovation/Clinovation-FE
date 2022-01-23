@@ -31,9 +31,9 @@
   width: 50rem;
 }
 
-.kartu3:hover{
+.kartu3:hover {
   padding: 5px;
-  box-shadow: 0px 0px 5px 5px #DFE0EB
+  box-shadow: 0px 0px 5px 5px #dfe0eb;
 }
 
 .iconDashboard {
@@ -63,13 +63,17 @@
   margin-left: 15px;
 }
 
-
 .infoJadwal2 {
   margin-left: 20px;
 }
 
 .btndelete {
   margin-top: 50px;
-  margin-left: 100px;
+  margin-left: 185px;
 }
 
+.paginations{
+  margin-left: 25vw;
+  justify-content: center;
+  flex: auto;
+}

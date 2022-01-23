@@ -15,7 +15,7 @@ import FormAddWorkHour from "./FormAddWorkHour";
 import FormEditWorkHour from "./FormEditWorkHour";
 import FormAddWorkDay from "./FormAddWorkDay";
 import FormEditWorkDay from "./FormEditWorkDay";
-
+import { API_URL } from "../../utils/const";
 function ModalAddWorkDay(props) {
   return (
     <Modal
@@ -204,7 +204,7 @@ export default function ListWorkDayHour() {
   });
 
   const fetchWorkDay = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     if (workDay.by === "") {
       axios
         .get(
@@ -283,7 +283,7 @@ export default function ListWorkDayHour() {
   };
 
   const fetchWorkHour = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     if (workDay.by === "") {
       axios
         .get(
@@ -376,7 +376,7 @@ export default function ListWorkDayHour() {
 
   const onClickDeleteWorkDay = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .delete(`${API_URL}/workDay/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -400,7 +400,7 @@ export default function ListWorkDayHour() {
 
   const onClickDeleteWorkHour = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .delete(`${API_URL}/workHour/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

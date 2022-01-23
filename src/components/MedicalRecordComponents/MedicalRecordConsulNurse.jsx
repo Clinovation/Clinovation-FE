@@ -4,7 +4,7 @@ import style from "./MedicalRecord.module.css";
 import { Link } from "react-router-dom";
 import SidebarNurse from "../SideBarNurseComponents/SideBarNurse";
 import NurseFormAddPrescription from "../NurseFormAddPrescriptionComponents/NurseFormAddPrescription";
-
+import { API_URL } from "../../utils/const";
 function ModalAddPrescription(props) {
   return (
     <Modal

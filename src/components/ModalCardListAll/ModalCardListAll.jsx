@@ -6,7 +6,7 @@ import { Card } from "react-bootstrap";
 import React from "react";
 import style from "./ModalCardListAll.module.css"
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "../../utils/const";
 function ModalCardListAll() {
     const navigate = useNavigate();
 

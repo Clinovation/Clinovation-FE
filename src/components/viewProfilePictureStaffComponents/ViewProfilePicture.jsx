@@ -4,6 +4,7 @@ import Date from "../scheduleDate";
 import staffprofile from "../../icons/staffProfile.png";
 import styles from "../viewProfilePictureStaffComponents/ViewProfilePicture.module.css";
 import Paginations from "../pagination";
+import { API_URL } from "../../utils/const";
 export default function ViewProfilePicture() {
   return (
     <div>
