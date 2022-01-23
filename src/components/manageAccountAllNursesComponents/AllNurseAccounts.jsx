@@ -27,20 +27,26 @@ import styles from "../manageAccountAllNursesComponents/AllNurseAccounts.module.
 export default function AllNurseAccounts() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [nurse, setNurse] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (nurse.by === "") {
+    // if (nurse.by === "") {
       axios
-        .get(`${API_URL}/nurse/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/nurse/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setNurse({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -67,75 +73,75 @@ export default function AllNurseAccounts() {
             console.log(error);
           }
         });
-    } else if (checkName.test(nurse.by)) {
-      axios
-        .get(
-          `${API_URL}/nurse/queryName?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setNurse((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(
-          `${API_URL}/nurse/queryNik?nik=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setNurse((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(nurse.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/nurse/queryName?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setNurse((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(
+    //       `${API_URL}/nurse/queryNik?nik=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setNurse((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -143,11 +149,11 @@ export default function AllNurseAccounts() {
   }, [setNurse]);
 
   const handlePage = (index) => {
-    fetch(index, nurse.by);
+    fetch(index, filter);
   };
   const onChange = (e) => {
     const value = e.target.value;
-    setNurse({ ...nurse, by: value });
+    setFilter(value);
   };
 
   const onClickDelete = (item) => {
@@ -199,10 +205,18 @@ export default function AllNurseAccounts() {
 
             <InputGroup className="mb-3" size="sm" style={{width: '350px'}}>
               <FormControl
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                type="search"
+                name="search"
+                value={filter}
+                onChange={onChange}
               />
-              <Button variant="outline-secondary" id="button-addon2">
+              <Button 
+                variant="outline-secondary" 
+                id="button-addon2"
+                onClick={() => {fetch(1, filter)}}
+                >
               Search
               </Button>
             </InputGroup>

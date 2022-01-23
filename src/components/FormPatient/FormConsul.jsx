@@ -85,7 +85,11 @@ function FormConsul() {
                                 </Table>
                             </div>
                             <div className="d-flex justify-content-end">
-                                <Button type="submit" variant="success">Submit</Button>
+                                <Button type="submit" variant="info">
+                                    <div style={{color:"white"}}>
+                                        Save
+                                    </div>
+                                </Button>
                             </div>
                             
                         </Form>

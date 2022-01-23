@@ -24,20 +24,26 @@ import style from '../CardListPatientDoctorComponents/CardList.module.css'
 function CardListNurse() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [nurse, setNurse] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (nurse.by === "") {
+    // if (nurse.by === "") {
       axios
-        .get(`${API_URL}/nurse/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/nurse/queryName?name=${name}page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setNurse({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -64,69 +70,69 @@ function CardListNurse() {
             console.log(error);
           }
         });
-    } else if (checkName.test(nurse.by)) {
-      axios
-        .get(`${API_URL}/nurse/?name=${by}&page=${page}`, GenerateAxiosConfig())
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setNurse((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(`${API_URL}/nurse/?nik=${by}&page=${page}`, GenerateAxiosConfig())
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setNurse((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(nurse.by)) {
+    //   axios
+    //     .get(`${API_URL}/nurse/?name=${by}&page=${page}`, GenerateAxiosConfig())
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setNurse((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(`${API_URL}/nurse/?nik=${by}&page=${page}`, GenerateAxiosConfig())
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setNurse((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -134,12 +140,14 @@ function CardListNurse() {
   }, [setNurse]);
 
   const handlePage = (index) => {
-    fetch(index, nurse.by);
+    fetch(index, filter);
   };
   const onChange = (e) => {
     const value = e.target.value;
-    setNurse({ ...nurse, by: value });
+    setFilter(value);
   };
+
+  console.log(filter)
   return (
     <div>
       <Container fluid>
@@ -167,13 +175,13 @@ function CardListNurse() {
                         aria-describedby="basic-addon2"
                         type="search"
                         name="search"
-                        value={nurse.by}
+                        value={filter}
                         onChange={onChange}
                       />
                       <Button
                         variant="outline-secondary"
                         id="button-addon2"
-                        onClick={handlePage}
+                        onClick={() => {fetch(1, filter)}}
                       >
                         Search
                       </Button>

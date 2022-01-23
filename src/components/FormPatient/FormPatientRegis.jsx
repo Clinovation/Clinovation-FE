@@ -190,8 +190,11 @@ function FormPatientRegis() {
                   </Form.Group>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <Button type="submit" size="lg">
-                    Register
+                  <Button type="submit" variant="info" size="lg">
+                    <div style={{color:"white"}}>
+                      Register
+                    </div>
+                    
                   </Button>
                 </div>
               </Form>

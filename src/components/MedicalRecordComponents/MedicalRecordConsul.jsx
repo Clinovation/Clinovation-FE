@@ -54,6 +54,7 @@ function MedicalRecordConsul() {
     height: "",
     weight: "",
     record:"",
+    consultation: "",
   };
   const [form, setForm] = useState(initialValue);
   const [error, setError] = useState();
@@ -61,14 +62,16 @@ function MedicalRecordConsul() {
   const fetch = (uuid) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
-      .get(`${API_URL}/patient/${uuid}`, GenerateAxiosConfig())
+      .get(`${API_URL}/medicalRecord/${uuid}`, GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
           setError("No record found");
         } else if (res.status === 404) {
           setError("No record found");
         } else {
+          console.log(res)
           setForm((state) => {
+            
             return {
               ...state,
               name: res.data.data.name,
@@ -78,7 +81,8 @@ function MedicalRecordConsul() {
               sex: res.data.data.sex,
               height: res.data.data.height,
               weight: res.data.data.weight,
-              record: res.data.data.record,
+              record: res.data.data.new_record,
+              consultation: res.data.data.consultation,
               status_martial: res.data.data.status_martial,
             };
           });
@@ -96,6 +100,7 @@ function MedicalRecordConsul() {
   useEffect(() => {
     fetch(uuid);
   }, [setForm]);
+  console.log(form)
     return (
         <div>
             <ModalAddPrescription

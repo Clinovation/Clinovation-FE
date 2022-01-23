@@ -186,6 +186,7 @@ export default function ManageAccountTop() {
           console.log(error);
         }
       });
+    window.location.reload();
   };
 
   const onClickAcceptDoctor = (item) => {
@@ -209,6 +210,8 @@ export default function ManageAccountTop() {
           console.log(error);
         }
       });
+
+    window.location.reload();
   };
 
   return (

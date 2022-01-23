@@ -50,74 +50,31 @@ export default function LastPatient() {
       </div>
       {/* </div> */}
       <Card className={`${styles.kartu3}`}>
-        <Card.Body>
+        <Card.Body className="d-flex justify-content-between">
           <img src={manicon} alt="" className={`${styles.iconDashboard2}`} />
-          <span className={`${styles.infoJadwal}`}>Paul</span>
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
-            <FcClock className={`${styles.iconDashboard3}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
+          <div className="mt-3">Paul</div>
+          <div className="mt-3">
+            <FcClock/>
+            <span>
               5 Dec / 12 PM
             </span>
-          </span>
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
+          </div>
+
+          <div className="mt-3">
             <img src={ward} alt="" className={`${styles.iconDashboard}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
+            <span>
               Neurology
             </span>
-          </span>
+          </div>
 
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
-            <GiStethoscope className={`${styles.iconDashboard3}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
+          <div className="mt-3">
+            <GiStethoscope />
+            <span>
               dr. Morty
             </span>
-          </span>
+          </div>
         </Card.Body>
       </Card>
-      <Card className={`${styles.kartu3}`}>
-        <Card.Body>
-          <img src={manicon} alt="" className={`${styles.iconDashboard2}`} />
-          <span className={`${styles.infoJadwal}`}>Paul</span>
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
-            <FcClock className={`${styles.iconDashboard3}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
-              5 Dec / 12 PM
-            </span>
-          </span>
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
-            <img src={ward} alt="" className={`${styles.iconDashboard}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
-              Neurology
-            </span>
-          </span>
-
-          <span style={{ marginRight: "0px", marginLeft: "10px" }}>
-            <GiStethoscope className={`${styles.iconDashboard3}`} />
-            <span
-              className={`${styles.infoJadwal}`}
-              style={{ marginLeft: "2px" }}
-            >
-              dr. Morty
-            </span>
-          </span>
-        </Card.Body>
-      </Card>
-      {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
       <Paginations className={`${styles.paginations}`} />
     </div>
   );

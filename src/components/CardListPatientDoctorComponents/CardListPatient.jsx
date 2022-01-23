@@ -16,20 +16,28 @@ function CardListPatient() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
   const [patient, setPatient] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+
+  const [filter, setFilter] = useState("");
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (patient.by === "") {
+    // if (patient.by === "") {
       axios
-        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/patient/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
+        // .get(`${API_URL}/patient?nik=${nik}&?page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setPatient({
+              data: [],
+              currPage: 1,
+              pages: [],
+            })
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -56,75 +64,75 @@ function CardListPatient() {
             console.log(error);
           }
         });
-    } else if (checkName.test(patient.by)) {
-      axios
-        .get(
-          `${API_URL}/patient/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(
-          `${API_URL}/patient/?nik=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(patient.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?nik=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -132,12 +140,18 @@ function CardListPatient() {
   }, [setPatient]);
 
   const handlePage = (index) => {
-    fetch(index, patient.by);
+    fetch(index, filter);
   };
   const onChange = (e) => {
     const value = e.target.value;
-    setPatient({ ...patient, by: value });
+    setFilter(value);
   };
+
+  // const onStateChange = (value) =>{
+  //   setPatient((state) =>{
+  //     return {...state, ...value}
+  //   })
+  // }
 
     return (
         <div>
@@ -156,10 +170,18 @@ function CardListPatient() {
                                     <div class="ms-auto p-2 bd-highlight">
                                         <InputGroup className="mb-3" size="sm" style={{width: '300px'}}>
                                             <FormControl
-                                            aria-label="Recipient's username"
-                                            aria-describedby="basic-addon2"
+                                            // aria-label="Recipient's username"
+                                            // aria-describedby="basic-addon2"
+                                              type="search"
+                                              name="title"
+                                              aria-label="Search"
+                                              value={filter}
+                                              onChange={onChange}
                                             />
-                                            <Button variant="outline-secondary" id="button-addon2">
+                                            <Button 
+                                              variant="outline-secondary" 
+                                              onClick={() => {fetch(1, filter);
+                                            }}>
                                             Search
                                             </Button>
                                         </InputGroup>

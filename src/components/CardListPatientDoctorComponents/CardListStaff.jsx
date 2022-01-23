@@ -24,20 +24,26 @@ import style from '../CardListPatientDoctorComponents/CardList.module.css'
 function CardListStaff() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [staff, setStaff] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (staff.by === "") {
+    // if (staff.by === "") {
       axios
-        .get(`${API_URL}/medicalStaff/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/medicalStaff/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setStaff({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -64,75 +70,75 @@ function CardListStaff() {
             console.log(error);
           }
         });
-    } else if (checkName.test(staff.by)) {
-      axios
-        .get(
-          `${API_URL}/medicalStaff/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setStaff((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(
-          `${API_URL}/medicalStaff/?nik=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setStaff((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(staff.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/medicalStaff/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setStaff((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(
+    //       `${API_URL}/medicalStaff/?nik=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setStaff((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -140,11 +146,11 @@ function CardListStaff() {
   }, [setStaff]);
 
   const handlePage = (index) => {
-    fetch(index, staff.by);
-  };
+    fetch(index, filter)
+  }
   const onChange = (e) => {
     const value = e.target.value;
-    setStaff({ ...staff, by: value });
+    setFilter(value);
   };
   return (
     <div>
@@ -173,13 +179,13 @@ function CardListStaff() {
                         aria-describedby="basic-addon2"
                         type="search"
                         name="search"
-                        value={staff.by}
+                        value={filter}
                         onChange={onChange}
                       />
                       <Button
                         variant="outline-secondary"
                         id="button-addon2"
-                        onClick={handlePage}
+                        onClick={() => {fetch(1, filter)}}
                       >
                         Search
                       </Button>

@@ -1,7 +1,7 @@
 .icondashboard3{
     place-items: center;
     width: 28px;
-    height: 28px;
+    /* height: 28px; */
   }
 
   .cardstyle {
@@ -31,9 +31,9 @@
     width: 50rem;
   }
   .iconDashboard {
-    height: 32px;
-    width: 32px;
-    margin-bottom: 13px;
+    height: 28px;
+    /* width: 32px; */
+    /* margin-bottom: 13px; */
   }
   .iconDashboard2 {
     height: 65px;

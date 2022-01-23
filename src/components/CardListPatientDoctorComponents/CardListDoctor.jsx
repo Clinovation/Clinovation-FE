@@ -24,20 +24,29 @@ import style from '../CardListPatientDoctorComponents/CardList.module.css'
 function CardListDoctor() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [doctor, setDoctor] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (doctor.by === "") {
+    // if (doctor.by === "") {
       axios
-        .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+        // .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/doctor/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
+
         .then((res) => {
           if (res.status === 204) {
+            setDoctor({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -64,85 +73,91 @@ function CardListDoctor() {
             console.log(error);
           }
         });
-    } else if (checkName.test(doctor.by)) {
-      axios
-        .get(
-          `${API_URL}/doctor/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setDoctor((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(`${API_URL}/doctor/?nik=${by}&page=${page}`, GenerateAxiosConfig())
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setDoctor((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(doctor.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/doctor/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setDoctor((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(`${API_URL}/doctor/?nik=${by}&page=${page}`, GenerateAxiosConfig())
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setDoctor((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
     fetch(1, "");
-  }, [setDoctor]);
+  }, [setDoctor, setError]);
 
   const handlePage = (index) => {
-    fetch(index, doctor.by);
+    fetch(index, filter);
   };
+  // const onChange = (e) => {
+  //   const value = e.target.value;
+  //   setDoctor({ ...doctor, by: value });
+
   const onChange = (e) => {
     const value = e.target.value;
-    setDoctor({ ...doctor, by: value });
+    setFilter(value);
   };
+
+  console.log(filter)
   return (
     <div>
       <Container fluid>
@@ -170,13 +185,13 @@ function CardListDoctor() {
                         aria-describedby="basic-addon2"
                         type="search"
                         name="search"
-                        value={doctor.by}
+                        value={filter}
                         onChange={onChange}
                       />
                       <Button
                         variant="outline-secondary"
                         id="button-addon2"
-                        onClick={handlePage}
+                        onClick={() => {fetch(1, filter)}}
                       >
                         Search
                       </Button>

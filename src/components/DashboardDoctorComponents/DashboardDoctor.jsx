@@ -18,7 +18,7 @@ function CardDashboardDoctor() {
     const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
   const [patient, setPatient] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
@@ -27,9 +27,9 @@ function CardDashboardDoctor() {
 
   const fetch = (page, by) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (patient.by === "") {
+    // if (patient.by === "") {
       axios
-        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/medicalRecord/queue?page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -58,75 +58,75 @@ function CardDashboardDoctor() {
             console.log(error);
           }
         });
-    } else if (checkName.test(patient.by)) {
-      axios
-        .get(
-          `${API_URL}/patient/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(
-          `${API_URL}/patient/?nik=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(patient.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?nik=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -134,12 +134,38 @@ function CardDashboardDoctor() {
   }, [setPatient]);
 
   const handlePage = (index) => {
-    fetch(index, patient.by);
+    fetch(index,"");
   };
-  const onChange = (e) => {
-    const value = e.target.value;
-    setPatient({ ...patient, by: value });
+  // const onChange = (e) => {
+  //   const value = e.target.value;
+  //   setPatient({ ...patient, by: value });
+  // };
+
+  const onClickDone = (item) => {
+    // const API_URL = process.env.BE_API_URL;
+    const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .delete(`${API_URL}/medicalRecord/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.errors[0]);
+          console.log(error);
+        }
+      });
   };
+  
+  console.log(error)
+  console.log(patient)
   return (
     <div>
       <Container>
@@ -148,11 +174,13 @@ function CardDashboardDoctor() {
                   <Col>
                       <Card style={{ width: '26.5rem' }}>
                           <Card.Body style={{ marginLeft: '25px' }}>
-                              <Card.Title>Total Patient Treated <img src={aidkit} style={{ width: '24px' }}/></Card.Title>
+                              <Card.Title>Total Patient Queue <img src={aidkit} style={{ width: '24px' }}/></Card.Title>
                               <Card.Subtitle className="mb-2 text-muted">Today</Card.Subtitle>
+                              {patient&&(
                               <Card.Text>
-                              20 Patients
+                              {patient.data.length} Patients
                               </Card.Text>
+                              )}
                           </Card.Body>
                       </Card>
                   </Col>
@@ -192,7 +220,7 @@ function CardDashboardDoctor() {
                             </div>
                             <div class="p-2 bd-highlight mt-2" style={{width: "100px"}}>
                               {/* var nama = {item.name} */}
-                              {item.name.slice(0,5)}
+                              {item.patient.slice(0,5)}
                             </div>
                             <div class="p-2 bd-highlight mt-2" style={{marginRight: "30px"}}>{item.dob}</div>
                             <div class="p-2 bd-highlight mt-2">{item.nik}</div>
@@ -201,7 +229,7 @@ function CardDashboardDoctor() {
                                     <Button variant="info" size="sm"><div style={{color: "white"}}>Patient Record</div></Button>
                               </Link>
                             </div>
-                            <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="success" size="sm">Done</Button></div>
+                            <div class="ms-auto p-2 bd-highlight mt-2"><Button variant="success" size="sm" onClick={() => onClickDone(item)}>Done</Button></div>
                         </div>
                     </Card.Body>
                 </Card>

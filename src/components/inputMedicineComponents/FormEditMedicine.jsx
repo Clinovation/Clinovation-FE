@@ -188,11 +188,14 @@ export default function FormEditMedicine(props) {
 
             <Button
               type="submit"
-              variant="success"
+              variant="info"
               style={{ marginLeft: "15vw", width: "10vw" }}
               to="/listMedicine"
             >
-              Save
+              <div style={{color: "white"}}>
+                Save
+              </div>
+              
             </Button>
 
             {/* <Link to="/listPrescription">

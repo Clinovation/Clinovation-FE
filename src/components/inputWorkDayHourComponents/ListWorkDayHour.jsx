@@ -185,14 +185,12 @@ export default function ListWorkDayHour() {
   const [stateUuid, setStateUuid] = useState("");
 
   const [workDay, setWorkDay] = useState({
-    by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
 
   const [workHour, setWorkHour] = useState({
-    by: "",
     data: [],
     currPage: 1,
     pages: [],
@@ -203,16 +201,23 @@ export default function ListWorkDayHour() {
     workHour: "",
   });
 
-  const fetchWorkDay = (page, by) => {
+  const [filterDay, setFilterDay] = useState("")
+  const [filterHour, setFilterHour] = useState("")
+
+  const fetchWorkDay = (page, day) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (workDay.by === "") {
       axios
         .get(
-          `${API_URL}/workDay/pagination?page=${page}`,
+          `${API_URL}/workDay/queryDay?day=${day}&page=${page}`,
           GenerateAxiosConfig()
         )
         .then((res) => {
           if (res.status === 204) {
+            setWorkDay({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError({ ...error, workDay: "No record found" });
           } else {
             const page = { ...res.data.page };
@@ -242,56 +247,23 @@ export default function ListWorkDayHour() {
             console.log(error);
           }
         });
-    } else {
-      axios
-        .get(
-          `${API_URL}/workDay/queryDay?day=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError({ ...error, workDay: "No record found" });
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setWorkDay((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError({
-              ...error,
-              workDay: error.response.data.meta.messages[0],
-            });
-            console.log(error);
-          }
-        });
-    }
   };
 
-  const fetchWorkHour = (page, by) => {
+  const fetchWorkHour = (page, hour) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (workDay.by === "") {
+    // if (workDay.by === "") {
       axios
         .get(
-          `${API_URL}/workHour/pagination?page=${page}`,
+          `${API_URL}/workHour/queryHour?hour=${hour}&page=${page}`,
           GenerateAxiosConfig()
         )
         .then((res) => {
           if (res.status === 204) {
+            setWorkHour({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError({ ...error, workHour: "No record found" });
           } else {
             const page = { ...res.data.page };
@@ -321,44 +293,6 @@ export default function ListWorkDayHour() {
             console.log(error);
           }
         });
-    } else {
-      axios
-        .get(
-          `${API_URL}/workHour/queryHour?hour=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError({ ...error, workHour: "No record found" });
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setWorkHour((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError({
-              ...error,
-              workHour: error.response.data.meta.messages[0],
-            });
-            console.log(error);
-          }
-        });
-    }
   };
 
   useEffect(() => {
@@ -367,11 +301,11 @@ export default function ListWorkDayHour() {
   }, [setWorkDay, setWorkHour]);
 
   const handlePageWorkDay = (index) => {
-    fetchWorkDay(index, workDay.by);
+    fetchWorkDay(index, filterDay);
   };
 
   const handlePageWorkHour = (index) => {
-    fetchWorkHour(index, workHour.by);
+    fetchWorkHour(index, filterHour);
   };
 
   const onClickDeleteWorkDay = (item) => {
@@ -396,6 +330,7 @@ export default function ListWorkDayHour() {
           console.log(error);
         }
       });
+    window.location.reload();
   };
 
   const onClickDeleteWorkHour = (item) => {
@@ -419,18 +354,21 @@ export default function ListWorkDayHour() {
           console.log(error);
         }
       });
+    window.location.reload();
   };
 
   const onChangeWorkDaySearch = (e) => {
     const value = e.target.value;
-    setWorkDay({ ...workDay, by: value });
+    setFilterDay(value);
   };
 
   const onChangeWorkHourSearch = (e) => {
     const value = e.target.value;
-    setWorkHour({ ...workHour, by: value });
+    setFilterHour(value);
   };
 
+  console.log(filterDay)
+  console.log(filterHour)
   return (
     <div>
       <div>
@@ -450,12 +388,15 @@ export default function ListWorkDayHour() {
               <div class="p-2 bd-highlight">
                 {/* <Link to="/addPrescription"> */}
                 <Button
-                  variant="success"
+                  variant="info"
                   onClick={() => {
                     setModalShowWorkDay(true);
                   }}
                 >
-                  Add New Work Day
+                  <div style={{color : "white"}}>
+                      Add New Work Day
+                  </div>
+                  
                 </Button>
                 {/* </Link> */}
               </div>
@@ -471,10 +412,14 @@ export default function ListWorkDayHour() {
                     aria-describedby="basic-addon2"
                     type="search"
                     name="search"
-                    value={workDay.by}
+                    value={filterDay}
                     onChange={onChangeWorkDaySearch}
                   />
-                  <Button variant="outline-secondary" id="button-addon2">
+                  <Button
+                    variant="outline-secondary"
+                    id="button-addon2"
+                    onClick={() => {fetchWorkDay(1, filterDay)}}
+                      >
                     Search
                   </Button>
                 </InputGroup>
@@ -501,7 +446,7 @@ export default function ListWorkDayHour() {
                   <td></td>
                   <td>
                     <Button
-                      variant="warning"
+                      variant="outline-warning"
                       style={{ marginRight: "10px" }}
                       size="sm"
                       onClick={() => {
@@ -512,7 +457,7 @@ export default function ListWorkDayHour() {
                       Edit
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="outline-danger"
                       size="sm"
                       onClick={() => onClickDeleteWorkDay(item)}
                     >
@@ -558,12 +503,14 @@ export default function ListWorkDayHour() {
               <div class="p-2 bd-highlight">
                 {/* <Link to="/addPrescription"> */}
                 <Button
-                  variant="success"
+                  variant="info"
                   onClick={() => {
                     setModalShowWorkHour(true);
                   }}
                 >
-                  Add New Work Hour
+                  <div style={{color : "white"}}>
+                      Add New Work Hour
+                  </div>
                 </Button>
                 {/* </Link> */}
               </div>
@@ -577,10 +524,16 @@ export default function ListWorkDayHour() {
                   <FormControl
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
-                    value={workHour.by}
+                    type="search"
+                    name="search"
+                    value={filterHour}
                     onChange={onChangeWorkHourSearch}
                   />
-                  <Button variant="outline-secondary" id="button-addon2">
+                  <Button 
+                    variant="outline-secondary" 
+                    id="button-addon2"
+                    onClick={() => {fetchWorkHour(1, filterHour)}}
+                    >
                     Search
                   </Button>
                 </InputGroup>
@@ -605,7 +558,7 @@ export default function ListWorkDayHour() {
                   <td></td>
                   <td>
                     <Button
-                      variant="warning"
+                      variant="outline-warning"
                       style={{ marginRight: "10px" }}
                       size="sm"
                       onClick={() => {
@@ -616,7 +569,7 @@ export default function ListWorkDayHour() {
                       Edit
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="outline-danger"
                       size="sm"
                       onClick={() => onClickDeleteWorkHour(item)}
                     >

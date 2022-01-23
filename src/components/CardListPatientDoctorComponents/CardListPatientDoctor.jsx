@@ -27,20 +27,26 @@ function CardListPatientDoctor() {
   const [modalShow, setModalShow] = useState(false);
 
   const [patient, setPatient] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     const API_URL = "http://3.83.92.188:8080/api/v1";
-    if (patient.by === "") {
+    // if (patient.by === "") {
       axios
-        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/patient/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setPatient({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -67,75 +73,6 @@ function CardListPatientDoctor() {
             console.log(error);
           }
         });
-    } else if (checkName.test(patient.by)) {
-      axios
-        .get(
-          `${API_URL}/patient/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(
-          `${API_URL}/patient/?nik=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPatient((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
   };
 
   useEffect(() => {
@@ -143,13 +80,15 @@ function CardListPatientDoctor() {
   }, [setPatient]);
 
   const handlePage = (index) => {
-    fetch(index, patient.by);
-  };
-  const onChange = (e) => {
-    const value = e.target.value;
-    setPatient({ ...patient, by: value });
+    fetch(index, filter);
   };
 
+  const onChange = (e) => {
+    const value = e.target.value;
+    setFilter(value);
+  };
+
+  console.log(filter)
   return (
     <div>
       <Container fluid>
@@ -167,11 +106,14 @@ function CardListPatientDoctor() {
 
                     <Link to={"/registrasiPatient"}>
                       <Button
-                        variant="success"
+                        variant="info"
                         onClick={() => setModalShow(true)}
                         style={{ margin: "10px 0 " }}
                       >
-                        Add New Patient
+                        <div style={{color:"white"}}>
+                          Add New Patient
+                        </div>
+                        
                       </Button>
                     </Link>
 
@@ -188,13 +130,13 @@ function CardListPatientDoctor() {
                         aria-describedby="basic-addon2"
                         type="search"
                         name="search"
-                        value={patient.by}
+                        value={filter}
                         onChange={onChange}
                       />
                       <Button
                         variant="outline-secondary"
                         id="button-addon2"
-                        onClick={handlePage}
+                        onClick={() => {fetch(1, filter)}}
                       >
                         Search
                       </Button>

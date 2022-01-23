@@ -242,8 +242,8 @@ function ProfileDoctor() {
             </Form>
             {error && <p className="text-center text-dark mt-5">{error}</p>}
             <div className="d-flex justify-content-between">
-              <Link to="/dashboardStaff">
-                <Button variant="warning">Back To Home</Button>
+              <Link to="/listDoctor">
+                <Button variant="info"><div style={{color:"white"}}>Back To List Doctor</div></Button>
               </Link>
 
               <Button variant="danger" onClick={() => onClickDelete(uuid)}>

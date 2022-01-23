@@ -171,7 +171,7 @@ function ProfileStaff() {
             {error && <p className="text-center text-dark mt-5">{error}</p>}
             <div className="d-flex justify-content-center">
               <Link to="/listStaff">
-                <Button variant="warning">Back To All Staff</Button>
+                <Button variant="info"><div style={{color:"white"}}>Back To All Staff</div></Button>
               </Link>
             </div>
           </Col>
