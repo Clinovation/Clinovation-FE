@@ -4,7 +4,7 @@ import Medstaff from "../../icons/healthCare.png";
 import style from "./FormPatient.module.css";
 import Logo from "../../images/Logo.png";
 import { Link } from "react-router-dom";
-
+import { API_URL } from "../../utils/const";
 function FormPatientRegis() {
   return (
     <div>

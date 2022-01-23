@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Form, Button, Row, Col, Dropdown, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { API_URL } from "../../utils/const";
 export default function NurseFormAddPrescription() {
   const [validated, setValidated] = useState(false);
 

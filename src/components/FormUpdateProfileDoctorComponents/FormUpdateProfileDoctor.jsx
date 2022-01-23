@@ -12,7 +12,7 @@ import useValidateForm from "../../hooks/useValidateForm";
 import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import SideBarDoctor from "../SideBarDoctorComponents/SideBarDoctor";
 import style from "../FormUpdateProfileDoctorComponents/UpdateProfileDoctor.module.css"
-
+import { API_URL } from "../../utils/const";
 function FormUpdateProfileDoctor() {
   const cookies = new Cookies();
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ function FormUpdateProfileDoctor() {
   };
 
   const updateProfile = (data) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(
         `${API_URL}/doctor/`,

@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import NurseFormAddPrescription from "../NurseFormAddPrescriptionComponents/NurseFormAddPrescription";
 import SidebarNurse from "../SideBarNurseComponents/SideBarNurse";
-
+import { API_URL } from "../../utils/const";
 function ModalAddPrescription(props) {
   return (
     <Modal

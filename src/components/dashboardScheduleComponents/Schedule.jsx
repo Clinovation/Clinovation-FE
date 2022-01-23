@@ -5,6 +5,7 @@ import nurseicon from "../../icons/nurse-icon.png";
 import { Link } from "react-router-dom";
 import styles from "../dashboardScheduleComponents/Schedule.module.css";
 import { Card, Button } from "react-bootstrap";
+import { API_URL } from "../../utils/const";
 export default function Schedule() {
   return (
     <div>

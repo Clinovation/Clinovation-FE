@@ -6,7 +6,7 @@ import aidkit from "../../icons/firstaidkit.svg";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import style from "../nurseDashboardComponents/DashboardNurse.module.css"
-
+import { API_URL } from "../../utils/const";
 export default function DashboardNurse() {
   const URL =
     "https://api.thenewsapi.com/v1" +

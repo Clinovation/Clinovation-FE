@@ -5,6 +5,7 @@ import staffprofile from "../../icons/staffProfile.png";
 import styles from "../allScheduleDoctorComponents/AllDoctorSchedule.module.css";
 import Paginations from "../pagination";
 import nurseicon from "../../icons/nurse-icon.png";
+import { API_URL } from "../../utils/const";
 export default function AllNurseSchedule() {
   return (
     <div>

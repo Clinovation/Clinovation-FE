@@ -5,6 +5,7 @@ import totalPatient from "../../icons/registered.png";
 import brain from "../../icons/brain.png";
 import heartbeat from "../../icons/heartbeat.png";
 import pediatrics from "../../icons/pediatrics.png";
+import { API_URL } from "../../utils/const";
 export default function DashboardCard() {
   return (
     <div>

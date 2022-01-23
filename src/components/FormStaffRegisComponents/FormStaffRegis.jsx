@@ -7,7 +7,7 @@ import axios from "axios";
 import useValidateForm from "../../hooks/useValidateForm";
 import Logo from "../../images/Logo.png";
 import style from './StaffRegis.module.css'
-
+import { API_URL } from "../../utils/const";
 function FormStaffRegis() {
   const { validateForm } = useValidateForm();
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function FormStaffRegis() {
     if (Object.keys(newErrors).length > 0) {
       setErrorMsg(newErrors);
     } else {
-      const API_URL = "http://3.83.92.188:8080/api/v1";
+      // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/medicalStaff/register`, {
           ...form,
