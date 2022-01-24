@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react'
-import {Table, Button, Container, InputGroup,FormControl, Row, Modal, Col} from "react-bootstrap"
+import {Table, Button, Container, InputGroup,FormControl,Pagination, Row, Modal, Col} from "react-bootstrap"
 import { Link } from 'react-router-dom'
 import FormAddPrescription from '../FormAddPrescriptionComponents/FormAddPrescription'
 import SideBarDoctor from '../SideBarDoctorComponents/SideBarDoctor';
@@ -71,50 +71,18 @@ function ListPrescription() {
   const [filter, setFilter] = useState("");
   const [error, setError] = useState();
 
-<<<<<<< HEAD
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
-    // if (prescription.by === "") {
-=======
-  const fetch = (page, by) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
-    if (prescription.by === "") {
+    // if (prescription.by === "") {
       axios
-        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/recipe/?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPrescription((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else if (checkName.test(prescription.by)) {
->>>>>>> master
-      axios
-        .get(`${API_URL}/recipe?name=${name}&page=${page}`, GenerateAxiosConfig())
-        .then((res) => {
-          if (res.status === 204) {
+            setPrescription({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -215,7 +183,7 @@ function ListPrescription() {
 
   useEffect(() => {
     fetch(1, "");
-  }, [setPrescription]);
+  }, [setPrescription,setError]);
 
   const handlePage = (index) => {
     fetch(index, filter);
@@ -225,11 +193,6 @@ function ListPrescription() {
     setPrescription(value);
   };
 
-  const onStateChange = (value) => {
-		setPrescription((state) => {
-			return { ...state, ...value };
-		});
-	};
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
     // const API_URL = "http://184.72.154.87:8080/api/v1";
@@ -258,6 +221,7 @@ function ListPrescription() {
     alert("BERHASIL MENGHAPUS ");
     }, 1000);
   };
+  console.log(prescription)
     return (
        
         <div>
@@ -280,8 +244,8 @@ function ListPrescription() {
                     <div class="d-flex bd-highlight">
                         <div class="p-2 bd-highlight">
                             {/* <Link to="/addPrescription"> */}
-                                <Button variant="info" onClick={() => setModalShow(true)}>
-                                  <div style={{color: "white"}}>Add Prescription</div></Button>
+                                {/* <Button variant="info" onClick={() => setModalShow(true)}>
+                                  <div style={{color: "white"}}>Add Prescription</div></Button> */}
                             {/* </Link> */}
                         </div>
                     
@@ -318,11 +282,11 @@ function ListPrescription() {
 
                     {prescription?.data?.map((item) => (
                     <tr>
-                        <td>{item.date}</td>
-                        <td>{item.doctor}</td>
+                        <td>{item.created_at}</td>
+                        <td>{item.username}</td>
                         <td>{item.patient}</td>
-                        <td>{item.medication}</td>
-                        <td>{item.notes}</td>
+                        <td>{item.medicine}</td>
+                        <td>{item.record}</td>
                         <td>{item.consumption_rule}</td>
                         <td>
                             <Button variant="outline-warning" style={{marginRight: "10px"}} size="sm" onClick={() => setModalShowUpdate(true)}>Edit</Button>
@@ -332,6 +296,21 @@ function ListPrescription() {
                     ))}
                     </tbody>
                 </Table>
+                <div className="d-flex justify-content-center">
+                {prescription && (
+                  <Pagination className="align-self-center">
+                    {prescription.pages.map((item) => (
+                      <Pagination.Item
+                        key={item}
+                        active={item === prescription.currPage}
+                        onClick={() => handlePage(item)}
+                      >
+                        {item}
+                      </Pagination.Item>
+                    ))}
+                  </Pagination>
+                )}
+              </div>
                 </Col>
               </Row>
             </Container>

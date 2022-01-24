@@ -5,7 +5,6 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import useValidateForm from "../../hooks/useValidateForm";
 import { API_URL } from "../../utils/const";
 export default function FormAddMedicine() {
-  // const [validated, setValidated] = useState(false);
   const { validateForm } = useValidateForm();
   const initialValue = {
     name: "",

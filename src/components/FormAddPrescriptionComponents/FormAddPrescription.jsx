@@ -12,14 +12,12 @@ import {
 } from "../../utils/helpers";
 
 import { API_URL } from "../../utils/const";
-function FormAddPrescription() {
+function FormAddPrescription(props) {
+  const { uuid,uuidMedicalRecord } = props
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
-    date: "",
     symptom: "",
-    patient: "",
-    new_record: "",
-    note: "",
+    record: "",
     consumption_rule: "",
   });
   const [medicine, setMedicine] = useState({
@@ -40,7 +38,7 @@ function FormAddPrescription() {
   const onChangeUuid = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setUuidMedicine({ ...uuidMedicine, [name]: value });
+    setUuidMedicine(value);
   };
 
   const onBlur = (e) => {
@@ -51,12 +49,12 @@ function FormAddPrescription() {
   };
 
   const fetchMedicine = () => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
-      .get(`${API_URL}/medicine/`)
+      .get(`${API_URL}/medicine/`,GenerateAxiosConfig())
       .then((res) => {
         if (res.status === 204) {
-          // setErrorWork({ ...errorWork, workDay: "No record found" });
+          setErrorMedicine("No record found");
         } else {
           setMedicine((state) => {
             return {
@@ -69,7 +67,7 @@ function FormAddPrescription() {
       .catch((error) => {
         if (error.response) {
           HandleUnauthorized(error.response);
-          setErrorMedicine(error.response.data.meta.messages[0])
+          setErrorMedicine(error.response.data.errors[0])
           console.log(error);
         }
       });
@@ -86,10 +84,11 @@ function FormAddPrescription() {
       setErrorMsg(newErrors);
     } else {
       // const API_URL = "http://184.72.154.87:8080/api/v1";
+      // api/v1/recipe/?patientID=a34e5b37-c5a2-4c58-b594-dcbc749a5cc1&medicineID=532a1c2f-c79c-4490-9417-9b3d0aedcbae&medicalRecordID=d0862255-3837-4bdb-be2d-90515a7ce35f
       axios
-        .post(`${API_URL}/recipe/`, {
+        .post(`${API_URL}/recipe/?patientID=${uuid}&medicineID=${uuidMedicine}&medicalRecordID=${uuidMedicalRecord}`, {
           ...form,
-        })
+        }, GenerateAxiosConfig())
         .then(() => {
           // axios
           //   .post(`${API_URL}/doctor/login`, {
@@ -106,7 +105,7 @@ function FormAddPrescription() {
         .catch((error) => {
           setErrorMsg({
             ...errorMsg,
-            auth: error.response.data.meta.messages[0],
+            errorAdd: error.response.data.errors[0],
           });
         });
     }
@@ -116,7 +115,9 @@ function FormAddPrescription() {
 
     window.location.reload();
   };
-
+  console.log(uuidMedicine)
+  console.log("uuid medical : ", uuidMedicalRecord)
+  console.log("uuid patient : ",uuid)
   return (
     <div>
       <Row className="mt-1">
@@ -125,56 +126,8 @@ function FormAddPrescription() {
           <div
             style={{ borderTop: "2px solid black", paddingBottom: "10px" }}
           ></div>
-          <Form noValidate>
+          <Form noValidate onSubmit={onSubmit}>
             <div className="cardForm">
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Date
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control
-                    type="text"
-                    name="date"
-                    value={form.date}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    isInvalid={!!errorMsg.date}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errorMsg.date}
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Patient
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control
-                    type="text"
-                    name="patient"
-                    value={form.patient}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    isInvalid={!!errorMsg.patient}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errorMsg.patient}
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
               <Form.Group
                 as={Row}
                 className="mb-3"
@@ -229,44 +182,20 @@ function FormAddPrescription() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Note
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control
-                    type="text"
-                    name="note"
-                    value={form.note}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    isInvalid={!!errorMsg.note}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errorMsg.note}
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
                   New Record
                 </Form.Label>
                 <Col md="9">
                   <Form.Control
                     type="text"
-                    name="new_record"
-                    value={form.new_record}
+                    name="record"
+                    value={form.record}
                     onChange={onChange}
                     onBlur={onBlur}
-                    isInvalid={!!errorMsg.new_record}
+                    isInvalid={!!errorMsg.record}
                     required
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errorMsg.new_record}
+                    {errorMsg.record}
                   </Form.Control.Feedback>
                 </Col>
               </Form.Group>
@@ -294,16 +223,14 @@ function FormAddPrescription() {
                     </Col>
                   </Form.Group>
             </div>
-            <Link to="/listPrescription">
               <Button
                 type="submit"
                 variant="info"
                 style={{ marginLeft: "15vw", width: "10vw" }}
-                onClick={onSubmit}
+                to="/listPrescription"
               >
                 <div style={{color : "white"}}>Save</div>
               </Button>
-            </Link>
 
             {/* <Link to="/listPrescription">
                         <Button type="submit" variant="warning">Back</Button>   

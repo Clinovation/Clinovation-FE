@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { Base64 } from "js-base64";
 import { GiConsoleController } from "react-icons/gi";
+import { API_URL } from "../../utils/const";
 
 export default function useHandleLogin() {
   const cookies = new Cookies();
@@ -12,7 +13,7 @@ export default function useHandleLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async (res) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     let userData = {
       ...res,
     };

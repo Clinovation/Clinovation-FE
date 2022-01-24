@@ -29,7 +29,7 @@ export default function AllDoctorSchedules() {
   const day = useSelector((state) => state.day.day.day)
   console.log(day)
   const fetch = (page, day) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .get(`${API_URL}/doctor/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
 

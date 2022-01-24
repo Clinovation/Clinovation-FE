@@ -14,6 +14,7 @@ import { Card, Button, Pagination } from "react-bootstrap";
 import moment from "moment";
 
 import { API_URL } from "../../utils/const";
+
 export default function Schedule() {
   var now = new Date();
   var day = moment(now).format('dddd')
@@ -28,7 +29,7 @@ export default function Schedule() {
   const [error, setError] = useState();
 
   const fetch = (page, day) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .get(`${API_URL}/doctor/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
 

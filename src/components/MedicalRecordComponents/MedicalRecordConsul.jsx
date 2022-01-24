@@ -30,7 +30,7 @@ function ModalAddPrescription(props) {
             Add Prescription
           </h4>
         </div>
-        <FormAddPrescription />
+        <FormAddPrescription uuid={props.uuid} uuidMedicalRecord={props.uuidMedicalRecord}/>
       </Modal.Body>
       <Modal.Footer>
         <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
@@ -43,6 +43,7 @@ function ModalAddPrescription(props) {
 
 function MedicalRecordConsul() {
   const [modalShow, setModalShow] = useState(false);
+  const [stateUuid, setStateUuid] = useState("");
   const { uuid } = useParams();
   const initialValue = {
     name: "",
@@ -55,6 +56,7 @@ function MedicalRecordConsul() {
     weight: "",
     record:"",
     consultation: "",
+    patient_uuid: "",
   };
   const [form, setForm] = useState(initialValue);
   const [error, setError] = useState();
@@ -74,16 +76,17 @@ function MedicalRecordConsul() {
             
             return {
               ...state,
-              name: res.data.data.name,
-              nik: res.data.data.nik,
-              address: res.data.data.address,
-              dob: res.data.data.dob,
-              sex: res.data.data.sex,
-              height: res.data.data.height,
-              weight: res.data.data.weight,
+              name: res.data.data.patient_name,
+              nik: res.data.data.patient_nik,
+              address: res.data.data.patient_address,
+              dob: res.data.data.patient_dob,
+              sex: res.data.data.patient_sex,
+              height: res.data.data.patient_height,
+              weight: res.data.data.patient_weight,
               record: res.data.data.new_record,
               consultation: res.data.data.consultation,
-              status_martial: res.data.data.status_martial,
+              status_martial: res.data.data.patient_status_martial,
+              patient_uuid: res.data.data.patient_uuid,
             };
           });
         }
@@ -104,6 +107,8 @@ function MedicalRecordConsul() {
     return (
         <div>
             <ModalAddPrescription
+                uuid={stateUuid}
+                uuidMedicalRecord={uuid}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
@@ -230,7 +235,11 @@ function MedicalRecordConsul() {
                         </div>
                         <div className='d-flex justify-content-center'>
                             {/* <Link to="/addPrescription"> */}
-                                <Button type="submit" variant="info" onClick={() => setModalShow(true)}>
+                                <Button type="submit" variant="info" 
+                                  onClick={() => {
+                                  setModalShow(true);
+                                  setStateUuid(form.patient_uuid);
+                                }}>
                                   <div style={{color: "white"}}>Add Prescription</div>
                                 </Button>
                             {/* </Link> */}

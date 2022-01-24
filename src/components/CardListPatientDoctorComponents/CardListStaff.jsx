@@ -152,6 +152,7 @@ function CardListStaff() {
     const value = e.target.value;
     setFilter(value);
   };
+  console.log(staff)
   return (
     <div>
       <Container fluid>
