@@ -62,5 +62,5 @@ jobs:
           ssh development '
           docker rm -vf fe-clinovation && \
           docker pull hencya/fe-clinovation:latest && \
-          docker run -d -p 3000:3000 --name fe-clinovation \
+          docker run -d -p 80:80 --name fe-clinovation \
           hencya/fe-clinovation:latest'
