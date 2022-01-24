@@ -13,7 +13,7 @@ import {
   HandleUnauthorized,
 } from "../../utils/helpers";
 import { Link } from 'react-router-dom'
-
+import { API_URL } from "../../utils/const";
 function CardDashboardDoctor() {
     const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
@@ -26,7 +26,7 @@ function CardDashboardDoctor() {
   const [error, setError] = useState();
 
   const fetch = (page, by) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (patient.by === "") {
       axios
         .get(`${API_URL}/medicalRecord/queue?page=${page}`, GenerateAxiosConfig())

@@ -12,7 +12,7 @@ import Avatar from "../../icons/staffProfile.png";
 import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
 import style from "./ViewProfile.module.css";
 import { Link } from "react-router-dom";
-
+import { API_URL } from "../../utils/const";
 function ProfileStaff() {
   const { uuid } = useParams();
   const initialValue = {
@@ -29,7 +29,7 @@ function ProfileStaff() {
   const [error, setError] = useState();
 
   const fetch = (uuid) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .get(`${API_URL}/medicalStaff/${uuid}`, GenerateAxiosConfig())
       .then((res) => {

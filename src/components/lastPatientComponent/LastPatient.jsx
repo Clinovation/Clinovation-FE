@@ -7,6 +7,7 @@ import { GiStethoscope } from "react-icons/gi";
 import styles from "../lastPatientComponent/LastPatient.module.css";
 import { Card, Pagination, InputGroup, FormControl, Button} from "react-bootstrap";
 import Paginations from "../pagination";
+import { API_URL } from "../../utils/const";
 export default function LastPatient() {
   return (
     <div style={{width: "800px"}}>

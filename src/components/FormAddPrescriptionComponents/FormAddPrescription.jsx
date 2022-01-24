@@ -11,6 +11,7 @@ import {
   HandleUnauthorized,
 } from "../../utils/helpers";
 
+import { API_URL } from "../../utils/const";
 function FormAddPrescription() {
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
@@ -84,7 +85,7 @@ function FormAddPrescription() {
     if (Object.keys(newErrors).length > 0) {
       setErrorMsg(newErrors);
     } else {
-      const API_URL = "http://184.72.154.87:8080/api/v1";
+      // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/recipe/`, {
           ...form,

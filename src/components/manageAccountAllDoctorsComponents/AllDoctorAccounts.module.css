@@ -69,6 +69,16 @@
 
 .btndelete{
   margin-top: 50px;
-  margin-left: 100px;
+  margin-left: 185px;
 }
 
+.paginations{
+  margin-left: 25vw;
+  justify-content: center;
+  flex: auto;
+}
+
+.hr{
+  margin-left: -120px;
+  width: 70vw;
+}

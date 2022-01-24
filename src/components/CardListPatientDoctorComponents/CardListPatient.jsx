@@ -11,7 +11,7 @@ import {
   HandleUnauthorized,
 } from "../../utils/helpers";
 import style from '../CardListPatientDoctorComponents/CardList.module.css'
-
+import { API_URL } from "../../utils/const";
 function CardListPatient() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
@@ -26,7 +26,7 @@ function CardListPatient() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (patient.by === "") {
       axios
         .get(`${API_URL}/patient/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())

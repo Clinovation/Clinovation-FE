@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import useValidateForm from "../../hooks/useValidateForm";
 
+import { API_URL } from "../../utils/const";
 function FormPatientRegis() {
   const { validateForm } = useValidateForm();
   const navigate = useNavigate();

@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import FormAddMedicine from "./FormAddMedicine";
 import FormEditMedicine from "./FormEditMedicine";
-
+import { API_URL } from "../../utils/const";
 function ModalAddMedicine(props) {
   return (
     <Modal
@@ -116,7 +116,7 @@ function InputMedicine() {
   };
 
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (medicine.by === "") {
       axios
         .get(`${API_URL}/medicine/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
@@ -165,7 +165,7 @@ function InputMedicine() {
 
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .delete(`${API_URL}/medicine/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

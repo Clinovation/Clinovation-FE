@@ -3,7 +3,7 @@ import axios from "axios";
 import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import useValidateForm from "../../hooks/useValidateForm";
-
+import { API_URL } from "../../utils/const";
 export default function FormEditWorkHour(props) {
   const { uuid } = props;
   const { validateForm } = useValidateForm();
@@ -35,7 +35,7 @@ export default function FormEditWorkHour(props) {
       setError(newErrors);
     } else {
       // const API_URL = process.env.BE_API_URL;
-      const API_URL = "http://184.72.154.87:8080/api/v1";
+      // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .put(`${API_URL}/workHour/${uuid}`, { ...form }, GenerateAxiosConfig())
         .then((res) => {

@@ -7,7 +7,7 @@ import useValidateForm from "../../hooks/useValidateForm";
 import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import { login } from "../../Redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { API_URL } from "../../utils/const";
 function FormUpdatePrescription() {
     const { validateForm } = useValidateForm();
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function FormUpdatePrescription() {
     const [error, setError] = useState({});
 
     const updatePrescription = (data) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(
         `${API_URL}/recipe/`,

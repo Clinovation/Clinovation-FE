@@ -22,6 +22,7 @@ import { FcClock } from "react-icons/fc";
 import ward from "../../icons/bed.png";
 import nurseicon from "../../icons/nurse-icon.png";
 import { GiStethoscope } from "react-icons/gi";
+import { API_URL } from "../../utils/const";
 import Paginations from "../pagination";
 import styles from "../manageAccountAllNursesComponents/AllNurseAccounts.module.css";
 export default function AllNurseAccounts() {
@@ -158,7 +159,7 @@ export default function AllNurseAccounts() {
 
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/nurse/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -181,9 +182,15 @@ export default function AllNurseAccounts() {
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>
-        <div className={`${styles.title} mr-auto p-2`}>All Nurse Accounts</div>
-        <div class="col-md-5 p-2">
-          <div class="input-group">
+        <Row>
+          <Col md="10">
+            <div className={`${styles.title} mr-auto p-2`}>
+              All Nurse Accounts
+            </div>
+          </Col>
+          <Col md="2">
+            {/* <div class="col-md-5 p-2">
+          <div class="input-group"> */}
             {/* <input
               class="form-control border-end-0 border"
               type="search"
@@ -203,7 +210,7 @@ export default function AllNurseAccounts() {
               </button>
             </span> */}
 
-            <InputGroup className="mb-3" size="sm" style={{width: '350px'}}>
+            <InputGroup className="mb-3" size="sm" style={{ width: "350px" }}>
               <FormControl
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
@@ -220,9 +227,11 @@ export default function AllNurseAccounts() {
               Search
               </Button>
             </InputGroup>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
+      {/* </div>
+      </div> */}
       {error && <p className="text-center text-dark mt-5">{error}</p>}
       {nurse?.data?.map((item) => (
         <Row>
@@ -235,7 +244,7 @@ export default function AllNurseAccounts() {
                   className={`${styles.iconDashboard2}`}
                 />
                 <span className={`${styles.infoJadwal}`}>
-                  Nurse {item.name.slice(0,5)}
+                  Nurse {item.name.slice(0, 5)}
                 </span>
                 <span style={{ marginRight: "0px", marginLeft: "10px" }}>
                   <FaIdCard className={`${styles.iconDashboard3}`} />
@@ -266,7 +275,7 @@ export default function AllNurseAccounts() {
         </Row>
       ))}
 
-      <div className="d-flex justify-content-center">
+      <div className={`${styles.paginations}`}>
         {nurse && (
           <Pagination className="align-self-center">
             {nurse.pages.map((item) => (

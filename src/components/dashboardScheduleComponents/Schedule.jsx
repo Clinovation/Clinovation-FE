@@ -13,6 +13,7 @@ import styles from "../dashboardScheduleComponents/Schedule.module.css";
 import { Card, Button, Pagination } from "react-bootstrap";
 import moment from "moment";
 
+import { API_URL } from "../../utils/const";
 export default function Schedule() {
   var now = new Date();
   var day = moment(now).format('dddd')

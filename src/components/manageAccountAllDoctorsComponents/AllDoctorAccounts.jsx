@@ -23,7 +23,7 @@ import nurseicon from "../../icons/nurse-icon.png";
 import ward from "../../icons/bed.png";
 import { FaSearch, FaIdCard } from "react-icons/fa";
 import Paginations from "../pagination";
-
+import { API_URL } from "../../utils/const";
 export default function AllDoctorAccounts() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [doctor, setDoctor] = useState({
@@ -36,7 +36,7 @@ export default function AllDoctorAccounts() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (doctor.by === "") {
       axios
         .get(`${API_URL}/doctor/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
@@ -155,7 +155,7 @@ export default function AllDoctorAccounts() {
 
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/doctor/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -197,6 +197,7 @@ export default function AllDoctorAccounts() {
                 class="btn btn-outline-secondary bg-white border ms-n5"
                 type="button"
                 onClick={handlePage}
+                type="button"
               >
                 <FaSearch style={{ width: "15px", height: "15px" }} />
               </button>
@@ -237,7 +238,9 @@ export default function AllDoctorAccounts() {
                 ) : (
                   <img src={item.avatar} style={{ height: "65px" }} />
                 )}
-                <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
+                <span className={`${styles.infoJadwal}`}>
+                  dr.{item.name.slice(0, 5)}
+                </span>
                 <span style={{ marginRight: "0px", marginLeft: "10px" }}>
                   <FaIdCard className={`${styles.iconDashboard3}`} />
                   <span className={`${styles.infoJadwal}`}>{item.nik}</span>
@@ -266,7 +269,8 @@ export default function AllDoctorAccounts() {
           </Col>
         </Row>
       ))}
-      <div className="d-flex justify-content-center">
+      {/* <Col md="5"></Col> */}
+      <div className={`${styles.paginations}`}>
         {doctor && (
           <Pagination className="align-self-center">
             {doctor.pages.map((item) => (
@@ -285,7 +289,7 @@ export default function AllDoctorAccounts() {
       <br />
       <br />
 
-      <hr style={{ width: "70vw" }} />
+      <hr className={`${styles.hr}`} />
       <br />
     </div>
   );

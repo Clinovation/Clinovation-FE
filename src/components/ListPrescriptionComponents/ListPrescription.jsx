@@ -11,7 +11,7 @@ import {
   HandleUnauthorized,
 } from "../../utils/helpers";
 import FormUpdatePrescription from '../FormAddPrescriptionComponents/FormUpdatePrescription';
-
+import { API_URL } from "../../utils/const";
 function ModalAddPrescription(props) {
   return (
     <Modal
@@ -71,9 +71,46 @@ function ListPrescription() {
   const [filter, setFilter] = useState("");
   const [error, setError] = useState();
 
+<<<<<<< HEAD
   const fetch = (page, name) => {
     const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (prescription.by === "") {
+=======
+  const fetch = (page, by) => {
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
+    if (prescription.by === "") {
+      axios
+        .get(`${API_URL}/patient/?page=${page}`, GenerateAxiosConfig())
+        .then((res) => {
+          if (res.status === 204) {
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setPrescription((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+    } else if (checkName.test(prescription.by)) {
+>>>>>>> master
       axios
         .get(`${API_URL}/recipe?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
@@ -195,7 +232,7 @@ function ListPrescription() {
 	};
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/recipe/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

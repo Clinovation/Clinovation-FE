@@ -13,7 +13,7 @@ import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 import useValidateForm from "../../hooks/useValidateForm";
 import style from "./DoctorRegis.module.css";
 import Logo from "../../images/Logo.png";
-
+import { API_URL } from "../../utils/const";
 function FormDoctorRegis() {
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
@@ -64,7 +64,7 @@ function FormDoctorRegis() {
   };
 
   const fetchWorkDay = () => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .get(`${API_URL}/workDay/`)
       .then((res) => {
@@ -92,7 +92,7 @@ function FormDoctorRegis() {
   };
 
   const fetchWorkHour = () => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     axios
       .get(`${API_URL}/workHour/`)
       .then((res) => {
@@ -131,7 +131,7 @@ function FormDoctorRegis() {
     if (Object.keys(newErrors).length > 0) {
       setErrorMsg(newErrors);
     } else {
-      const API_URL = "http://184.72.154.87:8080/api/v1";
+      // const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
         .post(
           `${API_URL}/doctor/register?workDayID=${uuidWork.day}&workHourID=${uuidWork.hour}`,

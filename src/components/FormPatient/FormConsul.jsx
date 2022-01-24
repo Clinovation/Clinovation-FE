@@ -3,7 +3,7 @@ import {Form,Button, Row, Col, Table, Container, Card} from "react-bootstrap"
 import Medstaff from "../../icons/healthCare.png"
 import style from './FormPatient.module.css'
 import Logo from "../../images/Logo.png";
-
+import { API_URL } from "../../utils/const";
 function FormConsul() {
     const [validated, setValidated] = useState(false);
   

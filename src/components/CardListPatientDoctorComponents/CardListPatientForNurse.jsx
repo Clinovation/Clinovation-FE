@@ -20,6 +20,7 @@ import {
 } from "../../utils/helpers";
 import axios from "axios";
 
+import { API_URL } from "../../utils/const";
 export default function CardListPatientForNurse() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 

@@ -14,6 +14,7 @@ import SideBarDoctor from "../SideBarDoctorComponents/SideBarDoctor";
 import style from "../FormUpdateProfileDoctorComponents/UpdateProfileDoctor.module.css"
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { app } from '../../firebase/firebase'
+import { API_URL } from "../../utils/const";
 function FormUpdateProfileDoctor() {
   const cookies = new Cookies();
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function FormUpdateProfileDoctor() {
   };
 
   const updateProfile = (data) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(
         `${API_URL}/doctor/`,
