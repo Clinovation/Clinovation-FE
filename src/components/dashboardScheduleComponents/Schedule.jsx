@@ -1,12 +1,85 @@
-import React from "react";
-// import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
 import staffprofile from "../../icons/staffProfile.png";
 import nurseicon from "../../icons/nurse-icon.png";
 import { Link } from "react-router-dom";
 import styles from "../dashboardScheduleComponents/Schedule.module.css";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Pagination } from "react-bootstrap";
+import moment from "moment";
+
 import { API_URL } from "../../utils/const";
 export default function Schedule() {
+  var now = new Date();
+  var day = moment(now).format('dddd')
+  console.log(day)
+  const [doctor, setDoctor] = useState({
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+
+  const [filter, setFilter] = useState("")
+  const [error, setError] = useState();
+
+  const fetch = (page, day) => {
+    const API_URL = "http://184.72.154.87:8080/api/v1";
+      axios
+        .get(`${API_URL}/doctor/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
+
+        .then((res) => {
+          if (res.status === 204) {
+            setDoctor({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setDoctor((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+  };
+  useEffect(() => {
+    fetch(1, day);
+  }, [setDoctor, setError]);
+
+  const handlePage = (index) => {
+    fetch(index, filter);
+  };
+
+  const onChange = (e) => {
+    const value = e.target.value;
+    setFilter(value);
+  };
+  console.log(doctor)
+  // doctor.data=doctor.data.filter(doctor.data => doctor.data.work_day == day)
   return (
     <div>
       <br /> <br /> <br />
@@ -14,24 +87,51 @@ export default function Schedule() {
       <div style={{ fontSize: "18px" }}>Today</div>
       <div className={`${styles.cardstyle}`}>
         <Card className={`${styles.kartu2}`}>
-          <div className={`${styles.DateSchedule}`}>2 December 2021</div>
+          <div className={`${styles.DateSchedule}`}>{moment(now).format('LL') }</div>
           <Card.Body>
             <Card>
               <Card.Body>
                 <div style={{ marginBottom: "10px" }}>Doctor Schedules</div>
+                  {error && <p className="text-center text-dark mt-5">{error}</p>}
+
+                  {doctor?.data?.map((item) => (
                 <Card>
                   <Card.Body>
+                    {item.avatar === "" ? (
                     <img
                       src={staffprofile}
                       alt=""
                       className={`${styles.iconDashboard2}`}
                     />
-                    <span className={`${styles.infoJadwal}`}>dr. Morty</span>
-                    <span className={`${styles.infoJadwal}`}>Neurology</span>
+                    ) : (
+                      <img
+                        src={item.avatar}
+                        style={{ height: "56px" }}
+                      />
+                    )}
+                    <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
+                    <span className={`${styles.infoJadwal}`}>{item.specialist}</span>
                     <span className={`${styles.infoJadwal}`}>12 AM</span>
                   </Card.Body>
+                 
                 </Card>
-                <Card>
+                  ))}
+                 <div className="d-flex justify-content-center">
+                    {doctor && (
+                    <Pagination className="align-self-center">
+                      {doctor.pages.map((item) => (
+                        <Pagination.Item
+                          key={item}
+                          active={item === doctor.currPage}
+                          onClick={() => handlePage(item)}
+                        >
+                          {item}
+                        </Pagination.Item>
+                      ))}
+                    </Pagination>
+                    )}
+                  </div>
+                {/* <Card>
                   <Card.Body>
                     <img
                       src={staffprofile}
@@ -42,18 +142,22 @@ export default function Schedule() {
                     <span className={`${styles.infoJadwal}`}>Neurology</span>
                     <span className={`${styles.infoJadwal}`}>13 AM</span>
                   </Card.Body>
-                </Card>
+                </Card> */}
 
                 <Card.Text className={`${styles.cardtext}`}>
                   {" "}
                   <br />
+                  
+
                   <div style={{ display: "flex" }}>
-                    <Link to="/manageAccount" className="m-auto">
+                    <Link to="/allSchedules" className="m-auto">
                       <Button
-                        variant="primary"
+                        variant="info"
                         className={`${styles.showmore}`}
                       >
-                        Show more
+                        <div style={{color:"white"}}>
+                          Show more
+                        </div>
                       </Button>
                     </Link>
                   </div>
@@ -61,10 +165,11 @@ export default function Schedule() {
               </Card.Body>
             </Card>
           </Card.Body>
+          
         </Card>
 
         <Card className={`${styles.kartu2}`}>
-          <div className={`${styles.DateSchedule}`}>2 December 2021</div>
+          <div className={`${styles.DateSchedule}`}>{moment(now).format('LL')}</div>
           <Card.Body>
             <Card>
               <Card.Body>
@@ -97,12 +202,14 @@ export default function Schedule() {
                   {" "}
                   <br />
                   <div style={{ display: "flex" }}>
-                    <Link to="/manageAccount" className="m-auto">
+                    <Link to="/allSchedules" className="m-auto">
                       <Button
-                        variant="primary"
+                        variant="info"
                         className={`${styles.showmore}`}
                       >
-                        Show more
+                        <div style={{color:"white"}}>
+                          Show more
+                        </div>
                       </Button>
                     </Link>
                   </div>

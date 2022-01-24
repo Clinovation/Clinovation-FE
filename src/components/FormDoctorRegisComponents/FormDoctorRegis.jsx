@@ -160,6 +160,7 @@ function FormDoctorRegis() {
         });
     }
   };
+  console.log(uuidWork)
   return (
     <div>
       <Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -12,8 +12,151 @@ import { Link } from "react-router-dom";
 import Avatar from "../../icons/man.png";
 import SidebarNurse from "../SideBarNurseComponents/SideBarNurse";
 import style from '../CardListPatientDoctorComponents/CardList.module.css'
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
+import axios from "axios";
+
 import { API_URL } from "../../utils/const";
 export default function CardListPatientForNurse() {
+  const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
+
+  const [modalShow, setModalShow] = useState(false);
+
+  const [patient, setPatient] = useState({
+    // by: "",
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+  const [filter, setFilter] = useState("")
+  const [error, setError] = useState();
+
+  const fetch = (page, name) => {
+    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // if (patient.by === "") {
+      axios
+        .get(`${API_URL}/patient/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
+        .then((res) => {
+          if (res.status === 204) {
+            setPatient({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
+            setError("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setPatient((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setError(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+    // } else if (checkName.test(patient.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?nik=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPatient((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
+  };
+
+  useEffect(() => {
+    fetch(1, "");
+  }, [setPatient]);
+
+  const handlePage = (index) => {
+    fetch(index, filter);
+  };
+
+  const onChange = (e) => {
+    const value = e.target.value;
+    setFilter(value);
+  };
+  
   return (
     <div>
       <Container fluid>

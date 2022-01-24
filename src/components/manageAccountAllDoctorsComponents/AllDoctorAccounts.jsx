@@ -32,15 +32,21 @@ export default function AllDoctorAccounts() {
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
-    if (doctor.by === "") {
+    // if (doctor.by === "") {
       axios
-        .get(`${API_URL}/doctor/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/doctor/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setDoctor({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -67,72 +73,72 @@ export default function AllDoctorAccounts() {
             console.log(error);
           }
         });
-    } else if (checkName.test(doctor.by)) {
-      axios
-        .get(
-          `${API_URL}/doctor/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setDoctor((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    } else {
-      axios
-        .get(`${API_URL}/doctor/?nik=${by}&page=${page}`, GenerateAxiosConfig())
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setDoctor((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
+    // } else if (checkName.test(doctor.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/doctor/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setDoctor((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // } else {
+    //   axios
+    //     .get(`${API_URL}/doctor/?nik=${by}&page=${page}`, GenerateAxiosConfig())
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setDoctor((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+    // }
   };
 
   useEffect(() => {
@@ -140,11 +146,11 @@ export default function AllDoctorAccounts() {
   }, [setDoctor]);
 
   const handlePage = (index) => {
-    fetch(index, doctor.by);
+    fetch(index, filter);
   };
   const onChange = (e) => {
     const value = e.target.value;
-    setDoctor({ ...doctor, by: value });
+    setFilter(value);
   };
 
   const onClickDelete = (item) => {
@@ -172,58 +178,49 @@ export default function AllDoctorAccounts() {
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>
-        <Row>
-          <Col md="10">
-            <div className={`${styles.title} mr-auto p-2`}>
-              All Doctor Accounts
-            </div>
-          </Col>
-          <Col md="2">
-            {/* <div class="col-md-3 p-2">
-              <div class="input-group">
-                <input
-                  class="form-control border-end-0 border"
-                  placeholder="search"
-                  aria-label="search"
-                  aria-describedby="basic-addon2"
-                  type="search"
-                  name="search"
-                  value={doctor.by}
-                  onChange={onChange}
-                />
-                <span class="input-group-append">
-                  <button
-                    class="btn btn-outline-secondary bg-white border ms-n5"
-                    type="button"
-                    onClick={handlePage}
-                  >
-                    <FaSearch style={{ width: "15px", height: "15px" }} />
-                  </button>
-                </span>
-              </div>
-            </div> */}
-            <InputGroup className="mb-3" size="sm" style={{ width: "350px" }}>
-              <FormControl
-                // aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
-                placeholder="search"
-                aria-label="search"
-                type="search"
-                name="search"
-                value={doctor.by}
-                onChange={onChange}
-              />
-              <Button
-                variant="outline-secondary"
-                id="button-addon2"
+        <div className={`${styles.title} mr-auto p-2`}>All Doctor Accounts</div>
+
+        <div class="col-md-5 p-2">
+          <div class="input-group">
+            {/* <input
+              class="form-control border-end-0 border"
+              placeholder="search"
+              aria-label="search"
+              aria-describedby="basic-addon2"
+              type="search"
+              name="search"
+              value={doctor.by}
+              onChange={onChange}
+            />
+            <span class="input-group-append">
+              <button
+                class="btn btn-outline-secondary bg-white border ms-n5"
+                type="button"
                 onClick={handlePage}
                 type="button"
               >
-                Search
+                <FaSearch style={{ width: "15px", height: "15px" }} />
+              </button>
+            </span> */}
+            <InputGroup className="mb-3" size="sm" style={{width: '350px'}}>
+              <FormControl
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                type="search"
+                name="search"
+                value={filter}
+                onChange={onChange}
+              />
+              <Button 
+                variant="outline-secondary" 
+                id="button-addon2"
+                onClick={() => {fetch(1, filter)}}
+                >
+              Search
               </Button>
             </InputGroup>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
 
       {error && <p className="text-center text-dark mt-5">{error}</p>}

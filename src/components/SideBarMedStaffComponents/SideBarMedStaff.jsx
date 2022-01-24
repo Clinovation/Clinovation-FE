@@ -12,6 +12,8 @@ import ModalCardListAll from "../ModalCardListAll/ModalCardListAll";
 import { GiMedicines } from "react-icons/gi";
 import Medicine from "../../icons/medicine.png";
 import Work from "../../icons/working-time.png"
+import { useSelector } from "react-redux";
+
 function ModalListAll(props) {
   return (
     <Modal
@@ -43,6 +45,13 @@ function ModalListAll(props) {
 
 function SideBarMedStaff() {
   const [modalShow, setModalShow] = useState(false);
+  const user = useSelector((state) => state.user)
+  const initialValue = {
+    name: user.name,
+  }
+
+  const [form, setForm] = useState(initialValue)
+
   return (
     <div>
       <ModalListAll show={modalShow} onHide={() => setModalShow(false)} />
@@ -61,7 +70,7 @@ function SideBarMedStaff() {
               style={{ textDecoration: "none", color: "black" }}
             >
               <img src={Avatar} style={{ height: "40px" }} />
-              <p style={{ fontSize: "10px" }}>Ralph Murphy</p>
+              <p style={{ fontSize: "12px" }} className="mt-2">{form.name.slice(0,5)}</p>
             </Link>
           </div>
 

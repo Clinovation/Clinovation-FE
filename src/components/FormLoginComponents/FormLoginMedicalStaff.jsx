@@ -7,17 +7,7 @@ import axios from "axios";
 import useHandleLogin from "../../hooks/medicalStaff/useHandleLogin";
 import {API_URL} from "../../utils/const"
 function FormLoginMedicalStaff() {
-  // const [validated, setValidated] = useState(false);
 
-  // const handleSubmit = (event) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-
-  //   setValidated(true);
-  // };
   const handleLogin = useHandleLogin();
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({

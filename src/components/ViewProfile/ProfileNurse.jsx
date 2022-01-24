@@ -225,7 +225,7 @@ function ProfileNurse() {
             </Form>
             <div className="d-flex justify-content-between">
               <Link to="/dashboardStaff">
-                <Button variant="warning">Back To Home</Button>
+                <Button variant="info"><div style={{color:"white"}}>Back To Home</div></Button>
               </Link>
 
               <Button variant="danger" onClick={() => onClickDelete(uuid)}>

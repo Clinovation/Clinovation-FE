@@ -12,6 +12,8 @@ import useValidateForm from "../../hooks/useValidateForm";
 import { GenerateAxiosConfig, HandleUnauthorized } from "../../utils/helpers";
 import SideBarDoctor from "../SideBarDoctorComponents/SideBarDoctor";
 import style from "../FormUpdateProfileDoctorComponents/UpdateProfileDoctor.module.css"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { app } from '../../firebase/firebase'
 import { API_URL } from "../../utils/const";
 function FormUpdateProfileDoctor() {
   const cookies = new Cookies();
@@ -69,6 +71,31 @@ function FormUpdateProfileDoctor() {
     const value = e.target.value;
     setForm({ ...form, [name]: value });
   };
+
+  // const onChange = (e) =>{
+  //   if(app){
+  //     const file = e.target.files[0];
+	// 		const storageRef = getStorage();
+	// 		const fileRef = ref(storageRef, file.name);
+	// 		const compressionOption = {
+	// 			maxWidthOrHeight: 528,
+	// 			useWebWorker: true,
+	// 		};
+	// 		// setLoading(true);
+	// 		imageCompression(file, compressionOption).then((compressedFile) => {
+	// 			uploadBytes(fileRef, compressedFile).then(() => {
+	// 				getDownloadURL(fileRef)
+	// 					.then((url) => {
+	// 						const newData = { ...user, url_image: url };
+	// 						updateProfile(newData);
+	// 					})
+	// 					.then(() => {
+	// 						setLoading(false);
+	// 					});
+	// 			});
+	// 		});
+  //   }
+  // }
 
   const onBlur = (e) => {
     const name = e.target.name;

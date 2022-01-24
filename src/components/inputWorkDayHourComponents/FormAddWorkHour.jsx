@@ -54,6 +54,7 @@ export default function FormAddWorkHour() {
           }
         });
     }
+    window.location.reload();
   };
 
   return (
@@ -93,11 +94,13 @@ export default function FormAddWorkHour() {
 
             <Button
               type="submit"
-              variant="success"
+              variant="info"
               style={{ marginLeft: "15vw", width: "10vw" }}
               to="/listWorkDayHour"
             >
-              Save
+              <div style={{color:"white"}}>
+                Save
+              </div>
             </Button>
 
             {/* <Link to="/listPrescription">

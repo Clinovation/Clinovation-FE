@@ -102,25 +102,31 @@ function InputMedicine() {
   const [stateUuid, setStateUuid] = useState("");
 
   const [medicine, setMedicine] = useState({
-    by: "",
+    // by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
   const onChange = (e) => {
     const value = e.target.value;
-    setMedicine({ ...medicine, by: value });
+    setFilter(value);
   };
 
-  const fetch = (page, by) => {
+  const fetch = (page, name) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
-    if (medicine.by === "") {
+    // if (medicine.by === "") {
       axios
-        .get(`${API_URL}/medicine/?page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/medicine/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
+            setMedicine({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
             setError("No record found");
           } else {
             const page = { ...res.data.page };
@@ -147,41 +153,6 @@ function InputMedicine() {
             console.log(error);
           }
         });
-    } else {
-      axios
-        .get(
-          `${API_URL}/medicine/queryName?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setMedicine((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
-    }
   };
 
   useEffect(() => {
@@ -189,7 +160,7 @@ function InputMedicine() {
   }, [setMedicine]);
 
   const handlePage = (index) => {
-    fetch(index, medicine.by);
+    fetch(index, filter);
   };
 
   const onClickDelete = (item) => {
@@ -230,12 +201,15 @@ function InputMedicine() {
               <div class="p-2 bd-highlight">
                 {/* <Link to="/addPrescription"> */}
                 <Button
-                  variant="success"
+                  variant="info"
                   onClick={() => {
                     setModalShow(true);
                   }}
                 >
-                  Add New Medicine
+                  <div style={{color:"white"}}>
+                    Add New Medicine
+                  </div>
+                  
                 </Button>
                 {/* </Link> */}
               </div>
@@ -249,14 +223,15 @@ function InputMedicine() {
                   <FormControl
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
-                    value={medicine.by}
+                    type="search"
+                    name="search"
+                    value={filter}
                     onChange={onChange}
                   />
                   <Button
                     variant="outline-secondary"
                     id="button-addon2"
-                    type="search"
-                    name="search"
+                    onClick={() => {fetch(1, filter)}}
                   >
                     Search
                   </Button>
@@ -285,7 +260,7 @@ function InputMedicine() {
                   {/* <td></td> */}
                   <td>
                     <Button
-                      variant="warning"
+                      variant="outline-warning"
                       style={{ marginRight: "10px" }}
                       size="sm"
                       onClick={() => {
@@ -296,7 +271,7 @@ function InputMedicine() {
                       Edit
                     </Button>
                     <Button
-                      variant="danger"
+                      variant="outline-danger"
                       size="sm"
                       onClick={() => onClickDelete(item)}
                     >

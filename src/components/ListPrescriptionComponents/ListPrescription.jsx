@@ -64,13 +64,18 @@ function ListPrescription() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
   const [prescription, setPrescription] = useState({
-    by: "",
     data: [],
     currPage: 1,
     pages: [],
   });
+  const [filter, setFilter] = useState("");
   const [error, setError] = useState();
 
+<<<<<<< HEAD
+  const fetch = (page, name) => {
+    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // if (prescription.by === "") {
+=======
   const fetch = (page, by) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
     if (prescription.by === "") {
@@ -105,11 +110,9 @@ function ListPrescription() {
           }
         });
     } else if (checkName.test(prescription.by)) {
+>>>>>>> master
       axios
-        .get(
-          `${API_URL}/patient/?name=${by}&page=${page}`,
-          GenerateAxiosConfig()
-        )
+        .get(`${API_URL}/recipe?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -138,55 +141,95 @@ function ListPrescription() {
             console.log(error);
           }
         });
-    } else {
-      axios
-        .get(
-          `${API_URL}/recipe`,
-          GenerateAxiosConfig()
-        )
-        .then((res) => {
-          if (res.status === 204) {
-            setError("No record found");
-          } else {
-            const page = { ...res.data.page };
-            const length = page.total_data / page.limit;
-            const active = page.offset / page.limit + 1;
-            const items = [];
-            for (let i = 0; i < length; i++) {
-              items.push(i + 1);
-            }
-            setPrescription((state) => {
-              return {
-                ...state,
-                data: res.data.data,
-                currPage: active,
-                pages: items,
-              };
-            });
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            HandleUnauthorized(error.response);
-            setError(error.response.data.meta.messages[0]);
-            console.log(error);
-          }
-        });
+    // } else if (checkName.test(prescription.by)) {
+    //   axios
+    //     .get(
+    //       `${API_URL}/patient/?name=${by}&page=${page}`,
+    //       GenerateAxiosConfig()
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 204) {
+    //         setError("No record found");
+    //       } else {
+    //         const page = { ...res.data.page };
+    //         const length = page.total_data / page.limit;
+    //         const active = page.offset / page.limit + 1;
+    //         const items = [];
+    //         for (let i = 0; i < length; i++) {
+    //           items.push(i + 1);
+    //         }
+    //         setPrescription((state) => {
+    //           return {
+    //             ...state,
+    //             data: res.data.data,
+    //             currPage: active,
+    //             pages: items,
+    //           };
+    //         });
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       if (error.response) {
+    //         HandleUnauthorized(error.response);
+    //         setError(error.response.data.meta.messages[0]);
+    //         console.log(error);
+    //       }
+    //     });
+  //   } else {
+  //     axios
+  //       .get(
+  //         `${API_URL}/recipe`,
+  //         GenerateAxiosConfig()
+  //       )
+  //       .then((res) => {
+  //         if (res.status === 204) {
+  //           setError("No record found");
+  //         } else {
+  //           const page = { ...res.data.page };
+  //           const length = page.total_data / page.limit;
+  //           const active = page.offset / page.limit + 1;
+  //           const items = [];
+  //           for (let i = 0; i < length; i++) {
+  //             items.push(i + 1);
+  //           }
+  //           setPrescription((state) => {
+  //             return {
+  //               ...state,
+  //               data: res.data.data,
+  //               currPage: active,
+  //               pages: items,
+  //             };
+  //           });
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         if (error.response) {
+  //           HandleUnauthorized(error.response);
+  //           setError(error.response.data.meta.messages[0]);
+  //           console.log(error);
+  //         }
+  //       });
+  //   }
+  // };
     }
-  };
 
   useEffect(() => {
     fetch(1, "");
   }, [setPrescription]);
 
   const handlePage = (index) => {
-    fetch(index, prescription.by);
+    fetch(index, filter);
   };
   const onChange = (e) => {
     const value = e.target.value;
-    setPrescription({ ...prescription, by: value });
+    setPrescription(value);
   };
 
+  const onStateChange = (value) => {
+		setPrescription((state) => {
+			return { ...state, ...value };
+		});
+	};
   const onClickDelete = (item) => {
     // const API_URL = process.env.BE_API_URL;
     // const API_URL = "http://184.72.154.87:8080/api/v1";
@@ -245,10 +288,12 @@ function ListPrescription() {
                         <div class="ms-auto p-2 bd-highlight">
                             <InputGroup className="mb-3" size="sm" style={{width: '300px'}}>
                                 <FormControl
-                                aria-label="Recipient's username"
-                                aria-describedby="basic-addon2"
+                                type='search'
+                                name='name'
+                                value={filter}
+                                onChange={onChange}
                                 />
-                                <Button variant="outline-secondary" id="button-addon2">
+                                <Button variant="outline-secondary" onClick={()=>{fetch(1,filter)}}>
                                 Search
                                 </Button>
                             </InputGroup>
