@@ -12,7 +12,7 @@ export default function useHandleLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async (res) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     let userData = {
       ...res,
     };

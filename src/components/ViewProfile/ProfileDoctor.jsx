@@ -32,7 +32,7 @@ function ProfileDoctor() {
   const [error, setError] = useState();
 
   const fetch = (uuid) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .get(`${API_URL}/doctor/${uuid}`, GenerateAxiosConfig())
       .then((res) => {

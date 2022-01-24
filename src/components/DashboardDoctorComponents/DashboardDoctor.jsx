@@ -26,7 +26,7 @@ function CardDashboardDoctor() {
   const [error, setError] = useState();
 
   const fetch = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (patient.by === "") {
       axios
         .get(`${API_URL}/medicalRecord/queue?page=${page}`, GenerateAxiosConfig())
@@ -143,7 +143,7 @@ function CardDashboardDoctor() {
 
   const onClickDone = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/medicalRecord/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

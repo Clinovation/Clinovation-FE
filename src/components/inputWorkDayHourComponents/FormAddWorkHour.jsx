@@ -34,7 +34,7 @@ export default function FormAddWorkHour() {
       setError(newErrors);
     } else {
       // const API_URL = process.env.BE_API_URL;
-      const API_URL = "http://3.83.92.188:8080/api/v1";
+      const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/workHour/`, { ...form }, GenerateAxiosConfig())
         .then((res) => {

@@ -40,7 +40,7 @@ function FormStaffRegis() {
     if (Object.keys(newErrors).length > 0) {
       setErrorMsg(newErrors);
     } else {
-      const API_URL = "http://3.83.92.188:8080/api/v1";
+      const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/medicalStaff/register`, {
           ...form,

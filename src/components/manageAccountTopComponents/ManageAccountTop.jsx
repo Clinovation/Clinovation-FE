@@ -39,7 +39,7 @@ export default function ManageAccountTop() {
   const [errorNurse, setErrorNurse] = useState();
 
   const fetchDoctor = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .get(`${API_URL}/doctor/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
@@ -73,7 +73,7 @@ export default function ManageAccountTop() {
   };
 
   const fetchNurse = (page, by) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .get(`${API_URL}/nurse/waitingList?page=${page}`, GenerateAxiosConfig())
       .then((res) => {
@@ -121,7 +121,7 @@ export default function ManageAccountTop() {
 
   const onClickRejectDoctor = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/doctor/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -144,7 +144,7 @@ export default function ManageAccountTop() {
 
   const onClickRejectNurse = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/nurse/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -167,7 +167,7 @@ export default function ManageAccountTop() {
 
   const onClickAcceptNurse = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(`${API_URL}/nurse/accept/${item.uuid}`, {}, GenerateAxiosConfig())
       .then((res) => {
@@ -191,7 +191,7 @@ export default function ManageAccountTop() {
 
   const onClickAcceptDoctor = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(`${API_URL}/doctor/accept/${item.uuid}`, {}, GenerateAxiosConfig())
       .then((res) => {

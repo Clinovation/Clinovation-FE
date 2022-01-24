@@ -1,11 +1,64 @@
-import React from "react";
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import Medstaff from "../../icons/healthCare.png";
 import style from "./FormPatient.module.css";
 import Logo from "../../images/Logo.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import useValidateForm from "../../hooks/useValidateForm";
 
 function FormPatientRegis() {
+  const { validateForm } = useValidateForm();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    nik: "",
+    dob: "",
+    sex: "male",
+    address: "",
+    contact: "",
+    status_martial: "married",
+    height: "",
+    weight: "",
+  });
+
+  const [errorMsg, setErrorMsg] = useState({});
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setForm({ ...form, [name]: value });
+  };
+  const onBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const messages = validateForm(name, value);
+    setErrorMsg({ ...errorMsg, ...messages });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validateForm(undefined, undefined, form);
+    if (Object.keys(newErrors).length > 0) {
+      setErrorMsg(newErrors);
+    } else {
+      const API_URL = "http://184.72.154.87:8080/api/v1";
+      axios
+        .post(`${API_URL}/patient/register`, {
+          ...form,
+        })
+        .then((response) => {
+          // navigate("/");
+          console.log(response)
+        })
+        .catch((error) => {
+          setErrorMsg({
+            ...errorMsg,
+            auth: error.response.data.errors[0],
+          });
+        });
+    }
+  };
+  console.log(form)
   return (
     <div>
       <Container>
@@ -26,20 +79,28 @@ function FormPatientRegis() {
                 />
                 Patient Register
               </h3>
-              <Form>
+              <Form noValidate onSubmit={onSubmit}>
                 <div className={style.cardForm}>
                   <Form.Group
                     as={Row}
                     className="mb-3"
                     controlId="formPlaintextEmail"
                   >
-                    <Form.Label column md="3">
+                   <Form.Label column md="3">
                       Name
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="name" required />
+                      <Form.Control
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.name}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid name.
+                        {errorMsg.name}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
@@ -53,9 +114,17 @@ function FormPatientRegis() {
                       NIK
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="text" required />
+                      <Form.Control
+                        type="text"
+                        name="nik"
+                        value={form.nik}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.nik}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid NIK.
+                        {errorMsg.nik}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
@@ -69,9 +138,17 @@ function FormPatientRegis() {
                       DOB
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="text" required />
+                      <Form.Control
+                        type="text"
+                        name="dob"
+                        value={form.dob}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.dob}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid Date of Birth.
+                        {errorMsg.dob}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
@@ -81,14 +158,19 @@ function FormPatientRegis() {
                     className="mb-3"
                     controlId="formPlaintextEmail"
                   >
-                    <Form.Label column md="3">
+                   <Form.Label column md="3">
                       Sex
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="text" required />
-                      <Form.Control.Feedback type="invalid">
-                        Please provide a valid sex.
-                      </Form.Control.Feedback>
+                      <Form.Select
+                        aria-label="Default select example"
+                        name="sex"
+                        value={form.sex}
+                        onChange={onChange}
+                      >
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </Form.Select>
                     </Col>
                   </Form.Group>
 
@@ -101,10 +183,18 @@ function FormPatientRegis() {
                       Address
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="text" required />
+                      <Form.Control
+                        type="text"
+                        name="address"
+                        value={form.address}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.address}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid address.
-                      </Form.Control.Feedback>
+                        {errorMsg.address}
+                  </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
@@ -117,9 +207,17 @@ function FormPatientRegis() {
                       Height
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="number" required />
+                      <Form.Control
+                        type="text"
+                        name="height"
+                        value={form.height}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.height}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid height.
+                        {errorMsg.height}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
@@ -133,9 +231,17 @@ function FormPatientRegis() {
                       Weight
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="number" required />
+                      <Form.Control
+                        type="text"
+                        name="weight"
+                        value={form.weight}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.weight}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid weight.
+                        {errorMsg.weight}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
@@ -149,15 +255,15 @@ function FormPatientRegis() {
                       Martial Status
                     </Form.Label>
                     <Col md="9">
-                      <Form.Select aria-label="Default select example">
-                        <option disabled>Specialist</option>
-                        <option value="1">One</option>
-                        <option value="3">Two</option>
-                        <option value="3">Three</option>
+                      <Form.Select
+                        aria-label="Default select example"
+                        name="status_martial"
+                        value={form.status_martial}
+                        onChange={onChange}
+                      >
+                        <option value="married">Married</option>
+                        <option value="notMarried">Not Married</option>
                       </Form.Select>
-                      <Form.Control.Feedback type="invalid">
-                        Please provide a valid specialist.
-                      </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
@@ -170,24 +276,32 @@ function FormPatientRegis() {
                       Contact
                     </Form.Label>
                     <Col md="9">
-                      <Form.Control type="phone" required />
+                      <Form.Control
+                        type="text"
+                        name="contact"
+                        value={form.contact}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        isInvalid={!!errorMsg.contact}
+                        required
+                      />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid number.
+                        {errorMsg.contact}
                       </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
-                  <div
+                  {/* <div
                     style={{ borderTop: "2px solid black", padding: "10px" }}
-                  ></div>
+                  ></div> */}
 
-                  <Form.Group
+                  {/* <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"
                   >
                     <Form.Label>Patient Medical Record</Form.Label>
                     <Form.Control as="textarea" rows={8} />
-                  </Form.Group>
+                  </Form.Group> */}
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button type="submit" variant="info" size="lg">

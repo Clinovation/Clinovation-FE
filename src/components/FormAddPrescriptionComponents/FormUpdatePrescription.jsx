@@ -26,7 +26,7 @@ function FormUpdatePrescription() {
     const [error, setError] = useState({});
 
     const updatePrescription = (data) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(
         `${API_URL}/recipe/`,

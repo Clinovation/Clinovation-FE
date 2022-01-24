@@ -3,10 +3,12 @@ import { createStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import DaySliceDoctor from "./DaySliceDoctor";
 import userSlice from "./UserSlice";
 
 const reducer = combineReducers({
 	user: userSlice,
+	day: DaySliceDoctor
 });
 
 const persistConfig = {

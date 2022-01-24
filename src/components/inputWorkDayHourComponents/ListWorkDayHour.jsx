@@ -205,7 +205,7 @@ export default function ListWorkDayHour() {
   const [filterHour, setFilterHour] = useState("")
 
   const fetchWorkDay = (page, day) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .get(
           `${API_URL}/workDay/queryDay?day=${day}&page=${page}`,
@@ -250,7 +250,7 @@ export default function ListWorkDayHour() {
   };
 
   const fetchWorkHour = (page, hour) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (workDay.by === "") {
       axios
         .get(
@@ -310,7 +310,7 @@ export default function ListWorkDayHour() {
 
   const onClickDeleteWorkDay = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/workDay/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -335,7 +335,7 @@ export default function ListWorkDayHour() {
 
   const onClickDeleteWorkHour = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/workHour/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

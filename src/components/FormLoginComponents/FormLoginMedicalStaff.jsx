@@ -7,17 +7,7 @@ import axios from "axios";
 import useHandleLogin from "../../hooks/medicalStaff/useHandleLogin";
 
 function FormLoginMedicalStaff() {
-  // const [validated, setValidated] = useState(false);
 
-  // const handleSubmit = (event) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-
-  //   setValidated(true);
-  // };
   const handleLogin = useHandleLogin();
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
@@ -44,7 +34,7 @@ function FormLoginMedicalStaff() {
       setErrorMsg(newErrors);
     } else {
       // const API_URL = process.env.BE_API_URL;
-      const API_URL = "http://3.83.92.188:8080/api/v1";
+      const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/medicalStaff/login`, {
           ...form,

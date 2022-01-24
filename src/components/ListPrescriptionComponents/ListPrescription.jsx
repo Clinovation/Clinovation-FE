@@ -72,7 +72,7 @@ function ListPrescription() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (prescription.by === "") {
       axios
         .get(`${API_URL}/recipe?name=${name}&page=${page}`, GenerateAxiosConfig())

@@ -27,7 +27,7 @@ export default function Schedule() {
   const [error, setError] = useState();
 
   const fetch = (page, day) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .get(`${API_URL}/doctor/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
 
@@ -66,7 +66,7 @@ export default function Schedule() {
         });
   };
   useEffect(() => {
-    fetch(1, "");
+    fetch(1, day);
   }, [setDoctor, setError]);
 
   const handlePage = (index) => {
@@ -77,7 +77,8 @@ export default function Schedule() {
     const value = e.target.value;
     setFilter(value);
   };
-  
+  console.log(doctor)
+  // doctor.data=doctor.data.filter(doctor.data => doctor.data.work_day == day)
   return (
     <div>
       <br /> <br /> <br />
@@ -90,10 +91,10 @@ export default function Schedule() {
             <Card>
               <Card.Body>
                 <div style={{ marginBottom: "10px" }}>Doctor Schedules</div>
-                <Card>
                   {error && <p className="text-center text-dark mt-5">{error}</p>}
 
                   {doctor?.data?.map((item) => (
+                <Card>
                   <Card.Body>
                     {item.avatar === "" ? (
                     <img
@@ -107,29 +108,14 @@ export default function Schedule() {
                         style={{ height: "56px" }}
                       />
                     )}
-                    <span className={`${styles.infoJadwal}`}>dr. {item.name.slice(0,5)}</span>
+                    <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
                     <span className={`${styles.infoJadwal}`}>{item.specialist}</span>
                     <span className={`${styles.infoJadwal}`}>12 AM</span>
                   </Card.Body>
+                 
+                </Card>
                   ))}
-                </Card>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={staffprofile}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    <span className={`${styles.infoJadwal}`}>dr. Morty</span>
-                    <span className={`${styles.infoJadwal}`}>Neurology</span>
-                    <span className={`${styles.infoJadwal}`}>13 AM</span>
-                  </Card.Body>
-                </Card>
-
-                <Card.Text className={`${styles.cardtext}`}>
-                  {" "}
-                  <br />
-                  <div className="d-flex justify-content-center">
+                 <div className="d-flex justify-content-center">
                     {doctor && (
                     <Pagination className="align-self-center">
                       {doctor.pages.map((item) => (
@@ -144,6 +130,23 @@ export default function Schedule() {
                     </Pagination>
                     )}
                   </div>
+                {/* <Card>
+                  <Card.Body>
+                    <img
+                      src={staffprofile}
+                      alt=""
+                      className={`${styles.iconDashboard2}`}
+                    />
+                    <span className={`${styles.infoJadwal}`}>dr. Morty</span>
+                    <span className={`${styles.infoJadwal}`}>Neurology</span>
+                    <span className={`${styles.infoJadwal}`}>13 AM</span>
+                  </Card.Body>
+                </Card> */}
+
+                <Card.Text className={`${styles.cardtext}`}>
+                  {" "}
+                  <br />
+                  
 
                   <div style={{ display: "flex" }}>
                     <Link to="/allSchedules" className="m-auto">
