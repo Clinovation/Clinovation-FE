@@ -7,6 +7,12 @@ import Logo from "../../images/Logo.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import useValidateForm from "../../hooks/useValidateForm";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
 
 import { API_URL } from "../../utils/const";
 function FormPatientRegis() {
@@ -22,6 +28,7 @@ function FormPatientRegis() {
     status_martial: "married",
     height: "",
     weight: "",
+    record: "",
   });
 
   const [errorMsg, setErrorMsg] = useState({});
@@ -42,11 +49,11 @@ function FormPatientRegis() {
     if (Object.keys(newErrors).length > 0) {
       setErrorMsg(newErrors);
     } else {
-      const API_URL = "http://184.72.154.87:8080/api/v1";
+      // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .post(`${API_URL}/patient/register`, {
-          ...form,
-        })
+          ...form, 
+        }, GenerateAxiosConfig())
         .then((response) => {
           // navigate("/");
           console.log(response)
@@ -292,17 +299,23 @@ function FormPatientRegis() {
                     </Col>
                   </Form.Group>
 
-                  {/* <div
+                  <div
                     style={{ borderTop: "2px solid black", padding: "10px" }}
-                  ></div> */}
+                  ></div>
 
-                  {/* <Form.Group
+                  <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlTextarea1"
                   >
                     <Form.Label>Patient Medical Record</Form.Label>
-                    <Form.Control as="textarea" rows={8} />
-                  </Form.Group> */}
+                    <Form.Control 
+                      as="textarea" 
+                      name="record"
+                      rows={8} 
+                      value={form.record} 
+                      onChange={onChange} 
+                      />
+                  </Form.Group>
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button type="submit" variant="info" size="lg">

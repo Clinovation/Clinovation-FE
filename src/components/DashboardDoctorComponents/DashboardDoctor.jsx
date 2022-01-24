@@ -220,10 +220,10 @@ function CardDashboardDoctor() {
                             </div>
                             <div class="p-2 bd-highlight mt-2" style={{width: "100px"}}>
                               {/* var nama = {item.name} */}
-                              {item.patient.slice(0,5)}
+                              {item.patient_name.slice(0,5)}
                             </div>
-                            <div class="p-2 bd-highlight mt-2" style={{marginRight: "30px"}}>{item.dob}</div>
-                            <div class="p-2 bd-highlight mt-2">{item.nik}</div>
+                            <div class="p-2 bd-highlight mt-2" style={{marginRight: "30px"}}>{item.patient_dob}</div>
+                            <div class="p-2 bd-highlight mt-2">{item.patient_nik}</div>
                             <div class="ms-auto p-2 bd-highlight mt-2">
                               <Link to={`/medicalRecordConsultation/${item.uuid}`}>
                                     <Button variant="info" size="sm"><div style={{color: "white"}}>Patient Record</div></Button>
