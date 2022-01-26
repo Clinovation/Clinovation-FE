@@ -14,7 +14,8 @@ import useValidateForm from "../../hooks/useValidateForm";
 import style from "./DoctorRegis.module.css";
 import Logo from "../../images/Logo.png";
 import { API_URL } from "../../utils/const";
-function FormDoctorRegis() {
+
+function FormNurseRegis() {
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
     name: "",
@@ -24,7 +25,6 @@ function FormDoctorRegis() {
     sex: "male",
     email: "",
     contact: "",
-    specialist: "specialist",
     work_experience: "",
   });
 
@@ -134,9 +134,9 @@ function FormDoctorRegis() {
       // const API_URL = "http://3.83.92.188:8080/api/v1";
       axios
         .post(
-          `${API_URL}/doctor/register?workDayID=${uuidWork.day}&workHourID=${uuidWork.hour}`,
+          `${API_URL}/nurse/register?workDayID=${uuidWork.day}&workHourID=${uuidWork.hour}`,
           {
-            ...form,
+            ...form, 
           }
         )
         .then(() => {
@@ -161,6 +161,7 @@ function FormDoctorRegis() {
     }
   };
   console.log(uuidWork)
+  console.log(form)
   return (
     <div>
       <Container>
@@ -177,7 +178,7 @@ function FormDoctorRegis() {
                   src={Medstaff}
                   style={{ height: "36px", marginRight: "10px" }}
                 />
-                Doctor Register
+                Nurse Register
               </h3>
               <Form noValidate onSubmit={onSubmit}>
                 <div className={style.cardForm}>
@@ -346,32 +347,7 @@ function FormDoctorRegis() {
                     style={{ borderTop: "2px solid black", padding: "10px" }}
                   ></div>
 
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="formPlaintextEmail"
-                  >
-                    <Form.Label column md="3">
-                      Specialist
-                    </Form.Label>
-                    <Col md="9">
-                      <Form.Select
-                        aria-label="Default select example"
-                        name="specialist"
-                        value={form.specialist}
-                        onChange={onChange}
-                      >
-                        <option>Specialist</option>
-                        <option value="pediatrician">Pediatrician</option>
-                        <option value="dentist">Dentist</option>
-                        <option value="obstetricians">Obstetricians</option>
-                        <option value="otorhinolaryngology">
-                          Otorhinolaryngology
-                        </option>
-                      </Form.Select>
-                    </Col>
-                  </Form.Group>
-
+                 
                   <Form.Group
                     as={Row}
                     className="mb-3"
@@ -463,4 +439,4 @@ function FormDoctorRegis() {
   );
 }
 
-export default FormDoctorRegis;
+export default FormNurseRegis;

@@ -43,6 +43,11 @@ import MedicalRecordonDoctor from './components/MedicalRecordComponents/MedicalR
 import FormUpdatePrescription from "./components/FormAddPrescriptionComponents/FormUpdatePrescription";
 
 import FormUpdateProfileNurse from "./components/formUpdateProfileNurseComponents/FormUpdateProfileNurse";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import ForgetPassDoctor from "./components/ForgetPasswordComponents/ForgetPassDoctor";
+import ForgetPassNurse from "./components/ForgetPasswordComponents/ForgetPassNurse";
+import ForgetPassStaff from "./components/ForgetPasswordComponents/ForgetPassStaff";
+import FormNurseRegis from "./components/FormDoctorRegisComponents/FormNurseRegis";
 
 function App() {
   return (
@@ -99,10 +104,13 @@ function App() {
               <Route path="/listPatienDoctor" element={<CardListPatient />} />
               <Route path="/registrasiDoctor" element={<FormDoctorRegis />} />
               <Route path="/registrasiStaff" element={<FormStaffRegis />} />
+              <Route path="/registrasiNurse" element={<FormNurseRegis />} />
               <Route path="/registrasiPatient" element={<FormPatientRegis />} />
+              
+              <Route path="/forgetPassDoctor" element={<ForgetPassDoctor />} />
+              <Route path="/forgetPassNurse" element={<ForgetPassNurse />} />
+              <Route path="/forgetPassStaff" element={<ForgetPassStaff />} />
 
-
-              <Route path="/listPatientDoctor" element={<CardListPatient />} />
               <Route
                 path="/listPatientDoctorForNurse"
                 element={<CardListPatientForNurse />}
@@ -122,11 +130,10 @@ function App() {
                 path="/viewprofileStaff"
                 element={<ViewStaffProfilePage />}
               />
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
 
-            {/* <Route path="/profileDoctor" element={<ProfileDoctor />} /> */}
-            {/* <Route path="/profileNurse" element={<ProfileNurse />} />
-              <Route path="/profileStaff" element={<ProfileStaff />} /> */}
+              
           </BrowserRouter>
         </PersistGate>
       </Provider>

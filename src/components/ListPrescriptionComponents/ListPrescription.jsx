@@ -12,6 +12,7 @@ import {
 } from "../../utils/helpers";
 import FormUpdatePrescription from '../FormAddPrescriptionComponents/FormUpdatePrescription';
 import { API_URL } from "../../utils/const";
+import moment from 'moment';
 function ModalAddPrescription(props) {
   return (
     <Modal
@@ -52,7 +53,7 @@ function ModalUpdatePrescription(props) {
             Update Prescription
           </h4>
         </div>
-        <FormUpdatePrescription />
+        <FormUpdatePrescription uuid={props.uuid}/>
       </Modal.Body>
     </Modal>
   );
@@ -62,7 +63,7 @@ function ListPrescription() {
   const [modalShow, setModalShow] = useState(false);
   const [modalShowUpdate, setModalShowUpdate] = useState(false);
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
-
+  const [stateUuid, setStateUuid] = useState("");
   const [prescription, setPrescription] = useState({
     data: [],
     currPage: 1,
@@ -109,77 +110,7 @@ function ListPrescription() {
             console.log(error);
           }
         });
-    // } else if (checkName.test(prescription.by)) {
-    //   axios
-    //     .get(
-    //       `${API_URL}/patient/?name=${by}&page=${page}`,
-    //       GenerateAxiosConfig()
-    //     )
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         setError("No record found");
-    //       } else {
-    //         const page = { ...res.data.page };
-    //         const length = page.total_data / page.limit;
-    //         const active = page.offset / page.limit + 1;
-    //         const items = [];
-    //         for (let i = 0; i < length; i++) {
-    //           items.push(i + 1);
-    //         }
-    //         setPrescription((state) => {
-    //           return {
-    //             ...state,
-    //             data: res.data.data,
-    //             currPage: active,
-    //             pages: items,
-    //           };
-    //         });
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         HandleUnauthorized(error.response);
-    //         setError(error.response.data.meta.messages[0]);
-    //         console.log(error);
-    //       }
-    //     });
-  //   } else {
-  //     axios
-  //       .get(
-  //         `${API_URL}/recipe`,
-  //         GenerateAxiosConfig()
-  //       )
-  //       .then((res) => {
-  //         if (res.status === 204) {
-  //           setError("No record found");
-  //         } else {
-  //           const page = { ...res.data.page };
-  //           const length = page.total_data / page.limit;
-  //           const active = page.offset / page.limit + 1;
-  //           const items = [];
-  //           for (let i = 0; i < length; i++) {
-  //             items.push(i + 1);
-  //           }
-  //           setPrescription((state) => {
-  //             return {
-  //               ...state,
-  //               data: res.data.data,
-  //               currPage: active,
-  //               pages: items,
-  //             };
-  //           });
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         if (error.response) {
-  //           HandleUnauthorized(error.response);
-  //           setError(error.response.data.meta.messages[0]);
-  //           console.log(error);
-  //         }
-  //       });
-  //   }
-  // };
-    }
+  }
 
   useEffect(() => {
     fetch(1, "");
@@ -194,8 +125,6 @@ function ListPrescription() {
   };
 
   const onClickDelete = (item) => {
-    // const API_URL = process.env.BE_API_URL;
-    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/recipe/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {
@@ -230,6 +159,7 @@ function ListPrescription() {
                 onHide={() => setModalShow(false)}
             />
             <ModalUpdatePrescription
+                uuid={stateUuid}
                 show={modalShowUpdate}
                 onHide={() => setModalShowUpdate(false)}
             />
@@ -277,25 +207,39 @@ function ListPrescription() {
                         <th>Consumption Rule</th>
                     </tr>
                     </thead>
+                    
                     <tbody>
-                    {error && <p className="text-center text-dark mt-5">{error}</p>}
+                      
 
                     {prescription?.data?.map((item) => (
                     <tr>
-                        <td>{item.created_at}</td>
-                        <td>{item.username}</td>
+                        <td>{moment(item.created_at).format('ll')}</td>
+                        <td>dr. {item.username.slice(0,5)}</td>
                         <td>{item.patient}</td>
                         <td>{item.medicine}</td>
                         <td>{item.record}</td>
                         <td>{item.consumption_rule}</td>
                         <td>
-                            <Button variant="outline-warning" style={{marginRight: "10px"}} size="sm" onClick={() => setModalShowUpdate(true)}>Edit</Button>
+                            {/* <Button 
+                              variant="outline-warning" 
+                              style={{marginRight: "10px"}} 
+                              size="sm" 
+                              onClick={() =>{ 
+                                setModalShowUpdate(true); 
+                                setStateUuid(item.uuid);
+                                }}>
+                                  Edit
+                              </Button> */}
                             <Button variant="outline-danger" size="sm" onClick={() => onClickDelete(item)}>Delete</Button>
                         </td>
                     </tr>
                     ))}
                     </tbody>
                 </Table>
+
+                <div className='d-flex justify-content-center'>
+                  {error && <p className="text-center text-dark mt-5">{error}</p>}
+                </div>
                 <div className="d-flex justify-content-center">
                 {prescription && (
                   <Pagination className="align-self-center">

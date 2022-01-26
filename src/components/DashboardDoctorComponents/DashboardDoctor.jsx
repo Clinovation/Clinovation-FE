@@ -15,7 +15,7 @@ import {
 import { Link } from 'react-router-dom'
 import { API_URL } from "../../utils/const";
 function CardDashboardDoctor() {
-    const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
+  const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
 
   const [patient, setPatient] = useState({
     // by: "",
@@ -30,6 +30,7 @@ function CardDashboardDoctor() {
     // if (patient.by === "") {
       axios
         .get(`${API_URL}/medicalRecord/queue?page=${page}`, GenerateAxiosConfig())
+        // .get(`${API_URL}/medicalRecord/medicalStaff/queue?page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setError("No record found");
@@ -143,7 +144,7 @@ function CardDashboardDoctor() {
 
   const onClickDone = (item) => {
     // const API_URL = process.env.BE_API_URL;
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .delete(`${API_URL}/medicalRecord/${item.uuid}`, GenerateAxiosConfig())
       .then((res) => {

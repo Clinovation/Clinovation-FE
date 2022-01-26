@@ -3,17 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const UserSlice = createSlice({
   name: "user",
   initialState: {
-    // id: 0,
-    // email: "",
-    // username: "",
-    // fullname: "",
-    // url_image: process.env.DEFAULT_PROFILE,
-    // address: "",
-    // telephone: "",
-    // gender: "",
-    // is_member: false,
-    // expire_date: "",
-
     id: 0,
     uuid: "",
     nik: "",
@@ -26,8 +15,8 @@ export const UserSlice = createSlice({
     specialist: "",
     work_experience: "",
     avatar: "",
-    schedule: "",
     work_hour: "",
+    work_day: "",
   },
   reducers: {
     login: (state, action) => {
@@ -43,8 +32,8 @@ export const UserSlice = createSlice({
       state.specialist = action.payload.specialist;
       state.work_experience = action.payload.work_experience;
       state.avatar = action.payload.avatar;
-      state.schedule = action.payload.schedule;
       state.work_hour = action.payload.work_hour;
+      state.work_day = action.payload.work_day;
     },
     logout: (state) => {
       state.id = 0;
@@ -58,9 +47,9 @@ export const UserSlice = createSlice({
       state.role = "";
       state.specialist = "";
       state.work_experience = "";
-      state.schedule = "";
-      state.work_hour = "";
       state.avatar = "";
+      state.work_hour = "";
+      state.work_day = "";
     },
   },
 });

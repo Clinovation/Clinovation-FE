@@ -25,10 +25,17 @@ export default function Schedule() {
     pages: [],
   });
 
+  const [nurse, setNurse] = useState({
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+
   const [filter, setFilter] = useState("")
   const [error, setError] = useState();
+  const [errorNurse, setErrorNurse] = useState();
 
-  const fetch = (page, day) => {
+  const fetchDoctor = (page, day) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
         .get(`${API_URL}/doctor/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
@@ -67,9 +74,50 @@ export default function Schedule() {
           }
         });
   };
+
+   const fetchNurse = (page, day) => {
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
+      axios
+        .get(`${API_URL}/nurse/queryDay?day=${day}&page=${page}`, GenerateAxiosConfig())
+        .then((res) => {
+          if (res.status === 204) {
+            setNurse({
+              data: [],
+              currPage: 1,
+              pages: [],
+					  });
+            setErrorNurse("No record found");
+          } else {
+            const page = { ...res.data.page };
+            const length = page.total_data / page.limit;
+            const active = page.offset / page.limit + 1;
+            const items = [];
+            for (let i = 0; i < length; i++) {
+              items.push(i + 1);
+            }
+            setNurse((state) => {
+              return {
+                ...state,
+                data: res.data.data,
+                currPage: active,
+                pages: items,
+              };
+            });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            HandleUnauthorized(error.response);
+            setErrorNurse(error.response.data.meta.messages[0]);
+            console.log(error);
+          }
+        });
+  };
+
   useEffect(() => {
-    fetch(1, day);
-  }, [setDoctor, setError]);
+    fetchDoctor(1, day);
+    fetchNurse(1, day)
+  }, [setDoctor, setNurse]);
 
   const handlePage = (index) => {
     fetch(index, filter);
@@ -80,6 +128,7 @@ export default function Schedule() {
     setFilter(value);
   };
   console.log(doctor)
+  console.log("data nurse: ",nurse)
   // doctor.data=doctor.data.filter(doctor.data => doctor.data.work_day == day)
   return (
     <div>
@@ -112,7 +161,7 @@ export default function Schedule() {
                     )}
                     <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
                     <span className={`${styles.infoJadwal}`}>{item.specialist}</span>
-                    <span className={`${styles.infoJadwal}`}>12 AM</span>
+                    <span className={`${styles.infoJadwal}`}>{item.work_hour}</span>
                   </Card.Body>
                  
                 </Card>
@@ -132,18 +181,6 @@ export default function Schedule() {
                     </Pagination>
                     )}
                   </div>
-                {/* <Card>
-                  <Card.Body>
-                    <img
-                      src={staffprofile}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    <span className={`${styles.infoJadwal}`}>dr. Morty</span>
-                    <span className={`${styles.infoJadwal}`}>Neurology</span>
-                    <span className={`${styles.infoJadwal}`}>13 AM</span>
-                  </Card.Body>
-                </Card> */}
 
                 <Card.Text className={`${styles.cardtext}`}>
                   {" "}
@@ -175,30 +212,43 @@ export default function Schedule() {
             <Card>
               <Card.Body>
                 <div style={{ marginBottom: "10px" }}>Nurse Schedules</div>
+                {errorNurse && <p className="text-center text-dark mt-5">{errorNurse}</p>}
+
+                {nurse?.data?.map((item) => (
                 <Card>
                   <Card.Body>
+                    {item.avatar === "" ? (
                     <img
                       src={nurseicon}
                       alt=""
                       className={`${styles.iconDashboard2}`}
                     />
-                    <span className={`${styles.infoJadwal}`}>Nurse Monty</span>
-                    <span className={`${styles.infoJadwal}`}>Neurology</span>
-                    <span className={`${styles.infoJadwal}`}>12 AM</span>
+                    ) : (
+                      <img
+                        src={item.avatar}
+                        style={{ height: "56px" }}
+                      />
+                    )}
+                    <span className={`${styles.infoJadwal}`}>dr.{item.name.slice(0,5)}</span>
+                    <span className={`${styles.infoJadwal}`}>{item.work_hour}</span>
                   </Card.Body>
                 </Card>
-                <Card>
-                  <Card.Body>
-                    <img
-                      src={nurseicon}
-                      alt=""
-                      className={`${styles.iconDashboard2}`}
-                    />
-                    <span className={`${styles.infoJadwal}`}>Nurse Alex</span>
-                    <span className={`${styles.infoJadwal}`}>Neurology</span>
-                    <span className={`${styles.infoJadwal}`}>13 AM</span>
-                  </Card.Body>
-                </Card>
+                    ))}
+                 <div className="d-flex justify-content-center">
+                    {nurse && (
+                    <Pagination className="align-self-center">
+                      {nurse.pages.map((item) => (
+                        <Pagination.Item
+                          key={item}
+                          active={item === nurse.currPage}
+                          onClick={() => handlePage(item)}
+                        >
+                          {item}
+                        </Pagination.Item>
+                      ))}
+                    </Pagination>
+                    )}
+                  </div>
                 <Card.Text className={`${styles.cardtext}`}>
                   {" "}
                   <br />

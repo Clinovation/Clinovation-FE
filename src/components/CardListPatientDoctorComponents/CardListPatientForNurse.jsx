@@ -7,6 +7,7 @@ import {
   InputGroup,
   FormControl,
   Col,
+  Pagination
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Avatar from "../../icons/man.png";
@@ -36,7 +37,7 @@ export default function CardListPatientForNurse() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (patient.by === "") {
       axios
         .get(`${API_URL}/patient/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
@@ -73,75 +74,6 @@ export default function CardListPatientForNurse() {
             console.log(error);
           }
         });
-    // } else if (checkName.test(patient.by)) {
-    //   axios
-    //     .get(
-    //       `${API_URL}/patient/?name=${by}&page=${page}`,
-    //       GenerateAxiosConfig()
-    //     )
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         setError("No record found");
-    //       } else {
-    //         const page = { ...res.data.page };
-    //         const length = page.total_data / page.limit;
-    //         const active = page.offset / page.limit + 1;
-    //         const items = [];
-    //         for (let i = 0; i < length; i++) {
-    //           items.push(i + 1);
-    //         }
-    //         setPatient((state) => {
-    //           return {
-    //             ...state,
-    //             data: res.data.data,
-    //             currPage: active,
-    //             pages: items,
-    //           };
-    //         });
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         HandleUnauthorized(error.response);
-    //         setError(error.response.data.meta.messages[0]);
-    //         console.log(error);
-    //       }
-    //     });
-    // } else {
-    //   axios
-    //     .get(
-    //       `${API_URL}/patient/?nik=${by}&page=${page}`,
-    //       GenerateAxiosConfig()
-    //     )
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         setError("No record found");
-    //       } else {
-    //         const page = { ...res.data.page };
-    //         const length = page.total_data / page.limit;
-    //         const active = page.offset / page.limit + 1;
-    //         const items = [];
-    //         for (let i = 0; i < length; i++) {
-    //           items.push(i + 1);
-    //         }
-    //         setPatient((state) => {
-    //           return {
-    //             ...state,
-    //             data: res.data.data,
-    //             currPage: active,
-    //             pages: items,
-    //           };
-    //         });
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         HandleUnauthorized(error.response);
-    //         setError(error.response.data.meta.messages[0]);
-    //         console.log(error);
-    //       }
-    //     });
-    // }
   };
 
   useEffect(() => {
@@ -175,61 +107,79 @@ export default function CardListPatientForNurse() {
                   </div>
 
                   <div class="ms-auto p-2 bd-highlight">
-                    <InputGroup
-                      className="mb-3"
-                      size="sm"
-                      style={{ width: "300px" }}
-                    >
-                      <FormControl
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                      />
-                      <Button variant="outline-secondary" id="button-addon2">
+                    <InputGroup className="mb-3" size="sm" style={{width: '300px'}}>
+                        <FormControl
+                        // aria-label="Recipient's username"
+                        // aria-describedby="basic-addon2"
+                          type="search"
+                          name="title"
+                          aria-label="Search"
+                          value={filter}
+                          onChange={onChange}
+                        />
+                        <Button 
+                          variant="outline-secondary" 
+                          onClick={() => {fetch(1, filter);
+                        }}>
                         Search
-                      </Button>
+                        </Button>
                     </InputGroup>
                   </div>
                 </div>
               </Row>
+              
+              {error && <p className="text-center text-dark mt-5">{error}</p>}
 
+              {patient?.data?.map((item) => (
               <Row>
-                <div className="d-flex justify-content-center mt-5">
-                  <Card style={{ marginBottom: "10px", width: "900px" }}>
-                    <Card.Body style={{ overflowX: "auto" }}>
-                      <div class="d-flex bd-highlight">
-                        <div class="p-2 bd-highlight">
-                          <img
-                            src={Avatar}
-                            style={{ height: "56px", marginRight: "10px" }}
-                          />
-                        </div>
-                        <div className="p-2 bd-highlight mt-3">
-                          <h6 style={{ marginRight: "65px" }}>John</h6>
-                        </div>
-                        <div className="p-2 bd-highlight mt-3">
-                          <h6 style={{ marginRight: "65px" }}>32 Years old</h6>
-                        </div>
-                        <div className="p-2 bd-highlight mt-3">
-                          <h6>710481048018</h6>
-                        </div>
-                        <div className="ms-auto p-2 bd-highlight mt-3">
-                          <Link to="/medicalRecordConsulNurse">
-                            <Button
-                              variant="warning"
-                              size="sm"
-                              style={{ marginRight: "30px" }}
-                            >
-                              <div style={{ color: "#ffffff" }}>
-                                Patient Record
+                  <div className='d-flex justify-content-center mt-1'>
+                  
+                      <Card style={{ marginBottom: '10px', width : "900px" }} key={item.id} className={style.CardHover}>
+                          <Card.Body  style={{ overflowX : "auto" }}>
+                              <div class="d-flex bd-highlight">
+                                  <div class="p-2 bd-highlight">
+                                    {item.avatar === "" ? (
+                                      <img src={Avatar} style={{ height: "56px" }} />
+                                    ) : (
+                                      <img
+                                        src={item.avatar}
+                                        style={{ height: "56px" }}
+                                      />
+                                    )}
+                                  </div>
+                                  <div className="p-2 bd-highlight mt-3">
+                                    <h6 style={{marginRight: "65px", width: "60px"}}>{item.name.slice(0,5)}</h6>
+                                  </div>
+                                  <div className="p-2 bd-highlight mt-3">
+                                    <h6 style={{marginRight: "65px"}}>{item.dob}</h6>
+                                  </div>
+                                  <div className="p-2 bd-highlight mt-3"><h6>{item.nik}</h6></div>
+                                  <div className="ms-auto p-2 bd-highlight mt-3">
+                                      <Link to={`/medicalRecordPatient/${item.uuid}`}>
+                                          <Button variant="info" size="sm" style={{marginRight: "30px"}}><div style={{color: "#ffffff"}}>Patient Record</div></Button>
+                                      </Link>
+                                  </div> 
                               </div>
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </div>
+                          </Card.Body>
+                      </Card>
+                  </div>
               </Row>
+              ))}
+              <div className="d-flex justify-content-center">
+                {patient && (
+                  <Pagination className="align-self-center">
+                    {patient.pages.map((item) => (
+                      <Pagination.Item
+                        key={item}
+                        active={item === patient.currPage}
+                        onClick={() => handlePage(item)}
+                      >
+                        {item}
+                      </Pagination.Item>
+                    ))}
+                  </Pagination>
+                )}
+            </div>
             </Container>
           </Col>
         </Row>

@@ -22,7 +22,6 @@ import SideBarMedStaff from "../SideBarMedStaffComponents/SideBarMedStaff";
 import style from '../CardListPatientDoctorComponents/CardList.module.css'
 import { API_URL } from "../../utils/const";
 function CardListNurse() {
-  const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [nurse, setNurse] = useState({
     // by: "",
     data: [],
@@ -33,10 +32,8 @@ function CardListNurse() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    // const API_URL = "http://184.72.154.87:8080/api/v1";
-    // if (nurse.by === "") {
       axios
-        .get(`${API_URL}/nurse/queryName?name=${name}page=${page}`, GenerateAxiosConfig())
+        .get(`${API_URL}/nurse/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
         .then((res) => {
           if (res.status === 204) {
             setNurse({
@@ -70,69 +67,6 @@ function CardListNurse() {
             console.log(error);
           }
         });
-    // } else if (checkName.test(nurse.by)) {
-    //   axios
-    //     .get(`${API_URL}/nurse/?name=${by}&page=${page}`, GenerateAxiosConfig())
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         setError("No record found");
-    //       } else {
-    //         const page = { ...res.data.page };
-    //         const length = page.total_data / page.limit;
-    //         const active = page.offset / page.limit + 1;
-    //         const items = [];
-    //         for (let i = 0; i < length; i++) {
-    //           items.push(i + 1);
-    //         }
-    //         setNurse((state) => {
-    //           return {
-    //             ...state,
-    //             data: res.data.data,
-    //             currPage: active,
-    //             pages: items,
-    //           };
-    //         });
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         HandleUnauthorized(error.response);
-    //         setError(error.response.data.meta.messages[0]);
-    //         console.log(error);
-    //       }
-    //     });
-    // } else {
-    //   axios
-    //     .get(`${API_URL}/nurse/?nik=${by}&page=${page}`, GenerateAxiosConfig())
-    //     .then((res) => {
-    //       if (res.status === 204) {
-    //         setError("No record found");
-    //       } else {
-    //         const page = { ...res.data.page };
-    //         const length = page.total_data / page.limit;
-    //         const active = page.offset / page.limit + 1;
-    //         const items = [];
-    //         for (let i = 0; i < length; i++) {
-    //           items.push(i + 1);
-    //         }
-    //         setNurse((state) => {
-    //           return {
-    //             ...state,
-    //             data: res.data.data,
-    //             currPage: active,
-    //             pages: items,
-    //           };
-    //         });
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       if (error.response) {
-    //         HandleUnauthorized(error.response);
-    //         setError(error.response.data.meta.messages[0]);
-    //         console.log(error);
-    //       }
-    //     });
-    // }
   };
 
   useEffect(() => {
@@ -146,8 +80,7 @@ function CardListNurse() {
     const value = e.target.value;
     setFilter(value);
   };
-
-  console.log(filter)
+  console.log(nurse)
   return (
     <div>
       <Container fluid>

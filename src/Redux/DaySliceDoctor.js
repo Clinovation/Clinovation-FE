@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const DaySliceDoctor = createSlice({
-  name: "day",
+  name: "dayDoctor",
   initialState: {
-    day: "",
+    dayDoctor: "",
   },
   reducers: {
-    saveDay: (state, action) => {
-      state.day = {...action.payload};
+    saveDayDoctor: (state, action) => {
+      state.dayDoctor = {...action.payload};
     }
   },
 });
 
-export const { saveDay } = DaySliceDoctor.actions;
+export const { saveDayDoctor } = DaySliceDoctor.actions;
 export default DaySliceDoctor.reducer;
