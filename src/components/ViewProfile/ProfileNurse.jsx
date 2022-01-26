@@ -87,6 +87,7 @@ function ProfileNurse() {
         }
       });
   };
+  console.log("data nurse: ",form)
   return (
     <div>
       <Container className="my-4" fluid>
@@ -224,8 +225,8 @@ function ProfileNurse() {
               </div>
             </Form>
             <div className="d-flex justify-content-between">
-              <Link to="/dashboardStaff">
-                <Button variant="info"><div style={{color:"white"}}>Back To Home</div></Button>
+              <Link to="/listNurse">
+                <Button variant="info"><div style={{color:"white"}}>Back To List Nurse</div></Button>
               </Link>
 
               <Button variant="danger" onClick={() => onClickDelete(uuid)}>

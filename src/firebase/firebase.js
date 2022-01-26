@@ -1,3 +1,5 @@
+// import * as firebase from "firebase/app";
+import "firebase/storage";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -5,13 +7,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCFijGSs777mOqfA2n9K-27oIkSh9aPUpU",
-  authDomain: "clinovation-fe0d2.firebaseapp.com",
-  projectId: "clinovation-fe0d2",
-  storageBucket: "clinovation-fe0d2.appspot.com",
-  messagingSenderId: "652956202557",
-  appId: "1:652956202557:web:d7cd1c86bb8ec6d3331c54"
+  apiKey: "AIzaSyDLVwhTO9cLmgCqYD9lN5UvAmFJ6LzZTYo",
+  authDomain: "mountindo-2-2298f.firebaseapp.com",
+  projectId: "mountindo-2-2298f",
+  storageBucket: "mountindo-2-2298f.appspot.com",
+  messagingSenderId: "928153527022",
+  appId: "1:928153527022:web:4f9875f1016c89974289ff",
+  measurementId: "G-VM07C55P2N",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);

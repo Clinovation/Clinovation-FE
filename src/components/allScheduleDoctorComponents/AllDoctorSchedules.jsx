@@ -26,8 +26,8 @@ export default function AllDoctorSchedules() {
   const [filter, setFilter] = useState("")
   const [error, setError] = useState();
 
-  const day = useSelector((state) => state.day.day.day)
-  console.log(day)
+  const day = useSelector((state) => state.day.dayDoctor.dayDoctor)
+  console.log("day doctor: ",day)
   const fetch = (page, day) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
@@ -106,7 +106,7 @@ export default function AllDoctorSchedules() {
                     />
                     <span className={`${styles.infoJadwal}`}>dr. {item.name.slice(0,5)}</span>
                     <span className={`${styles.infoJadwal}`}>{item.specialist}</span>
-                    <span className={`${styles.infoJadwal}`}>12 AM</span>
+                    <span className={`${styles.infoJadwal}`}>{item.work_hour}</span>
                   </Card.Body>
                 </Card>
                  ))}

@@ -29,7 +29,7 @@ function SideBarDoctor() {
               <img src={Avatar} style={{ height: "40px" }} />
             </Link>
             
-            <p style={{ fontSize: "10px" }} className="mt-2">{form.name.slice(0,5)}</p>
+            <p style={{ fontSize: "13px" }} className="mt-2">dr. {form.name.slice(0,5)}</p>
           </div>
         
             <Link to="/dashboardDoctor" className="m-auto">

@@ -25,6 +25,7 @@ import { GiStethoscope } from "react-icons/gi";
 import { API_URL } from "../../utils/const";
 import Paginations from "../pagination";
 import styles from "../manageAccountAllNursesComponents/AllNurseAccounts.module.css";
+
 export default function AllNurseAccounts() {
   const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
   const [nurse, setNurse] = useState({
@@ -37,7 +38,7 @@ export default function AllNurseAccounts() {
   const [error, setError] = useState();
 
   const fetch = (page, name) => {
-    const API_URL = "http://184.72.154.87:8080/api/v1";
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
     // if (nurse.by === "") {
       axios
         .get(`${API_URL}/nurse/queryName?name=${name}&page=${page}`, GenerateAxiosConfig())
@@ -179,6 +180,7 @@ export default function AllNurseAccounts() {
         }
       });
   };
+  console.log(nurse)
   return (
     <div>
       <div className={`${styles.title2} d-flex`}>

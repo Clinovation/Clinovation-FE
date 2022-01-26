@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { saveDayDoctor } from "../Redux/DaySliceDoctor";
+import { saveDayNurse } from "../Redux/DaySliceNurse";
 import styles from "./date.module.css"
 
 export default function Date() {
   const dispatch = useDispatch()
-  const [dayDoctor, setDayDoctor] = useState("")
+  const [dayNurse, setDayNurse] = useState("")
 
   const onClick = (e) =>{
     const value = e.target.value;
-    setDayDoctor(value)
-    dispatch(saveDayDoctor({dayDoctor}))
-    console.log(dayDoctor)
+    setDayNurse(value)
+    dispatch(saveDayNurse({dayNurse}))
+    console.log(dayNurse)
   }
 
   return (

@@ -39,7 +39,7 @@ export default function useHandleLogin() {
         userData.specialist = resp.data.data.specialist;
         userData.work_experience = resp.data.data.work_experience;
         userData.work_hour = resp.data.data.work_hour;
-        userData.schedule = resp.data.data.schedule;
+        userData.work_day = resp.data.data.work_day;
         userData.avatar = resp.data.data.avatar;
       })
       .catch(() => {
@@ -55,7 +55,7 @@ export default function useHandleLogin() {
         userData.specialist = "";
         userData.work_experience = "";
         userData.work_hour = "";
-        userData.schedule = "";
+        userData.work_day = "";
         userData.avatar = "";
       });
 

@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { Base64 } from "js-base64";
 import { GiConsoleController } from "react-icons/gi";
+import { API_URL } from "../../utils/const";
 
 export default function useHandleLogin() {
   const cookies = new Cookies();
@@ -12,7 +13,7 @@ export default function useHandleLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async (res) => {
-    const API_URL = "http://3.83.92.188:8080/api/v1";
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
     let userData = {
       ...res,
     };
@@ -35,10 +36,9 @@ export default function useHandleLogin() {
         userData.sex = resp.data.data.sex;
         userData.contact = resp.data.data.contact;
         userData.role = resp.data.data.role;
-        userData.specialist = resp.data.data.specialist;
         userData.work_experience = resp.data.data.work_experience;
         userData.work_hour = resp.data.data.work_hour;
-        userData.schedule = resp.data.data.schedule;
+        userData.work_day = resp.data.data.work_day;
         userData.avatar = resp.data.data.avatar;
       })
       .catch(() => {
@@ -51,10 +51,9 @@ export default function useHandleLogin() {
         userData.sex = "";
         userData.contact = "";
         userData.role = "";
-        userData.specialist = "";
         userData.work_experience = "";
         userData.work_hour = "";
-        userData.schedule = "";
+        userData.work_day = "";
         userData.avatar = "";
       });
 

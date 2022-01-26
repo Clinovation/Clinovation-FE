@@ -1,13 +1,54 @@
 import React, { useState } from "react";
-import { Form, Button, Col, FloatingLabel } from "react-bootstrap";
+import { Form, Button, Col, FloatingLabel, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import style from "../FormLoginComponents/FormLogin.module.css";
 import useValidateForm from "../../hooks/useValidateForm";
 import axios from "axios";
 import useHandleLogin from "../../hooks/doctor/useHandleLogin";
 import { API_URL } from "../../utils/const";
+import Logo from "../../images/Logo.png";
+import ForgetPassDoctor from "../ForgetPasswordComponents/ForgetPassDoctor";
+import Doctor from "../../icons/doctor.png";
+
+function ModalForgetPass(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          <div class="d-flex justify-content-end">
+            <img
+              src={Logo}
+              style={{ height: "100px" }}
+              class="d-flex justify-content-end"
+            />
+          </div>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{ backgroundColor: "#F7F7F7" }}>
+        <div style={{ textAlign: "center" }}>
+          <h4>
+            <img src={Doctor} style={{ height: "50px", marginRight: "10px" }} />
+            Forget Password Doctor
+          </h4>
+        </div>
+        <ForgetPassDoctor />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 function FormLogin() {
+  const [modalShow, setModalShow] = React.useState(false);
   const handleLogin = useHandleLogin();
   const { validateForm } = useValidateForm();
   const [form, setForm] = useState({
@@ -57,6 +98,10 @@ function FormLogin() {
 
   return (
     <div>
+      <ModalForgetPass
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
       <Form noValidate onSubmit={onSubmit}>
         <div className={style.cardForm}>
           <Form.Group className="mb-3">
@@ -92,10 +137,19 @@ function FormLogin() {
           </Form.Group>
           <br />
           <p className="text-danger ms-1">{errorMsg.auth}</p>
+          <a 
+            style={{cursor: "pointer", color:"blue"}} 
+            className="d-flex justify-content-end"
+            onClick={() => setModalShow(true)}
+          >
+              Forget Password
+          </a>
         </div>
         <div className="d-flex justify-content-center">
           <Button type="submit" variant="info" size="lg">
-            Login
+            <div style={{color: "white"}}>
+              Login
+            </div>
           </Button>
         </div>
       </Form>

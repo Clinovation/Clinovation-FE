@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState,useEffect } from "react";
 import { Form, Button, Card, Row, Col, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import avatar from "../../icons/staffProfile.png";
@@ -31,11 +31,27 @@ function FormUpdateProfileDoctor() {
     dob: user.dob,
     sex: user.sex,
     contact: user.contact,
+    work_day: user.work_day,
+    work_hour: user.work_hour,
     specialist: user.specialist
   };
 
   const [form, setForm] = useState(initialValue);
+  const [workDay, setWorkDay] = useState({
+    data: [],
+  });
+
+  const [uuidWork, setUuidWork] = useState({
+    day: "",
+    hour: "",
+  });
+
+  const [workHour, setWorkHour] = useState({
+    data: [],
+  });
+
   const [error, setError] = useState({});
+  const [errorWork, setErrorWork] = useState({ workDay: "", workHour: "" });
 
   const onClick = () => {
     dispatch(logout());
@@ -46,12 +62,74 @@ function FormUpdateProfileDoctor() {
       window.location.reload();
     }
   };
+    const fetchWorkDay = () => {
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
+    axios
+      .get(`${API_URL}/workDay/`)
+      .then((res) => {
+        if (res.status === 204) {
+          // setErrorWork({ ...errorWork, workDay: "No record found" });
+        } else {
+          setWorkDay((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setErrorWork({
+            ...errorWork,
+            workDay: error.response.data.errors[0],
+          });
+          console.log(error);
+        }
+      });
+  };
+
+  const fetchWorkHour = () => {
+    // const API_URL = "http://3.83.92.188:8080/api/v1";
+    axios
+      .get(`${API_URL}/workHour/`)
+      .then((res) => {
+        if (res.status === 204) {
+          // setErrorWork({ ...errorWork, workHour: "No record found" });
+        } else {
+          setWorkHour((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setErrorWork({
+            ...errorWork,
+            workHour: error.response.data.errors[0],
+          });
+          console.log(error);
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchWorkDay();
+    fetchWorkHour();
+  }, [setWorkDay, setWorkHour]);
+
+
 
   const updateProfile = (data) => {
     // const API_URL = "http://184.72.154.87:8080/api/v1";
     axios
       .put(
-        `${API_URL}/doctor/`,
+        `${API_URL}/doctor/?workDayID=${uuidWork.day}&workHourID=${uuidWork.hour}`,
         {
           ...data,
         },
@@ -59,6 +137,7 @@ function FormUpdateProfileDoctor() {
       )
       .then(() => {
         dispatch(login(data));
+        window.location.reload();
       })
       .catch((error) => {
         HandleUnauthorized(error.response);
@@ -72,30 +151,11 @@ function FormUpdateProfileDoctor() {
     setForm({ ...form, [name]: value });
   };
 
-  // const onChange = (e) =>{
-  //   if(app){
-  //     const file = e.target.files[0];
-	// 		const storageRef = getStorage();
-	// 		const fileRef = ref(storageRef, file.name);
-	// 		const compressionOption = {
-	// 			maxWidthOrHeight: 528,
-	// 			useWebWorker: true,
-	// 		};
-	// 		// setLoading(true);
-	// 		imageCompression(file, compressionOption).then((compressedFile) => {
-	// 			uploadBytes(fileRef, compressedFile).then(() => {
-	// 				getDownloadURL(fileRef)
-	// 					.then((url) => {
-	// 						const newData = { ...user, url_image: url };
-	// 						updateProfile(newData);
-	// 					})
-	// 					.then(() => {
-	// 						setLoading(false);
-	// 					});
-	// 			});
-	// 		});
-  //   }
-  // }
+  const onChangeUuid = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setUuidWork({ ...uuidWork, [name]: value });
+  };
 
   const onBlur = (e) => {
     const name = e.target.name;
@@ -119,14 +179,18 @@ function FormUpdateProfileDoctor() {
         dob: form.dob,
         sex: form.sex,
         contact: form.contact,
-        specialist: form.specialist
+        specialist: form.specialist,
+        // work_day: form.work_day,
+        // work_hour: form.work_hour,
       };
-
+      console.log("data baru: ",newData)
       updateProfile(newData);
     }
+    
   };
 
-
+  console.log(form)
+  console.log("uuid: ",uuidWork)
   return (
     <div>
       <Container fluid>
@@ -311,18 +375,46 @@ function FormUpdateProfileDoctor() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column md="3">
-                  Schedule
+                  Specialist
                 </Form.Label>
                 <Col md="9">
-                  <Form.Select aria-label="Default select example">
-                    <option disabled>Specialist</option>
-                    <option value="1">One</option>
-                    <option value="3">Two</option>
-                    <option value="3">Three</option>
+                  <Form.Select
+                    aria-label="Default select example"
+                    name="specialist"
+                    value={form.specialist}
+                    onChange={onChange}
+                  >
+                    <option>Specialist</option>
+                    <option value="pediatrician">Pediatrician</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="obstetricians">Obstetricians</option>
+                    <option value="otorhinolaryngology">
+                      Otorhinolaryngology
+                    </option>
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid specialist.
-                  </Form.Control.Feedback>
+                </Col>
+              </Form.Group>
+
+              <Form.Group
+                as={Row}
+                className="mb-3"
+                controlId="formPlaintextEmail"
+              >
+                <Form.Label column md="3">
+                  Work Day
+                </Form.Label>
+                <Col md="9">
+                  <Form.Select
+                    aria-label="Default select example"
+                    name="day"
+                    value={uuidWork.day}
+                    onChange={onChangeUuid}
+                  >
+                    <option>work day</option>
+                    {workDay?.data?.map((item) => (
+                      <option value={item.uuid}>{item.day}</option>
+                    ))}
+                  </Form.Select>
                 </Col>
               </Form.Group>
 
@@ -335,38 +427,20 @@ function FormUpdateProfileDoctor() {
                   Work Hour
                 </Form.Label>
                 <Col md="9">
-                  <Form.Select aria-label="Default select example">
-                    <option disabled>Specialist</option>
-                    <option value="1">One</option>
-                    <option value="3">Two</option>
-                    <option value="3">Three</option>
+                  <Form.Select
+                    aria-label="Default select example"
+                    name="hour"
+                    value={uuidWork.hour}
+                    onChange={onChangeUuid}
+                  >
+                    <option>work hour</option>
+                    {workHour?.data?.map((item) => (
+                      <option value={item.uuid}>{item.hour}</option>
+                    ))}
                   </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid specialist.
-                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Specialist
-                </Form.Label>
-                <Col md="9">
-                  <Form.Select aria-label="Default select example">
-                    <option disabled>Specialist</option>
-                    <option value="1">One</option>
-                    <option value="3">Two</option>
-                    <option value="3">Three</option>
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid specialist.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
             </div>
 
             <div className="d-flex justify-content-between">
