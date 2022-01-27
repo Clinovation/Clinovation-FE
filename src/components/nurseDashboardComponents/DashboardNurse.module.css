@@ -1,5 +1,10 @@
 @media screen and (max-width: 800px) {
-    .responsiveCard{
-      overflow-x: auto;
-    }
+  .responsiveCard {
+    overflow-x: auto;
   }
+}
+
+.CardHover:hover {
+  padding: 5px;
+  box-shadow: 0px 0px 5px 5px #dfe0eb;
+}

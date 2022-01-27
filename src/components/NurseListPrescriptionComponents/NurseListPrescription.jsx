@@ -70,13 +70,13 @@ function NurseListPrescription() {
           <Col md={11} className="mt-4">
             <Row>
               <div class="d-flex bd-highlight">
-                <div class="p-2 bd-highlight">
-                  {/* <Link to="/addPrescription"> */}
+                {/* <div class="p-2 bd-highlight">
+                  <Link to="/addPrescription">
                   <Button variant="success" onClick={() => setModalShow(true)}>
                     Add New Prescription
                   </Button>
-                  {/* </Link> */}
-                </div>
+                  </Link>
+                </div> */}
 
                 <div class="ms-auto p-2 bd-highlight">
                   <InputGroup
@@ -116,7 +116,7 @@ function NurseListPrescription() {
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>
+                  {/* <td>
                     <Button
                       variant="warning"
                       style={{ marginRight: "10px" }}
@@ -165,7 +165,7 @@ function NurseListPrescription() {
                     <Button variant="danger" size="sm">
                       Delete
                     </Button>
-                  </td>
+                  </td> */}
                 </tr>
               </tbody>
             </Table>

@@ -51,12 +51,16 @@ function FormPatientRegis() {
     } else {
       // const API_URL = "http://184.72.154.87:8080/api/v1";
       axios
-        .post(`${API_URL}/patient/register`, {
-          ...form, 
-        }, GenerateAxiosConfig())
+        .post(
+          `${API_URL}/patient/register`,
+          {
+            ...form,
+          },
+          GenerateAxiosConfig()
+        )
         .then((response) => {
           // navigate("/");
-          console.log(response)
+          console.log(response);
         })
         .catch((error) => {
           setErrorMsg({
@@ -66,17 +70,17 @@ function FormPatientRegis() {
         });
     }
   };
-  console.log(form)
+  console.log(form);
   return (
     <div>
       <Container>
-        <Link to={"/dashboardStaff"}>
-          <Row>
-            <div className="d-flex justify-content-center">
+        <Row>
+          <div className="d-flex justify-content-center">
+            <Link to={"/dashboardStaff"}>
               <img src={Logo} style={{ height: "100px" }} />
-            </div>
-          </Row>
-        </Link>
+            </Link>
+          </div>
+        </Row>
         <Row>
           <Col md={8} className="m-auto mt-3">
             <Card style={{ backgroundColor: "#F7F7F7" }} className="p-4">
@@ -94,7 +98,7 @@ function FormPatientRegis() {
                     className="mb-3"
                     controlId="formPlaintextEmail"
                   >
-                   <Form.Label column md="3">
+                    <Form.Label column md="3">
                       Name
                     </Form.Label>
                     <Col md="9">
@@ -166,7 +170,7 @@ function FormPatientRegis() {
                     className="mb-3"
                     controlId="formPlaintextEmail"
                   >
-                   <Form.Label column md="3">
+                    <Form.Label column md="3">
                       Sex
                     </Form.Label>
                     <Col md="9">
@@ -202,7 +206,7 @@ function FormPatientRegis() {
                       />
                       <Form.Control.Feedback type="invalid">
                         {errorMsg.address}
-                  </Form.Control.Feedback>
+                      </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
@@ -308,21 +312,18 @@ function FormPatientRegis() {
                     controlId="exampleForm.ControlTextarea1"
                   >
                     <Form.Label>Patient Medical Record</Form.Label>
-                    <Form.Control 
-                      as="textarea" 
+                    <Form.Control
+                      as="textarea"
                       name="record"
-                      rows={8} 
-                      value={form.record} 
-                      onChange={onChange} 
-                      />
+                      rows={8}
+                      value={form.record}
+                      onChange={onChange}
+                    />
                   </Form.Group>
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button type="submit" variant="info" size="lg">
-                    <div style={{color:"white"}}>
-                      Register
-                    </div>
-                    
+                    <div style={{ color: "white" }}>Register</div>
                   </Button>
                 </div>
               </Form>
