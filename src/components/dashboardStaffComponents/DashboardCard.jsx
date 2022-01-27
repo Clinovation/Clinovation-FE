@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "../dashboardStaffComponents/DashboardCard.module.css";
 import { Card } from "react-bootstrap";
-import totalPatient from "../../icons/registered.png";
+import dentist from "../../icons/dentistry.png";
+import fetus from "../../icons/fetus.png";
+import otor from "../../icons/otorhinolaryngology.png";
 import brain from "../../icons/brain.png";
 import heartbeat from "../../icons/heartbeat.png";
 import pediatrics from "../../icons/pediatrics.png";
@@ -14,27 +16,22 @@ export default function DashboardCard() {
       <div className={`${styles.cardstyle}`}>
         <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
           <Card.Body>
-            <img
-              src={totalPatient}
-              alt=""
-              className={`${styles.iconDashboard}`}
-            />
-            <Card.Title>Total</Card.Title>
-            <Card.Text className={`${styles.cardtext}`}>20 Patients</Card.Text>
+            <img src={dentist} alt="" className={`${styles.iconDashboard}`} />
+            <Card.Title style={{ marginTop: "25px" }}>Dentist</Card.Title>
           </Card.Body>
         </Card>
         <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
           <Card.Body>
-            <img src={brain} alt="" className={`${styles.iconDashboard}`} />
-            <Card.Title>Neurology</Card.Title>
-            <Card.Text className={`${styles.cardtext}`}>10 Patients</Card.Text>
+            <img src={fetus} alt="" className={`${styles.iconDashboard}`} />
+            <Card.Title style={{ marginTop: "25px" }}>Obstetricians</Card.Title>
           </Card.Body>
         </Card>
         <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
           <Card.Body>
-            <img src={heartbeat} alt="" className={`${styles.iconDashboard}`} />
-            <Card.Title>Cardiology</Card.Title>
-            <Card.Text className={`${styles.cardtext}`}>10 Patients</Card.Text>
+            <img src={otor} alt="" className={`${styles.iconDashboard}`} />
+            <Card.Title style={{ marginTop: "25px" }}>
+              Otorhinolaryngology
+            </Card.Title>
           </Card.Body>
         </Card>
         <Card style={{ width: "12rem" }} className={`${styles.kartu}`}>
@@ -44,8 +41,7 @@ export default function DashboardCard() {
               alt=""
               className={`${styles.iconDashboard}`}
             />
-            <Card.Title>Pediatrics</Card.Title>
-            <Card.Text className={`${styles.cardtext}`}>10 Patients</Card.Text>
+            <Card.Title style={{ marginTop: "25px" }}>Pediatrics</Card.Title>
           </Card.Body>
         </Card>
       </div>

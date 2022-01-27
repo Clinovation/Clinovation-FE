@@ -38,11 +38,11 @@ function ModalForgetPass(props) {
         </div>
         <ForgetPassNurse />
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button style={{ backgroundColor: "red" }} onClick={props.onHide}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }
@@ -96,10 +96,7 @@ function FormLogin() {
 
   return (
     <div>
-      <ModalForgetPass
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      <ModalForgetPass show={modalShow} onHide={() => setModalShow(false)} />
       <Form noValidate onSubmit={onSubmit}>
         <div className={style.cardForm}>
           <Form.Group className="mb-3">
@@ -135,23 +132,21 @@ function FormLogin() {
           </Form.Group>
           <br />
           <p className="text-danger ms-1">{errorMsg.auth}</p>
-          <a 
-            style={{cursor: "pointer", color:"blue"}} 
+          <a
+            style={{ cursor: "pointer", color: "blue" }}
             className="d-flex justify-content-end"
             onClick={() => setModalShow(true)}
           >
-              Forget Password
+            Forget Password
           </a>
         </div>
         <div className="d-flex justify-content-center">
           <Button type="submit" variant="info" size="lg">
-            <div style={{color: "white"}}>
-              Login
-            </div>
+            <div style={{ color: "white" }}>Login</div>
           </Button>
         </div>
       </Form>
-      <br/>
+      <br />
       <div className="d-flex justify-content-center">
         <Link to="/registrasiNurse">
           <a>Dont have an account? Sign up </a>

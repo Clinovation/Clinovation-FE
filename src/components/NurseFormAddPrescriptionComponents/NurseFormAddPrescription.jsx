@@ -1,175 +1,229 @@
-import { React, useState } from "react";
-import { Form, Button, Row, Col, Dropdown, Table } from "react-bootstrap";
+import { React, useState, useEffect } from "react";
+import {
+  Table,
+  Button,
+  Container,
+  InputGroup,
+  FormControl,
+  Pagination,
+  Row,
+  Modal,
+  Col,
+} from "react-bootstrap";
+import axios from "axios";
+import {
+  GenerateAxiosConfig,
+  HandleDate,
+  HandleLowerCase,
+  HandleUnauthorized,
+} from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../utils/const";
+import moment from "moment";
 export default function NurseFormAddPrescription() {
-  const [validated, setValidated] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalShowUpdate, setModalShowUpdate] = useState(false);
+  const checkName = / ^(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$ /;
+  const [stateUuid, setStateUuid] = useState("");
+  const [prescription, setPrescription] = useState({
+    data: [],
+    currPage: 1,
+    pages: [],
+  });
+  const [filter, setFilter] = useState("");
+  const [error, setError] = useState();
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
+  const fetch = (page, name) => {
+    // const API_URL = "http://184.72.154.87:8080/api/v1";
+    // if (prescription.by === "") {
+    axios
+      .get(
+        `${API_URL}/recipe/?name=${name}&page=${page}`,
+        GenerateAxiosConfig()
+      )
+      .then((res) => {
+        if (res.status === 204) {
+          setPrescription({
+            data: [],
+            currPage: 1,
+            pages: [],
+          });
+          setError("No record found");
+        } else {
+          const page = { ...res.data.page };
+          const length = page.total_data / page.limit;
+          const active = page.offset / page.limit + 1;
+          const items = [];
+          for (let i = 0; i < length; i++) {
+            items.push(i + 1);
+          }
+          setPrescription((state) => {
+            return {
+              ...state,
+              data: res.data.data,
+              currPage: active,
+              pages: items,
+            };
+          });
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
   };
 
+  useEffect(() => {
+    fetch(1, "");
+  }, [setPrescription, setError]);
+
+  const handlePage = (index) => {
+    fetch(index, filter);
+  };
+  const onChange = (e) => {
+    const value = e.target.value;
+    setPrescription(value);
+  };
+
+  const onClickDelete = (item) => {
+    axios
+      .delete(`${API_URL}/recipe/${item.uuid}`, GenerateAxiosConfig())
+      .then((res) => {
+        if (res.status === 204) {
+          setError("No record found");
+        } else if (res.status === 403) {
+          setError("Forbiden");
+        } else if (res.status === 500) {
+          setError("Internal Server Error");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          HandleUnauthorized(error.response);
+          setError(error.response.data.meta.messages[0]);
+          console.log(error);
+        }
+      });
+
+    window.location.reload();
+
+    setTimeout(() => {
+      alert("BERHASIL MENGHAPUS ");
+    }, 1000);
+  };
+  console.log(prescription);
   return (
     <div>
-      <Row className="mt-1">
-        <Col md={10} className="m-auto">
-          {/* <h5>Add Prescription</h5> */}
-          <div
-            style={{ borderTop: "2px solid black", paddingBottom: "10px" }}
-          ></div>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <div className="cardForm">
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Date
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid date.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
+      <Container fluid>
+        <Row>
+          {/* <Col md="1">
+            <SidebarNurse />
+          </Col> */}
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Patient
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid patient.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
+          <Col md={11} className="mt-4">
+            <Row>
+              <div class="d-flex bd-highlight">
+                <div class="p-2 bd-highlight">
+                  {/* <Link to="/addPrescription"> */}
+                  {/* <Button variant="info" onClick={() => setModalShow(true)}>
+                                  <div style={{color: "white"}}>Add Prescription</div></Button> */}
+                  {/* </Link> */}
+                </div>
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Symptom
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid symptom.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
+                <div class="ms-auto p-2 bd-highlight">
+                  <InputGroup
+                    className="mb-3"
+                    size="sm"
+                    style={{ width: "300px" }}
+                  >
+                    <FormControl
+                      type="search"
+                      name="name"
+                      value={filter}
+                      onChange={onChange}
+                    />
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => {
+                        fetch(1, filter);
+                      }}
+                    >
+                      Search
+                    </Button>
+                  </InputGroup>
+                </div>
+              </div>
+            </Row>
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Consumption Rule
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid consumption rule.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
+            <Table responsive="sm" className="mt-1">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Doctor</th>
+                  <th>Patient</th>
+                  <th>Medication</th>
+                  <th>Notes</th>
+                  <th>Consumption Rule</th>
+                </tr>
+              </thead>
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  Note
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid note.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Form.Group
-                as={Row}
-                className="mb-3"
-                controlId="formPlaintextEmail"
-              >
-                <Form.Label column md="3">
-                  New Record
-                </Form.Label>
-                <Col md="9">
-                  <Form.Control type="text" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid record.
-                  </Form.Control.Feedback>
-                </Col>
-              </Form.Group>
-
-              <Table responsive="sm">
-                <thead>
+              <tbody>
+                {prescription?.data?.map((item) => (
                   <tr>
-                    <th>Medicine Name</th>
+                    <td>{moment(item.created_at).format("ll")}</td>
+                    <td>dr. {item.username.slice(0, 5)}</td>
+                    <td>{item.patient}</td>
+                    <td>{item.medicine}</td>
+                    <td>{item.record}</td>
+                    <td>{item.consumption_rule}</td>
+                    <td>
+                      {/* <Button 
+                              variant="outline-warning" 
+                              style={{marginRight: "10px"}} 
+                              size="sm" 
+                              onClick={() =>{ 
+                                setModalShowUpdate(true); 
+                                setStateUuid(item.uuid);
+                                }}>
+                                  Edit
+                              </Button> */}
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => onClickDelete(item)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
 
-                    <th>Choose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </Table>
+            <div className="d-flex justify-content-center">
+              {error && <p className="text-center text-dark mt-5">{error}</p>}
             </div>
-            <Link to="/nurseListPrescription">
-              <Button
-                type="submit"
-                variant="success"
-                style={{ marginLeft: "15vw", width: "10vw" }}
-              >
-                Save
-              </Button>
-            </Link>
-
-            {/* <Link to="/listPrescription">
-                        <Button type="submit" variant="warning">Back</Button>   
-                    </Link> */}
-          </Form>
-        </Col>
-      </Row>
+            <div className="d-flex justify-content-center">
+              {prescription && (
+                <Pagination className="align-self-center">
+                  {prescription.pages.map((item) => (
+                    <Pagination.Item
+                      key={item}
+                      active={item === prescription.currPage}
+                      onClick={() => handlePage(item)}
+                    >
+                      {item}
+                    </Pagination.Item>
+                  ))}
+                </Pagination>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
